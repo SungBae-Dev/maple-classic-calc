@@ -287,3 +287,40 @@ export function scrollExpectation(c: E.CharInput, ref: MobData | null, plan: Scr
   const costTotal10k = slots * Math.max(0, plan.price10k);
   return { expectedGain, dpsPct, costTotal10k, perMillion: costTotal10k > 0 ? (dpsPct * 100) / (costTotal10k / 100) : null, allSuccessPct: Math.pow(p, slots) * 100 };
 }
+
+// ───────────── N-shot table (N방컷) ─────────────
+
+export interface ShotRow {
+  n: number;
+  /** extra W.ATK / magic for an average N-shot (0 = already), null = out of reach */
+  atk: number | null;
+  /** extra W.ATK / magic so even the lowest roll kills in N */
+  atkSure: number | null;
+  /** extra main stat for an average N-shot */
+  main: number | null;
+}
+
+function solveMin(ok: (d: number) => boolean, max: number): number | null {
+  if (ok(0)) return 0;
+  if (!ok(max)) return null;
+  let lo = 0, hi = max;
+  for (let i = 0; i < 40; i++) { const mid = (lo + hi) / 2; if (ok(mid)) hi = mid; else lo = mid; }
+  return Math.ceil(hi - 1e-9);
+}
+
+/** what it takes to kill `m` in 1…upTo attacks (all landing) */
+export function shotTable(c: E.CharInput, m: MobData, upTo = 5): ShotRow[] {
+  const magic = E.isMagic(c);
+  const p = E.WEAPONS[c.weapon].primary;
+  const addAtk = (d: number): E.CharInput => (magic ? { ...c, matk: c.matk + d } : { ...c, watk: c.watk + d });
+  const rows: ShotRow[] = [];
+  for (let n = 1; n <= upTo; n++) {
+    rows.push({
+      n,
+      atk: solveMin((d) => targetCheck(addAtk(d), m).casts <= n, 3000),
+      atkSure: solveMin((d) => targetCheck(addAtk(d), m).castsWorst <= n, 3000),
+      main: solveMin((d) => targetCheck(E.withStat(c, p, d), m).casts <= n, 20000),
+    });
+  }
+  return rows;
+}

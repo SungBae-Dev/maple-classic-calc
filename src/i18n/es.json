@@ -495,5 +495,15 @@
   "map.whoAuto": "En cada mapa se usa el ataque que más EXP te da allí.",
   "map.best": "Mejor mapa ahora",
   "map.bestLine": "{map} · {eph} EXP/h · nivel en {time}",
-  "map.go": "Mapas →"
+  "map.go": "Mapas →",
+  "tc.shots": "Tabla de N golpes: lo que necesitas",
+  "tc.colN": "Matar en",
+  "tc.colAtk": "Ataque (media)",
+  "tc.colMatk": "Ataque mágico (media)",
+  "tc.colSure": "Ataque (siempre)",
+  "tc.colSureM": "Ataque mágico (siempre)",
+  "tc.colMain": "{stat} (media)",
+  "tc.have": "listo",
+  "tc.out": "inalcanzable",
+  "tc.shotsNote": "Ataque (o ataque mágico) o stat principal extra para matar a este monstruo en N ataques, todos acertando. \"Siempre\" significa que basta incluso con tu daño mínimo."
 }

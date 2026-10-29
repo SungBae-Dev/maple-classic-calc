@@ -495,5 +495,15 @@
   "map.whoAuto": "Each map uses whichever of your attacks earns the most EXP there.",
   "map.best": "Best map now",
   "map.bestLine": "{map} · {eph} EXP/h · level in {time}",
-  "map.go": "Maps →"
+  "map.go": "Maps →",
+  "tc.shots": "N-shot table: what it takes",
+  "tc.colN": "Kill in",
+  "tc.colAtk": "W.ATK (avg)",
+  "tc.colMatk": "Magic ATK (avg)",
+  "tc.colSure": "W.ATK (every roll)",
+  "tc.colSureM": "Magic ATK (every roll)",
+  "tc.colMain": "{stat} (avg)",
+  "tc.have": "done",
+  "tc.out": "out of reach",
+  "tc.shotsNote": "Extra W.ATK (or magic attack) or main stat needed to kill this monster in N attacks, all landing. \"Every roll\" means even your lowest damage roll is enough."
 }

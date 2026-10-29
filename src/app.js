@@ -548,6 +548,7 @@ function calcPage() {
   // ── target check: now vs after the item swap ──
   function renderTarget() {
     const { c, s, target, tgtAuto } = last;
+    $('shotWrap').hidden = !target || !(target.hp > 0);
     if (!target || !(target.hp > 0)) {
       $('tcRef').textContent = t('tc.none');
       ['tcNow', 'tcAfter'].forEach((id) => { $(id).textContent = '–'; });
@@ -563,11 +564,25 @@ function calcPage() {
       $(id + 'Range').textContent = r.hit > 0 ? t('tc.range', { a: r.castsBest, b: r.castsWorst }) : t('rep.st.cant');
     };
     show('tcNow', a); show('tcAfter', b);
+    renderShots(c, target, a);
     const hasDelta = Object.entries(s.delta).some(([k, v]) => k !== 'cost' && v);
     $('tcCallout').textContent = !hasDelta ? t('tc.noDelta')
       : b.casts < a.casts ? t('tc.fewer', { n: a.casts - b.casts, a: a.casts, b: b.casts })
       : b.casts > a.casts ? t('tc.more', { a: a.casts, b: b.casts })
       : t('tc.same', { a: a.casts, pct: f1(g.dpsPct * 100) });
+  }
+
+  // ── N-shot table: extra attack / main stat for 1…5 attacks ──
+  function renderShots(c, target, now) {
+    const magic = E.isMagic(c);
+    const pLabel = E.STAT_LABEL[E.WEAPONS[c.weapon].primary];
+    $('shotAtkHead').textContent = t(magic ? 'tc.colMatk' : 'tc.colAtk');
+    $('shotSureHead').textContent = t(magic ? 'tc.colSureM' : 'tc.colSure');
+    $('shotMainHead').textContent = t('tc.colMain', { stat: pLabel });
+    if (now.hit <= 0) { $('shotTable').innerHTML = '<tr><td colspan="4">' + esc(t('rep.st.cant')) + '</td></tr>'; return; }
+    const cell = (v) => v == null ? '<td class="n muted">' + esc(t('tc.out')) + '</td>' : v === 0 ? '<td class="n good">' + esc(t('tc.have')) + '</td>' : '<td class="n">+' + f0(v) + '</td>';
+    $('shotTable').innerHTML = A.shotTable(c, target, 5).map((r) =>
+      '<tr' + (r.n === now.casts ? ' class="best"' : '') + '><td>' + esc(t('rep.st.n', { n: r.n })) + '</td>' + cell(r.atk) + cell(r.atkSure) + cell(r.main) + '</tr>').join('');
   }
 
   // ── next upgrade ──

@@ -495,5 +495,15 @@
   "map.whoAuto": "Für jede Map wird der Angriff verwendet, der dort die meiste EXP bringt.",
   "map.best": "Beste Map jetzt",
   "map.bestLine": "{map} · {eph} EXP/h · Level in {time}",
-  "map.go": "Maps →"
+  "map.go": "Maps →",
+  "tc.shots": "N-Hit-Tabelle: was du brauchst",
+  "tc.colN": "Kill in",
+  "tc.colAtk": "Angriff (Ø)",
+  "tc.colMatk": "Magieangriff (Ø)",
+  "tc.colSure": "Angriff (immer)",
+  "tc.colSureM": "Magieangriff (immer)",
+  "tc.colMain": "{stat} (Ø)",
+  "tc.have": "erreicht",
+  "tc.out": "nicht erreichbar",
+  "tc.shotsNote": "Zusätzlicher Angriff (oder Magieangriff) oder Hauptstat, um dieses Monster in N Angriffen zu besiegen, wenn alle treffen. „Immer“ heißt: Selbst dein niedrigster Schaden reicht."
 }

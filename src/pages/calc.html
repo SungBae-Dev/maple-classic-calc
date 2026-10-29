@@ -209,6 +209,16 @@
           </div>
           <p class="callout" id="tcCallout"></p>
           <p class="note">{{tc.note}}</p>
+          <div id="shotWrap" hidden>
+            <h3 class="skhead">{{tc.shots}}</h3>
+            <div class="tablewrap">
+              <table class="mobs compact fit shots">
+                <thead><tr><th scope="col">{{tc.colN}}</th><th scope="col" class="n" id="shotAtkHead">{{tc.colAtk}}</th><th scope="col" class="n" id="shotSureHead">{{tc.colSure}}</th><th scope="col" class="n" id="shotMainHead">{{tc.colMain}}</th></tr></thead>
+                <tbody id="shotTable"></tbody>
+              </table>
+            </div>
+            <p class="note">{{tc.shotsNote}}</p>
+          </div>
         </div>
       </section>
 

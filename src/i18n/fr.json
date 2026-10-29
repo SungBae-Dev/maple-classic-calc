@@ -495,5 +495,15 @@
   "map.whoAuto": "Chaque carte utilise celle de vos attaques qui y rapporte le plus d'EXP.",
   "map.best": "Meilleure carte maintenant",
   "map.bestLine": "{map} · {eph} EXP/h · niveau en {time}",
-  "map.go": "Cartes →"
+  "map.go": "Cartes →",
+  "tc.shots": "Tableau N coups : ce qu'il faut",
+  "tc.colN": "Tuer en",
+  "tc.colAtk": "Attaque (moy.)",
+  "tc.colMatk": "Att. magique (moy.)",
+  "tc.colSure": "Attaque (toujours)",
+  "tc.colSureM": "Att. magique (toujours)",
+  "tc.colMain": "{stat} (moy.)",
+  "tc.have": "atteint",
+  "tc.out": "hors de portée",
+  "tc.shotsNote": "Attaque (ou attaque magique) ou stat principale en plus pour tuer ce monstre en N attaques, toutes touchées. « Toujours » signifie que même vos dégâts minimum suffisent."
 }

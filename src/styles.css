@@ -433,3 +433,7 @@ img.minimap { display: block; height: auto; max-height: 64px; max-width: 120px; 
 .mine-who img { margin-right: 6px; }
 #mobInfo img.sprite { height: 44px; max-width: 88px; }
 .card .nm { word-break: keep-all; }
+table.mobs td.n.good { color: var(--good); }
+table.mobs td.n.muted { color: var(--muted); font-weight: 400; }
+table.mobs.shots td { white-space: nowrap; }
+table.mobs.shots th { white-space: normal; word-break: keep-all; vertical-align: bottom; }

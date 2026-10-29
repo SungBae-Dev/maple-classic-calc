@@ -495,5 +495,15 @@
   "map.whoAuto": "맵마다 경험치가 가장 높게 나오는 공격 스킬로 계산해요.",
   "map.best": "지금 최고 효율 사냥터",
   "map.bestLine": "{map} · 시간당 {eph} 경험치 · 레벨업 {time}",
-  "map.go": "맵 보기 →"
+  "map.go": "맵 보기 →",
+  "tc.shots": "N방컷 필요 스펙",
+  "tc.colN": "목표",
+  "tc.colAtk": "공격력 (평균)",
+  "tc.colMatk": "마력 (평균)",
+  "tc.colSure": "공격력 (확정)",
+  "tc.colSureM": "마력 (확정)",
+  "tc.colMain": "{stat} (평균)",
+  "tc.have": "달성",
+  "tc.out": "불가",
+  "tc.shotsNote": "이 몬스터를 N방에 잡으려면 공격력(마력)이나 주스탯이 얼마나 더 필요한지예요. 모든 공격이 명중한다고 보고, \"확정\"은 최저 데미지가 떠도 N방에 잡히는 기준이에요."
 }

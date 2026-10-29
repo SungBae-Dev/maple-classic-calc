@@ -495,5 +495,15 @@
   "map.whoAuto": "每张地图都按在那里经验最高的攻击技能计算。",
   "map.best": "当前效率最高的地图",
   "map.bestLine": "{map} · 每小时 {eph} 经验 · 升级 {time}",
-  "map.go": "查看地图 →"
+  "map.go": "查看地图 →",
+  "tc.shots": "N下击杀所需属性",
+  "tc.colN": "目标",
+  "tc.colAtk": "攻击力（平均）",
+  "tc.colMatk": "魔法力（平均）",
+  "tc.colSure": "攻击力（稳定）",
+  "tc.colSureM": "魔法力（稳定）",
+  "tc.colMain": "{stat}（平均）",
+  "tc.have": "已达成",
+  "tc.out": "无法达到",
+  "tc.shotsNote": "在所有攻击都命中的前提下，N 下击杀这只怪还需要多少攻击力（魔法力）或主属性。“稳定”表示即使打出最低伤害也能 N 下击杀。"
 }
