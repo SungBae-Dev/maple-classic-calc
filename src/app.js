@@ -709,7 +709,11 @@ function calcPage() {
   }
 
   // ── damage taken from monsters near your level ──
+  const HAS_ATTACK_DATA = MOBS.some((m) => m.patk != null);
   function renderSurvive() {
+    $('survive').hidden = !HAS_ATTACK_DATA;
+    $('svWrap').hidden = !HAS_ATTACK_DATA;
+    if (!HAS_ATTACK_DATA) return;
     const { c, rep, D } = last;
     const list = rep.rows.filter((r) => Math.abs(r.levelGap) <= 15 || r.mob.tags.includes('boss'));
     $('svTable').innerHTML = list.map((r) => {

@@ -10,7 +10,6 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
 const SITE_URL = (process.env.SITE_URL || 'https://sungbae-dev.github.io/maple-classic-calc/').replace(/\/?$/, '/');
 const TODAY = new Date().toISOString().slice(0, 10);
-const REPO_URL = 'https://github.com/SungBae-Dev/maple-classic-calc';
 
 const FONT_COMMON = 'family=IBM+Plex+Mono:wght@400;600&family=Silkscreen';
 const gf = (families) => `https://fonts.googleapis.com/css2?${families}&${FONT_COMMON}&display=swap`;
@@ -205,7 +204,6 @@ function jsonLd(d, l, page) {
         browserRequirements: 'Requires JavaScript', isAccessibleForFree: true,
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
         about: { '@type': 'VideoGame', name: 'MapleStory', publisher: { '@type': 'Organization', name: 'Nexon' } },
-        sameAs: [REPO_URL],
       },
       {
         '@context': 'https://schema.org', '@type': 'FAQPage', inLanguage,
@@ -246,10 +244,9 @@ for (const l of LOCALES) {
       `<details class="langs"><summary>${esc(d['nav.lang'])} · ${esc(l.code.toUpperCase())}</summary><ul>` +
         LOCALES.map((x) => `<li><a href="${base}${x.path}${page.path}" hreflang="${x.code}" lang="${x.code}" data-lang-link${x === l ? ' aria-current="true"' : ''}>${esc(x.name)}</a></li>`).join('') +
         `</ul></details>`,
-      `<a href="${REPO_URL}" target="_blank" rel="noopener">${esc(d['nav.github'])}</a>`,
     ].join('');
     const topnav = `<nav class="topnav" aria-label="${esc(d['meta.siteName'])}"><a class="brand" href="${base}${l.path}"><img src="${base}favicon.svg" alt="" width="24" height="24">${esc(d['meta.siteName'])}</a><div class="navlinks">${nav}</div></nav>`;
-    const footer = `<footer><span>${d['footer.formula_html']}</span><span>${esc(d['footer.notNexon'])}</span><span>${d['footer.code_html']}</span></footer>`;
+    const footer = `<footer><span>${d['footer.formula_html']}</span><span>${esc(d['footer.notNexon'])}</span></footer>`;
 
     const i18n = Object.fromEntries(Object.entries(d).filter(([k]) => JS_PREFIXES.some((p) => k.startsWith(p))));
     const locale = {
