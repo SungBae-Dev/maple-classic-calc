@@ -15,7 +15,8 @@
     <div class="body">
       <p class="note" id="mineWho"></p>
       <p class="note" id="mineNone" hidden>{{maps.noChar}} <a class="btn sm" href="../">{{maps.toCalc}}</a></p>
-      <div class="grid g2 mapopts" id="mineOpts" hidden>
+      <div class="grid mapopts" id="mineOpts" hidden>
+        <div class="field wide"><label for="mapExp">{{map.exp}}</label><select id="mapExp"><option value="1">{{map.expNone}}</option><option value="1.5">1.5×</option><option value="2">2×</option><option value="3">3×</option></select><span class="hint">{{map.expHint}}</span></div>
         <div class="field"><label for="mapPack">{{map.pack}}</label><select id="mapPack"><option value="">{{map.packAutoLabel}}</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="6">6</option></select><span class="hint" id="mapPackHint"></span></div>
         <div class="field"><label for="mapActive">{{map.active}}</label><select id="mapActive"><option value="0.4">40%</option><option value="0.6">60%</option><option value="0.8">80%</option><option value="1">100%</option></select><span class="hint">{{map.activeHint}}</span></div>
       </div>

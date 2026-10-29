@@ -125,5 +125,17 @@ t('막힌 맵(못 잡는 웨이브 몹)은 시간당 경험치 0, 맨 뒤', () =
   blocked.forEach((e) => { assert.equal(e.eph, 0); assert.equal(e.kph, 0); });
   assert.ok(r.indexOf(blocked[0]) > r.findIndex((e) => M.isRecommendable(e)));
 });
+t('경험치 배율(쿠폰·이벤트): 시간당 경험치만 배율만큼, 처치 수·순위·병목은 그대로', () => {
+  const base = M.rankMaps(fighter, MAPS.maps, byId, { targets: 6 });
+  const x2 = M.rankMaps(fighter, MAPS.maps, byId, { targets: 6, expRate: 2 });
+  assert.deepEqual(x2.map((e) => e.map.id), base.map((e) => e.map.id));
+  x2.forEach((e, i) => {
+    assert.ok(Math.abs(e.eph - base[i].eph * 2) < 1e-6);
+    assert.equal(e.kph, base[i].kph);
+    assert.equal(e.limit, base[i].limit);
+  });
+  const h1 = M.hoursToLevel(70, base[0].eph, EXP), h2 = M.hoursToLevel(70, x2[0].eph, EXP);
+  assert.ok(Math.abs(h1 / h2 - 2) < 1e-9);
+});
 
 console.log(`\n${pass} map tests passed`);

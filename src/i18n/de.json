@@ -495,5 +495,18 @@
   "map.whoAuto": "Für jede Map wird der Angriff verwendet, der dort die meiste EXP bringt.",
   "map.best": "Beste Map jetzt",
   "map.bestLine": "{map} · {eph} EXP/h · Level in {time}",
-  "map.go": "Maps →"
+  "map.go": "Maps →",
+  "map.exp": "EXP-Rate (Coupon / Event)",
+  "map.expNone": "1× (keine)",
+  "map.expHint": "Coupons sind nicht mit ähnlichen Event-Buffs kombinierbar – wähle die Rate, die gerade aktiv ist.",
+  "map.rateTag": "{v}× EXP",
+  "map.ev.title": "EXP-Coupons & Events",
+  "map.ev.ref": "Deine beste Map, {map} ({skill}), bei jeder EXP-Rate.",
+  "map.ev.none": "Noch keine Map zum Vergleichen.",
+  "map.ev.colRate": "Rate",
+  "map.ev.colPer": "Extra pro Coupon",
+  "map.ev.colNeed": "Coupons / Level",
+  "map.ev.n": "{n}",
+  "map.ev.note_html": "In Classic gibt es EXP-Coupons mit <a href=\"https://meowdb.com/msclassic/item-db/233\" target=\"_blank\" rel=\"noopener\">1.5×</a>, <a href=\"https://meowdb.com/msclassic/item-db/234\" target=\"_blank\" rel=\"noopener\">2×</a> und <a href=\"https://meowdb.com/msclassic/item-db/2889\" target=\"_blank\" rel=\"noopener\">3×</a>, die jeweils 15 Minuten halten (NiaDB-Itemseiten). Laut Itembeschreibung sind sie nicht mit ähnlichen Event-Buffs kombinierbar, es zählt also immer nur eine Rate. „Coupons / Level“ geht davon aus, dass du das ganze Level mit aktivem Coupon spielst; der Gruppenbonus ist nicht enthalten.",
+  "map.ev.rate": "{v}×"
 }

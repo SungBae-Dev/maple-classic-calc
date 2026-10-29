@@ -495,5 +495,18 @@
   "map.whoAuto": "マップごとに、そこで最もEXPを稼げる攻撃スキルで計算します。",
   "map.best": "今いちばん効率のいい狩場",
   "map.bestLine": "{map} · 時給{eph} EXP · レベルアップ {time}",
-  "map.go": "マップを見る →"
+  "map.go": "マップを見る →",
+  "map.exp": "EXP倍率（クーポン・イベント）",
+  "map.expNone": "1倍（なし）",
+  "map.expHint": "クーポンは似たイベントバフと重複しません。今かかっている倍率を1つ選んでください。",
+  "map.rateTag": "EXP {v}倍",
+  "map.ev.title": "EXPクーポン・イベントの効率",
+  "map.ev.ref": "いちばん効率のいい狩場 {map}（{skill}）での倍率ごとの効率です。",
+  "map.ev.none": "比較できる狩場がまだありません。",
+  "map.ev.colRate": "倍率",
+  "map.ev.colPer": "1枚あたり追加EXP",
+  "map.ev.colNeed": "レベルアップ枚数",
+  "map.ev.n": "{n}枚",
+  "map.ev.note_html": "クラシックには<a href=\"https://meowdb.com/msclassic/item-db/233\" target=\"_blank\" rel=\"noopener\">1.5×</a>・<a href=\"https://meowdb.com/msclassic/item-db/234\" target=\"_blank\" rel=\"noopener\">2×</a>・<a href=\"https://meowdb.com/msclassic/item-db/2889\" target=\"_blank\" rel=\"noopener\">3×</a>のEXPクーポンがあり、1枚15分です（NiaDBのアイテムページ）。説明文によると似たイベントバフとは重複しないため、一度に効く倍率は1つだけです。「レベルアップ枚数」は1レベル分ずっとクーポンを使って狩る前提で、パーティーボーナスは含みません。",
+  "map.ev.rate": "{v}倍"
 }

@@ -396,6 +396,8 @@ input.auto::placeholder { color: var(--maple-ink); opacity: 0.85; }
 
 /* training maps */
 .mapopts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.mapopts .field.wide { grid-column: 1 / -1; }
+@media (min-width: 720px) { .mapopts { grid-template-columns: repeat(3, minmax(0, 1fr)); } .mapopts .field.wide { grid-column: auto; } }
 .card.map .nm a { color: var(--ink); text-decoration: none; }
 .card.map .nm a:hover { text-decoration: underline; }
 .card.map .nm small { display: block; margin-left: 0; font-family: var(--f-body); }
@@ -418,3 +420,7 @@ table.mobs td small.sk { display: block; margin-top: 2px; color: var(--muted); f
 .bestmap:hover { border-color: var(--good); }
 .bestmap[hidden] { display: none; }
 table.maps td.n, #mapAll td.n { white-space: nowrap; }
+table.mobs.ev td { white-space: nowrap; }
+table.mobs.ev th { white-space: normal; vertical-align: bottom; }
+table.mobs.compact.fit.ev td, table.mobs.compact.fit.ev th { padding-inline: 6px; }
+table.mobs.ev th { word-break: keep-all; }

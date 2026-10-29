@@ -495,5 +495,18 @@
   "map.whoAuto": "En cada mapa se usa el ataque que más EXP te da allí.",
   "map.best": "Mejor mapa ahora",
   "map.bestLine": "{map} · {eph} EXP/h · nivel en {time}",
-  "map.go": "Mapas →"
+  "map.go": "Mapas →",
+  "map.exp": "Multiplicador de EXP (cupón / evento)",
+  "map.expNone": "1× (ninguno)",
+  "map.expHint": "Los cupones no se acumulan con buffs de eventos similares: elige el multiplicador que esté activo.",
+  "map.rateTag": "EXP {v}×",
+  "map.ev.title": "Cupones y eventos de EXP",
+  "map.ev.ref": "Tu mejor mapa, {map} ({skill}), con cada multiplicador de EXP.",
+  "map.ev.none": "Todavía no hay un mapa para comparar.",
+  "map.ev.colRate": "Tasa",
+  "map.ev.colPer": "Extra por cupón",
+  "map.ev.colNeed": "Cupones / nivel",
+  "map.ev.n": "{n}",
+  "map.ev.note_html": "Classic tiene cupones de EXP <a href=\"https://meowdb.com/msclassic/es/item-db/233\" target=\"_blank\" rel=\"noopener\">1.5×</a>, <a href=\"https://meowdb.com/msclassic/es/item-db/234\" target=\"_blank\" rel=\"noopener\">2×</a> y <a href=\"https://meowdb.com/msclassic/es/item-db/2889\" target=\"_blank\" rel=\"noopener\">3×</a> que duran 15 minutos cada uno (páginas de objetos de NiaDB). Según su descripción, no se acumulan con buffs de eventos similares, así que solo cuenta un multiplicador a la vez. \"Cupones / nivel\" supone que cazas todo el nivel con un cupón activo; no incluye el bonus de grupo.",
+  "map.ev.rate": "{v}×"
 }
