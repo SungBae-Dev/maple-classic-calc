@@ -84,5 +84,11 @@ const queue = jobs.slice();
 await Promise.all(Array.from({ length: 4 }, async () => { while (queue.length) await one(queue.shift()); }));
 mkdirSync(OUT, { recursive: true });
 writeFileSync(manifestPath, JSON.stringify(manifest, null, 0));
-console.log(`images: ${R} v${version} · ${ok} downloaded · ${cached} cached · ${failed.length} missing of ${jobs.length}`);
+const summary = `images: ${R} v${version} · ${ok} downloaded · ${cached} cached · ${failed.length} missing of ${jobs.length}`;
+console.log(summary);
 if (failed.length) console.log('missing:\n  ' + failed.join('\n  '));
+// surface the result as a run annotation (visible in the run summary without opening logs)
+if (process.env.GITHUB_ACTIONS) {
+  console.log(`::notice title=Game images::${summary}`);
+  if (failed.length) console.log(`::warning title=Missing images::${failed.slice(0, 12).join(', ')}${failed.length > 12 ? ' …' : ''}`);
+}
