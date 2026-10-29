@@ -1,0 +1,44 @@
+{{{head}}}
+<body data-page="mobs" data-lang="{{lang}}">
+<div class="wrap">
+  {{{topnav}}}
+  <div class="langtip" id="langTip" hidden></div>
+
+  <header class="top">
+    <div class="eyebrow">MAPLESTORY CLASSIC WORLD · GMS</div>
+    <h1>{{mobs.h1}}</h1>
+    <p class="lede">{{mobs.lede}}</p>
+  </header>
+
+  <form class="filters" autocomplete="off" onsubmit="return false">
+    <div class="field"><label for="mobSearch">{{mobs.search}}</label><input type="search" id="mobSearch" inputmode="search"></div>
+    <div class="field"><label for="myLevel">{{mobs.myLevel}}</label><input type="number" id="myLevel" inputmode="numeric" min="1" max="200" placeholder="{{mobs.myLevelHint}}"></div>
+    <div class="field"><label for="myAcc">{{mobs.myAcc}}</label><input type="number" id="myAcc" inputmode="numeric" min="0"></div>
+  </form>
+
+  <div class="tablewrap">
+    <table class="mobs">
+      <thead><tr>
+        <th scope="col">{{col.name}}</th>
+        <th scope="col" class="n">{{col.lv}}</th>
+        <th scope="col" class="n">{{col.need}}</th>
+        <th scope="col" class="n" data-hitcol hidden>{{col.hit}}</th>
+        <th scope="col" class="n">{{col.eva}}</th>
+        <th scope="col" class="n">{{col.wdef}}</th>
+        <th scope="col" class="n">{{col.mdef}}</th>
+        <th scope="col">{{col.el}}</th>
+        <th scope="col"><span class="visually-hidden">{{mobs.open}}</span></th>
+      </tr></thead>
+      <tbody id="mobRows">
+{{{mobRows}}}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">{{mobs.needNote}}</p>
+  <p class="note">{{{mobs.note_html}}}</p>
+
+  {{{footer}}}
+</div>
+{{{scripts}}}
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "maple-classic-calc",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MapleStory Classic World (GMS) effective main stat, damage, accuracy and training spot calculator — static multi-language site",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node scripts/build.mjs >/dev/null && node test/engine.test.mjs && node test/advisor.test.mjs",
+    "serve": "npx --yes serve dist"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

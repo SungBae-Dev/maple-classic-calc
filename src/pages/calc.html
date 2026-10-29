@@ -1,0 +1,251 @@
+{{{head}}}
+<body data-page="calc" data-lang="{{lang}}">
+<div class="wrap">
+  {{{topnav}}}
+  <div class="langtip" id="langTip" hidden></div>
+
+  <header class="top">
+    <div class="eyebrow">MAPLESTORY CLASSIC WORLD · GMS</div>
+    <h1>{{calc.h1}}</h1>
+    <p class="lede">{{calc.lede}}</p>
+  </header>
+
+  <div class="presets" role="group" aria-label="{{presets.label}}">
+    <span class="lbl">{{presets.label}}</span>
+    <button class="chipbtn" type="button" data-preset="fighter70">{{preset.fighter70}}</button>
+    <button class="chipbtn" type="button" data-preset="warrior30">{{preset.warrior30}}</button>
+    <button class="chipbtn" type="button" data-preset="assassin70">{{preset.assassin70}}</button>
+    <button class="chipbtn" type="button" data-preset="mage70">{{preset.mage70}}</button>
+  </div>
+
+  <nav class="secnav" aria-label="{{nav.sections}}">
+    <a href="#input">{{nav.sec.input}}</a>
+    <a href="#overview">{{nav.sec.result}}</a>
+    <a href="#hunting">{{nav.sec.hunting}}</a>
+    <a href="#upgrade">{{nav.sec.upgrade}}</a>
+    <a href="#bosses">{{nav.sec.bosses}}</a>
+  </nav>
+
+  <form class="layout" id="form" autocomplete="off" onsubmit="return false">
+    <div class="col" id="input">
+      <section class="win" aria-labelledby="h-char">
+        <div class="bar"><h2 id="h-char">{{panel.char}}</h2><span class="tag">CHARACTER</span></div>
+        <div class="body">
+          <div class="seg" role="radiogroup" aria-label="{{panel.char}}">
+            <label><input type="radio" name="job" id="job-warrior" value="warrior" checked><span>{{job.warrior}}</span></label>
+            <label><input type="radio" name="job" id="job-bowman" value="bowman"><span>{{job.bowman}}</span></label>
+            <label><input type="radio" name="job" id="job-thief" value="thief"><span>{{job.thief}}</span></label>
+            <label><input type="radio" name="job" id="job-magician" value="magician"><span>{{job.magician}}</span></label>
+          </div>
+          <div class="grid">
+            <div class="field"><label for="weapon">{{f.weapon}}</label><select id="weapon"></select></div>
+            <div class="field" data-phys><label for="action">{{f.action}}</label><select id="action"></select><span class="hint" id="actionHint"></span></div>
+            <div class="field"><label for="level">{{f.level}}</label><input type="number" id="level" inputmode="numeric" min="1" max="200"></div>
+            <div class="field"><label for="masterySkillLv" id="masteryLabel">{{f.mastery}}</label><input type="number" id="masterySkillLv" inputmode="numeric" min="0" max="20"><span class="hint" id="masteryHint"></span></div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="sub">STAT WINDOW · {{f.statNote}}</div>
+          <div class="grid g4">
+            <div class="field"><label for="str"><span class="px">STR</span></label><input type="number" id="str" inputmode="numeric" min="0"></div>
+            <div class="field"><label for="dex"><span class="px">DEX</span></label><input type="number" id="dex" inputmode="numeric" min="0"></div>
+            <div class="field"><label for="int"><span class="px">INT</span></label><input type="number" id="int" inputmode="numeric" min="0"></div>
+            <div class="field"><label for="luk"><span class="px">LUK</span></label><input type="number" id="luk" inputmode="numeric" min="0"></div>
+          </div>
+          <div class="grid g4">
+            <div class="field" data-phys><label for="watk">{{f.watk}}</label><input type="number" id="watk" inputmode="numeric" min="0"><span class="hint" id="watkHint"></span></div>
+            <div class="field" data-magic hidden><label for="matk">{{f.matk}}</label><input type="number" id="matk" inputmode="numeric" min="0"><span class="hint">{{f.matkHint}}</span></div>
+            <div class="field"><label for="acc">{{f.acc}}</label><input type="number" id="acc" inputmode="numeric" min="0"><span class="hint">{{f.accHint}}</span></div>
+            <div class="field" data-phys><label for="apPassive">{{f.apPassive}}</label><input type="number" id="apPassive" inputmode="numeric" min="0"><span class="hint" id="apPassiveHint"></span></div>
+            <div class="field" data-phys><label for="apBuff">{{f.apBuff}}</label><input type="number" id="apBuff" inputmode="numeric" min="0"><span class="hint">{{f.apBuffHint}}</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="win" aria-labelledby="h-skill">
+        <div class="bar"><h2 id="h-skill">{{panel.skill}}</h2><span class="tag">SKILL</span></div>
+        <div class="body">
+          <div class="grid g3">
+            <div class="field"><label for="skillPct">{{f.skillPct}}</label><input type="number" id="skillPct" inputmode="decimal" min="0" step="any"><span class="hint">{{f.skillPctHint}}</span></div>
+            <div class="field"><label for="hits">{{f.hits}}</label><input type="number" id="hits" inputmode="numeric" min="1"></div>
+            <div class="field"><label for="skillElement">{{f.skillEl}}</label><select id="skillElement"></select></div>
+            <div class="field"><label for="critRate">{{f.critRate}}</label><input type="number" id="critRate" inputmode="decimal" min="0" max="100" step="any"><span class="hint">{{f.default5}}</span></div>
+            <div class="field"><label for="critDmg">{{f.critDmg}}</label><input type="number" id="critDmg" inputmode="decimal" min="0" step="any"><span class="hint">{{f.default20}}</span></div>
+            <div class="field"><label for="defIgnorePct">{{f.defIgnore}}</label><input type="number" id="defIgnorePct" inputmode="decimal" min="0" max="100" step="any"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="win" aria-labelledby="h-mob">
+        <div class="bar"><h2 id="h-mob">{{panel.mob}}</h2><span class="tag">TARGET</span></div>
+        <div class="body">
+          <label class="toggle"><input type="checkbox" id="mobEnabled"> {{mob.toggle}}</label>
+          <p class="note" id="mobOffNote">{{mob.offNote}}</p>
+          <div id="mobFields" hidden>
+            <div class="grid" style="margin-bottom:12px">
+              <div class="field span2"><label for="mobPreset">{{mob.pick}}</label><select id="mobPreset"></select></div>
+            </div>
+            <div class="chips" id="mobInfo" style="margin-bottom:12px"></div>
+            <div class="grid g4">
+              <div class="field"><label for="mobLevel">{{mob.level}}</label><input type="number" id="mobLevel" inputmode="numeric" min="1"></div>
+              <div class="field"><label for="mobEva">{{mob.eva}}</label><input type="number" id="mobEva" inputmode="numeric" min="0"></div>
+              <div class="field"><label for="mobWdef">{{mob.wdef}}</label><input type="number" id="mobWdef" inputmode="numeric" min="0"></div>
+              <div class="field"><label for="mobMdef">{{mob.mdef}}</label><input type="number" id="mobMdef" inputmode="numeric" min="0"></div>
+              <div class="field span2"><label for="mobElement">{{mob.element}}</label><select id="mobElement"></select><span class="hint" id="mobElementHint"></span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="col side">
+      <section class="win" aria-labelledby="h-res" id="overview">
+        <div class="bar"><h2 id="h-res">{{panel.result}}</h2><span class="tag">RESULT</span></div>
+        <div class="body">
+          <div class="hero">
+            <span class="k">{{res.conv}}</span>
+            <output class="v" id="conv" for="form">0</output>
+            <span class="s" id="convSub"></span>
+          </div>
+          <div class="refrow">
+            <div class="field"><label for="ref" id="refLabel">{{res.refPhys}}</label><input type="number" id="ref" inputmode="numeric" min="1" placeholder="{{res.refPh}}"></div>
+            <button class="btn" type="button" id="pinRef">{{res.pin}}</button>
+          </div>
+          <details class="explain">
+            <summary>{{res.explainSummary}}</summary>
+            <p>{{faq.a1}}</p>
+          </details>
+
+          <div class="divider"></div>
+          <dl class="kv">
+            <dt>{{res.statAtk}} <small>{{res.statAtkSmall}}</small></dt><dd id="statAtk">0</dd>
+            <dt id="winLabel">{{res.winPhys}}</dt><dd id="winRange">0 ~ 0</dd>
+            <dt data-magic hidden>{{res.mtotal}} <small>{{res.mtotalSmall}}</small></dt><dd data-magic hidden id="mtotal">0</dd>
+          </dl>
+          <p class="note">{{res.winNote}}</p>
+
+          <div class="divider"></div>
+          <dl class="kv">
+            <dt>{{res.skillRange}}</dt><dd id="skillRange">0 ~ 0</dd>
+            <dt>{{res.perHit}}</dt><dd id="perHit">0</dd>
+            <dt>{{res.perCast}}</dt><dd id="perCast">0</dd>
+          </dl>
+          <div class="chips" id="mods"></div>
+          <div id="hitBlock" hidden>
+            <span class="state" id="hitState"></span>
+            <p class="note" id="hitNote" style="margin-top:6px"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="win" aria-labelledby="h-conv">
+        <div class="bar"><h2 id="h-conv">{{panel.conv}}</h2><span class="tag">VALUE</span></div>
+        <div class="body">
+          <p class="note" id="convNote"></p>
+          <table class="conv">
+            <thead><tr><th>{{conv.colPlus}}</th><th class="n" id="convHead"></th></tr></thead>
+            <tbody id="convBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="win" aria-labelledby="h-cmp">
+        <div class="bar"><h2 id="h-cmp">{{panel.cmp}}</h2><span class="tag">ITEM SWAP</span></div>
+        <div class="body">
+          <p class="note">{{cmp.note}}</p>
+          <div class="grid g4">
+            <div class="field"><label for="d_str"><span class="px">STR</span></label><input type="number" id="d_str" inputmode="decimal" step="any"></div>
+            <div class="field"><label for="d_dex"><span class="px">DEX</span></label><input type="number" id="d_dex" inputmode="decimal" step="any"></div>
+            <div class="field"><label for="d_int"><span class="px">INT</span></label><input type="number" id="d_int" inputmode="decimal" step="any"></div>
+            <div class="field"><label for="d_luk"><span class="px">LUK</span></label><input type="number" id="d_luk" inputmode="decimal" step="any"></div>
+            <div class="field" data-phys><label for="d_watk">{{f.watk}}</label><input type="number" id="d_watk" inputmode="decimal" step="any"></div>
+            <div class="field" data-magic hidden><label for="d_matk">{{f.matk}}</label><input type="number" id="d_matk" inputmode="decimal" step="any"></div>
+            <div class="field"><label for="d_acc">{{f.acc}}</label><input type="number" id="d_acc" inputmode="decimal" step="any"></div>
+            <div class="field" style="align-self:end"><button class="btn" type="button" id="clearDelta">{{cmp.clear}}</button></div>
+          </div>
+          <div class="delta-out">
+            <div class="metric"><span class="k" id="cmpDmgLabel">{{cmp.dmg}}</span><span class="v" id="cmpPct">0%</span></div>
+            <div class="metric"><span class="k">{{cmp.eq}}</span><span class="v" id="cmpEq">0</span></div>
+            <div class="metric"><span class="k">{{cmp.conv}}</span><span class="v" id="cmpConv">0</span></div>
+            <div class="metric"><span class="k">{{cmp.stat}}</span><span class="v" id="cmpStat">0%</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="win" aria-labelledby="h-code">
+        <div class="bar"><h2 id="h-code">{{panel.code}}</h2><span class="tag">SHARE</span></div>
+        <div class="body">
+          <div class="coderow">
+            <input type="text" id="codeOut" readonly aria-label="{{panel.code}}">
+            <button class="btn primary" type="button" id="copyCode">{{code.copy}}</button>
+          </div>
+          <div class="coderow">
+            <input type="text" id="codeIn" placeholder="{{code.ph}}" aria-label="{{code.ph}}">
+            <button class="btn" type="button" id="loadCode">{{code.load}}</button>
+          </div>
+          <p class="note" id="codeMsg" aria-live="polite"></p>
+        </div>
+      </section>
+    </div>
+  </form>
+
+  <div class="report">
+    <section class="win" id="hunting" aria-labelledby="h-hunt">
+      <div class="bar"><h2 id="h-hunt">{{rep.hunt.title}}</h2><span class="tag">HUNTING</span></div>
+      <div class="body">
+        <p class="note">{{rep.hunt.note}}</p>
+        <ol class="cards" id="huntList"></ol>
+        <details class="explain" id="huntAllWrap">
+          <summary>{{rep.hunt.all}}</summary>
+          <div class="tablewrap" style="margin-top:10px">
+            <table class="mobs compact">
+              <thead><tr><th scope="col">{{col.name}}</th><th scope="col" class="n">{{col.lv}}</th><th scope="col" class="n">{{rep.col.hit}}</th><th scope="col">{{rep.col.kill}}</th><th scope="col" class="n">{{rep.col.exp}}</th><th scope="col" class="n">{{col.need}}</th></tr></thead>
+              <tbody id="huntAll"></tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="win" id="upgrade" aria-labelledby="h-up">
+      <div class="bar"><h2 id="h-up">{{rep.up.title}}</h2><span class="tag">NEXT STEP</span></div>
+      <div class="body">
+        <p class="note" id="upRef"></p>
+        <ol class="ranks" id="upList"></ol>
+        <div class="goal" id="goalBox">
+          <span class="k">{{rep.goal.title}}</span>
+          <p id="goalText"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="win" id="bosses" aria-labelledby="h-boss">
+      <div class="bar"><h2 id="h-boss">{{rep.boss.title}}</h2><span class="tag">BOSS</span></div>
+      <div class="body">
+        <ol class="cards" id="bossList"></ol>
+      </div>
+    </section>
+  </div>
+
+  <section class="about" aria-labelledby="h-about">
+    <h2 id="h-about">{{about.title}}</h2>
+    <p>{{about.p1}}</p>
+    <div class="faq">
+      <details><summary>{{faq.q1}}</summary><p>{{faq.a1}}</p></details>
+      <details><summary>{{faq.q2}}</summary><p>{{faq.a2}}</p></details>
+      <details><summary>{{faq.q3}}</summary><p>{{faq.a3}}</p></details>
+      <details><summary>{{faq.q4}}</summary><p>{{faq.a4}}</p></details>
+      <details><summary>{{faq.q5}}</summary><p>{{faq.a5}}</p></details>
+    </div>
+  </section>
+
+  {{{footer}}}
+</div>
+
+<div class="dock" aria-hidden="true">
+  <div><span class="k">{{res.conv}}</span><span class="v accent" id="dockConv">0</span></div>
+  <div><span class="k" id="dockHitLabel">{{js.dockHit}}</span><span class="v" id="dockHit">0</span></div>
+</div>
+{{{scripts}}}
+</body>
+</html>
