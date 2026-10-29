@@ -495,18 +495,5 @@
   "map.whoAuto": "Chaque carte utilise celle de vos attaques qui y rapporte le plus d'EXP.",
   "map.best": "Meilleure carte maintenant",
   "map.bestLine": "{map} · {eph} EXP/h · niveau en {time}",
-  "map.go": "Cartes →",
-  "map.exp": "Taux d'EXP (coupon / événement)",
-  "map.expNone": "1× (aucun)",
-  "map.expHint": "Les coupons ne se cumulent pas avec les buffs d'événement similaires : choisissez le taux actif.",
-  "map.rateTag": "EXP ×{v}",
-  "map.ev.title": "Coupons et événements d'EXP",
-  "map.ev.ref": "Votre meilleure carte, {map} ({skill}), à chaque taux d'EXP.",
-  "map.ev.none": "Aucune carte à comparer pour l'instant.",
-  "map.ev.colRate": "Taux",
-  "map.ev.colPer": "En plus / coupon",
-  "map.ev.colNeed": "Coupons / niveau",
-  "map.ev.n": "{n}",
-  "map.ev.note_html": "Classic propose des coupons d'EXP <a href=\"https://meowdb.com/msclassic/item-db/233\" target=\"_blank\" rel=\"noopener\">1.5×</a>, <a href=\"https://meowdb.com/msclassic/item-db/234\" target=\"_blank\" rel=\"noopener\">2×</a> et <a href=\"https://meowdb.com/msclassic/item-db/2889\" target=\"_blank\" rel=\"noopener\">3×</a> qui durent 15 minutes chacun (pages d'objets NiaDB). D'après leur description, ils ne se cumulent pas avec les buffs d'événement similaires : un seul taux compte à la fois. « Coupons / niveau » suppose que vous faites tout le niveau avec un coupon actif ; le bonus de groupe n'est pas inclus.",
-  "map.ev.rate": "×{v}"
+  "map.go": "Cartes →"
 }

@@ -234,7 +234,6 @@
         <div class="body">
           <p class="note">{{map.note}}</p>
           <div class="grid mapopts">
-            <div class="field wide"><label for="mapExp">{{map.exp}}</label><select id="mapExp"><option value="1">{{map.expNone}}</option><option value="1.5">1.5×</option><option value="2">2×</option><option value="3">3×</option></select><span class="hint">{{map.expHint}}</span></div>
             <div class="field"><label for="mapPack">{{map.pack}}</label><select id="mapPack"><option value="">{{map.packAutoLabel}}</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="6">6</option></select><span class="hint" id="mapPackHint"></span></div>
             <div class="field"><label for="mapActive">{{map.active}}</label><select id="mapActive"><option value="0.4">40%</option><option value="0.6">60%</option><option value="0.8">80%</option><option value="1">100%</option></select><span class="hint">{{map.activeHint}}</span></div>
           </div>
@@ -249,20 +248,6 @@
             </div>
           </details>
           <a class="btn wide" href="maps/">{{map.more}}</a>
-        </div>
-      </section>
-
-      <section class="win" id="expev" aria-labelledby="h-ev">
-        <div class="bar"><h2 id="h-ev">{{map.ev.title}}</h2><span class="tag">EXP EVENT</span></div>
-        <div class="body">
-          <p class="note" id="evRef"></p>
-          <div class="tablewrap">
-            <table class="mobs compact fit ev">
-              <thead><tr><th scope="col" class="n">{{map.ev.colRate}}</th><th scope="col" class="n">{{col.eph}}</th><th scope="col" class="n">{{col.lvup}}</th><th scope="col" class="n">{{map.ev.colPer}}</th><th scope="col" class="n">{{map.ev.colNeed}}</th></tr></thead>
-              <tbody id="evTable"></tbody>
-            </table>
-          </div>
-          <p class="note">{{{map.ev.note_html}}}</p>
         </div>
       </section>
 

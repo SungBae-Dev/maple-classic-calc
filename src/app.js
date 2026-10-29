@@ -59,26 +59,21 @@ const mapSrc = (m) => 'https://meowdb.com/msclassic/' + (L.meowPath || '') + 'ma
 const MAP_TONE = { good: 'st-good', ok: 'st-good', slow: 'st-warn', miss: 'st-bad', hard: 'st-bad', blocked: 'st-bad' };
 const mapState = (e) => (e.status === 'miss' ? t('map.st.miss', { v: pct(e.hit) }) : t('map.st.' + e.status));
 const lvSpan = (e) => (e.lvMin === e.lvMax ? String(e.lvMin) : e.lvMin + '–' + e.lvMax);
-/** EXP coupons in Classic: 1.5×, 2×, 3× for 15 minutes; they don't stack with similar event buffs */
-const EXP_RATES = [1, 1.5, 2, 3];
-const COUPON_H = 0.25;
 function mapOpts() {
   const o = store.get(MAPOPT_KEY) || {};
-  const active = parseFloat(o.active), rate = parseFloat(o.exp);
-  return { pack: o.pack ? +o.pack : null, active: active > 0 ? active : MP.DEFAULT_ACTIVE, expRate: EXP_RATES.includes(rate) ? rate : 1 };
+  const active = parseFloat(o.active);
+  return { pack: o.pack ? +o.pack : null, active: active > 0 ? active : MP.DEFAULT_ACTIVE };
 }
 function bindMapOpts(onChange) {
   const o = mapOpts();
   $('mapPack').value = o.pack ? String(o.pack) : '';
   $('mapActive').value = String(o.active);
   if (!$('mapActive').value) $('mapActive').value = String(MP.DEFAULT_ACTIVE);
-  $('mapExp').value = String(o.expRate);
-  ['mapPack', 'mapActive', 'mapExp'].forEach((id) => $(id).addEventListener('change', () => {
-    store.set(MAPOPT_KEY, { pack: $('mapPack').value, active: $('mapActive').value, exp: $('mapExp').value });
+  ['mapPack', 'mapActive'].forEach((id) => $(id).addEventListener('change', () => {
+    store.set(MAPOPT_KEY, { pack: $('mapPack').value, active: $('mapActive').value });
     onChange();
   }));
 }
-const rateTag = (r) => (r !== 1 ? t('map.rateTag', { v: f1(r).replace(/[.,]0$/, '') }) : '');
 /** attacks to try on maps: the chosen skill, or every learned attack when the skill is on auto */
 function mapVariants(R, raw) {
   const own = { c: R.c, targets: R.skill ? R.skill.targets : 1, skill: R.skill };
@@ -100,7 +95,7 @@ function rankMapsFor(R, raw) {
   const maxT = Math.max(1, ...vs.map((v) => v.targets));
   $('mapPack').options[0].textContent = t('map.packAuto', { n: MP.mobsPerCast({ targets: maxT, pack: null }) });
   $('mapPackHint').textContent = maxT > 1 ? t('map.packHint', { max: maxT, n: MP.mobsPerCast({ targets: maxT, pack: o.pack }) }) : t('map.packSingle');
-  return MP.rankMapsBest(vs, MAPS, MOB_BY_NUM, { pack: o.pack, active: o.active, expRate: o.expRate }).map((e) => ({ ...e, skill: vs[e.variant].skill, rate: o.expRate }));
+  return MP.rankMapsBest(vs, MAPS, MOB_BY_NUM, { pack: o.pack, active: o.active }).map((e) => ({ ...e, skill: vs[e.variant].skill }));
 }
 const mapSkill = (e) => (e.skill ? skName(e.skill) + (e.perCast > 1 ? ' ×' + e.perCast : '') : '');
 /** maps worth listing for this level: anything you can farm, plus the ones around your level */
@@ -635,25 +630,8 @@ function calcPage() {
     const where = mapStreet(m);
     return '<li class="card map"><span class="nm"><a href="' + mapSrc(m) + '" target="_blank" rel="noopener">' + esc(mapName(m)) + '</a>' +
       '<small>' + (where ? esc(where) + ' · ' : '') + 'Lv ' + lvSpan(e) + '</small></span>' +
-      '<span class="big">' + fc(e.eph) + '<small>' + esc(t('map.ephUnit')) + (e.rate !== 1 ? ' (' + esc(rateTag(e.rate)) + ')' : '') + ' · ' + esc(t('map.lvup', { v: hrs(MP.hoursToLevel(c.level, e.eph, EXP)) })) + '</small></span>' +
+      '<span class="big">' + fc(e.eph) + '<small>' + esc(t('map.ephUnit')) + ' · ' + esc(t('map.lvup', { v: hrs(MP.hoursToLevel(c.level, e.eph, EXP)) })) + '</small></span>' +
       '<div class="chips">' + chips.join('') + '</div><div class="chips mix">' + mix + '</div></li>';
-  }
-  // ── EXP coupons & events: the best map at each rate ──
-  function renderExpEvents(top, c) {
-    if (!top) {
-      $('evRef').textContent = t('map.ev.none');
-      $('evTable').innerHTML = '';
-      return;
-    }
-    const base = top.eph / (top.rate || 1);
-    $('evRef').textContent = t('map.ev.ref', { map: mapName(top.map), skill: mapSkill(top) });
-    $('evTable').innerHTML = EXP_RATES.map((r) => {
-      const eph = base * r, h = MP.hoursToLevel(c.level, eph, EXP);
-      const per = r > 1 ? '+' + fc(base * (r - 1) * COUPON_H) : '–';
-      const need = r > 1 && Number.isFinite(h) ? t('map.ev.n', { n: f0(Math.ceil(h / COUPON_H - 1e-9)) }) : '–';
-      return '<tr' + (r === top.rate ? ' class="best"' : '') + '><td class="n">' + esc(t('map.ev.rate', { v: f1(r).replace(/[.,]0$/, '') })) + '</td><td class="n">' + fc(eph) + '</td>' +
-        '<td class="n">' + hrs(h) + '</td><td class="n">' + per + '</td><td class="n">' + need + '</td></tr>';
-    }).join('');
   }
   function renderMaps() {
     const { c, R, raw } = last;
@@ -662,8 +640,7 @@ function calcPage() {
     $('mapList').innerHTML = rec.length ? rec.map((e) => mapCard(e, c)).join('') : '<li class="empty">' + esc(t('map.empty')) + '</li>';
     const top = rec[0];
     $('bestMap').hidden = !top;
-    if (top) $('bestMapText').textContent = t('map.bestLine', { map: mapName(top.map), eph: fc(top.eph), time: hrs(MP.hoursToLevel(c.level, top.eph, EXP)) }) + (top.rate !== 1 ? ' · ' + rateTag(top.rate) : '');
-    renderExpEvents(top, c);
+    if (top) $('bestMapText').textContent = t('map.bestLine', { map: mapName(top.map), eph: fc(top.eph), time: hrs(MP.hoursToLevel(c.level, top.eph, EXP)) });
     $('mapAll').innerHTML = effs.filter((e) => suits(e, c.level)).map((e) =>
       '<tr' + (MP.isRecommendable(e) ? '' : ' class="dim"') + '><td class="name"><a href="' + mapSrc(e.map) + '" target="_blank" rel="noopener">' + esc(mapName(e.map)) + '</a></td>' +
       '<td class="n">' + lvSpan(e) + '</td><td class="n">' + fc(e.kph) + '</td><td class="n">' + fc(e.eph) + '</td>' +
@@ -845,7 +822,7 @@ function calcPage() {
   // ── events ──
   const onEdit = (e) => {
     const id = e.target.id || '';
-    if (id === 'codeIn' || id === 'bldName' || id === 'shareOut' || id === 'codeOut' || id === 'mapPack' || id === 'mapActive' || id === 'mapExp') return;
+    if (id === 'codeIn' || id === 'bldName' || id === 'shareOut' || id === 'codeOut' || id === 'mapPack' || id === 'mapActive') return;
     if (MOB_EDIT.includes(id)) $('mobPreset').value = '';
     if (e.type === 'change') {
       if (e.target.name === 'job') { fillSubJobs(e.target.value, null); fillWeapons(e.target.value, null); fillActions($('weapon').value, null); }

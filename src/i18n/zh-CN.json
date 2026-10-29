@@ -495,18 +495,5 @@
   "map.whoAuto": "每张地图都按在那里经验最高的攻击技能计算。",
   "map.best": "当前效率最高的地图",
   "map.bestLine": "{map} · 每小时 {eph} 经验 · 升级 {time}",
-  "map.go": "查看地图 →",
-  "map.exp": "经验倍率（券 / 活动）",
-  "map.expNone": "1倍（无）",
-  "map.expHint": "经验券不会与同类活动增益叠加，请只选择当前生效的一个倍率。",
-  "map.rateTag": "经验 {v}倍",
-  "map.ev.title": "经验券与活动效率",
-  "map.ev.ref": "效率最高的地图 {map}（{skill}）在各倍率下的效率。",
-  "map.ev.none": "暂时没有可比较的地图。",
-  "map.ev.colRate": "倍率",
-  "map.ev.colPer": "每张额外经验",
-  "map.ev.colNeed": "升级所需张数",
-  "map.ev.n": "{n} 张",
-  "map.ev.note_html": "经典世界有 <a href=\"https://meowdb.com/msclassic/zh-cn/item-db/233\" target=\"_blank\" rel=\"noopener\">1.5×</a>、<a href=\"https://meowdb.com/msclassic/zh-cn/item-db/234\" target=\"_blank\" rel=\"noopener\">2×</a>、<a href=\"https://meowdb.com/msclassic/zh-cn/item-db/2889\" target=\"_blank\" rel=\"noopener\">3×</a> 经验券，每张持续 15 分钟（NiaDB 物品页面）。物品说明称其不与同类活动增益叠加，所以同一时间只有一个倍率生效。“升级所需张数”假设整级都开着经验券练级，不含组队加成。",
-  "map.ev.rate": "{v}倍"
+  "map.go": "查看地图 →"
 }

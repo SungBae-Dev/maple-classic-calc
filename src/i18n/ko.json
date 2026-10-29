@@ -495,18 +495,5 @@
   "map.whoAuto": "맵마다 경험치가 가장 높게 나오는 공격 스킬로 계산해요.",
   "map.best": "지금 최고 효율 사냥터",
   "map.bestLine": "{map} · 시간당 {eph} 경험치 · 레벨업 {time}",
-  "map.go": "맵 보기 →",
-  "map.exp": "경험치 배율 (쿠폰·이벤트)",
-  "map.expNone": "1배 (없음)",
-  "map.expHint": "쿠폰은 비슷한 이벤트 버프와 중첩되지 않아요. 지금 적용 중인 배율 하나만 고르세요.",
-  "map.rateTag": "경험치 {v}배",
-  "map.ev.title": "경험치 쿠폰·이벤트 효율",
-  "map.ev.ref": "최고 효율 사냥터 {map} ({skill}) 기준, 배율별 효율이에요.",
-  "map.ev.none": "아직 비교할 사냥터가 없어요.",
-  "map.ev.colRate": "배율",
-  "map.ev.colPer": "장당 추가 경험치",
-  "map.ev.colNeed": "레벨업 쿠폰 수",
-  "map.ev.n": "{n}장",
-  "map.ev.note_html": "클래식에는 <a href=\"https://meowdb.com/msclassic/ko/item-db/233\" target=\"_blank\" rel=\"noopener\">1.5×</a>, <a href=\"https://meowdb.com/msclassic/ko/item-db/234\" target=\"_blank\" rel=\"noopener\">2×</a>, <a href=\"https://meowdb.com/msclassic/ko/item-db/2889\" target=\"_blank\" rel=\"noopener\">3×</a> 경험치 쿠폰이 있고 1장에 15분이에요(NiaDB 아이템 페이지). 아이템 설명상 비슷한 이벤트 버프와 중첩되지 않아서 한 번에 배율 하나만 적용돼요. \"레벨업 쿠폰 수\"은 한 레벨을 전부 쿠폰을 켜고 사냥한다고 본 값이고, 파티 보너스는 넣지 않았어요.",
-  "map.ev.rate": "{v}배"
+  "map.go": "맵 보기 →"
 }

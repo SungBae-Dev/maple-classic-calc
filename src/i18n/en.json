@@ -495,18 +495,5 @@
   "map.whoAuto": "Each map uses whichever of your attacks earns the most EXP there.",
   "map.best": "Best map now",
   "map.bestLine": "{map} · {eph} EXP/h · level in {time}",
-  "map.go": "Maps →",
-  "map.exp": "EXP rate (coupon / event)",
-  "map.expNone": "1× (none)",
-  "map.expHint": "Coupons don't stack with similar event buffs, so pick the one rate that's active.",
-  "map.rateTag": "{v}× EXP",
-  "map.ev.title": "EXP coupons & events",
-  "map.ev.ref": "Your best map, {map} ({skill}), at each EXP rate.",
-  "map.ev.none": "No map to compare yet.",
-  "map.ev.colRate": "Rate",
-  "map.ev.colPer": "Extra per coupon",
-  "map.ev.colNeed": "Coupons / level",
-  "map.ev.n": "{n}",
-  "map.ev.note_html": "Classic has <a href=\"https://meowdb.com/msclassic/item-db/233\" target=\"_blank\" rel=\"noopener\">1.5×</a>, <a href=\"https://meowdb.com/msclassic/item-db/234\" target=\"_blank\" rel=\"noopener\">2×</a> and <a href=\"https://meowdb.com/msclassic/item-db/2889\" target=\"_blank\" rel=\"noopener\">3×</a> EXP coupons that last 15 minutes each (NiaDB item pages). Their item text says they don't stack with similar event buffs, so only one rate counts at a time. \"Coupons / level\" assumes you hunt the whole level with a coupon on; party bonus isn't included.",
-  "map.ev.rate": "{v}×"
+  "map.go": "Maps →"
 }
