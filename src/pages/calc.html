@@ -67,6 +67,16 @@
               <div class="field" data-magic hidden><label for="matk">{{f.matk}}</label><input type="number" id="matk" inputmode="numeric" min="0"><span class="hint">{{f.matkHint}}</span></div>
               <div class="field"><label for="acc">{{f.acc}}</label><input type="number" id="acc" inputmode="numeric" min="0"><span class="hint">{{f.accHint}}</span></div>
             </div>
+            <details class="explain" id="svWrap">
+              <summary>{{sv.inputs}}</summary>
+              <div class="grid g4" style="margin-top:10px">
+                <div class="field"><label for="svHp">{{sv.hp}}</label><input type="number" id="svHp" inputmode="numeric" min="0"></div>
+                <div class="field"><label for="svWdef">{{sv.wdef}}</label><input type="number" id="svWdef" inputmode="numeric" min="0"></div>
+                <div class="field"><label for="svMdef">{{sv.mdef}}</label><input type="number" id="svMdef" inputmode="numeric" min="0"></div>
+                <div class="field"><label for="svAvoid">{{sv.avoid}}</label><input type="number" id="svAvoid" inputmode="numeric" min="0"><span class="hint" id="svAvoidHint"></span></div>
+              </div>
+              <p class="note">{{sv.inputsNote}}</p>
+            </details>
           </div>
         </section>
 
@@ -275,6 +285,20 @@
               </table>
             </div>
           </details>
+        </div>
+      </section>
+
+      <section class="win" id="survive" aria-labelledby="h-sv">
+        <div class="bar"><h2 id="h-sv">{{sv.title}}</h2><span class="tag">DAMAGE TAKEN</span></div>
+        <div class="body">
+          <p class="note">{{sv.note}}</p>
+          <div class="tablewrap">
+            <table class="mobs compact sv">
+              <thead><tr><th scope="col">{{sv.colMob}}</th><th scope="col" class="n">{{sv.colHit}}</th><th scope="col" class="n">{{sv.colTouch}}</th><th scope="col" class="n">{{sv.colSkill}}</th><th scope="col" class="n">{{sv.colDie}}</th></tr></thead>
+              <tbody id="svTable"></tbody>
+            </table>
+          </div>
+          <p class="note" id="svHpNote"></p>
         </div>
       </section>
 

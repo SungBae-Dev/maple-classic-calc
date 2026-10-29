@@ -5,6 +5,7 @@ import MOBDATA from '../data/mobs.json';
 import SKILLDATA from '../.build/skills.json';
 import { guideFor, spAvailable, ROADMAP, SKILL_KO } from './guides.js';
 import * as MP from './maps.ts';
+import * as SV from './survive.ts';
 import MAPDATA from '../data/maps.json';
 import EXPDATA from '../data/exp.json';
 import IMGKEYS from '../.build/img.json';
@@ -112,6 +113,21 @@ function rankMapsFor(R, raw) {
   return MP.rankMapsBest(vs, MAPS, MOB_BY_NUM, { pack: o.pack, active: o.active }).map((e) => ({ ...e, skill: vs[e.variant].skill }));
 }
 const mapSkill = (e) => (e.skill ? skName(e.skill) + (e.perCast > 1 ? ' ×' + e.perCast : '') : '');
+/** the player as a target: stat-window HP / DEF / avoid (avoid falls back to the DEX/LUK base) */
+function defender(raw, c) {
+  return {
+    level: c.level, hp: raw.svHp, wdef: raw.svWdef || 0, mdef: raw.svMdef || 0,
+    avoid: raw.svAvoid != null ? raw.svAvoid : SV.baseAvoid(c.dex, c.luk),
+  };
+}
+const DANGER_TONE = { deadly: 'st-bad', risky: 'st-bad', ok: 'st-warn', safe: 'st-good', unknown: '' };
+const hitRange = (d) => (d ? f0(d.min) + '–' + f0(d.max) : '–');
+function threatChip(th) {
+  if (!th || !th.worst) return '';
+  const lo = th.touch ? th.touch.min : th.worst, hi = th.worst;
+  const txt = th.hitsToDie != null ? t('sv.chipDie', { a: f0(lo), b: f0(hi), n: th.hitsToDie }) : t('sv.chip', { a: f0(lo), b: f0(hi) });
+  return '<span class="chip ' + DANGER_TONE[th.danger] + '">' + esc(txt) + '</span>';
+}
 /** maps worth listing for this level: anything you can farm, plus the ones around your level */
 const suits = (e, lv) => MP.isRecommendable(e) || (e.lvMax >= lv - 25 && e.lvMin <= lv + 15);
 
@@ -156,6 +172,7 @@ function calcPage() {
   const KEY = CALC_KEY;
   const BUILDS_KEY = 'msc-builds-v1';
   const BASE_NUM = ['level', 'str', 'dex', 'int', 'luk', 'watk', 'matk', 'acc'];
+  const SV_NUM = ['svHp', 'svWdef', 'svMdef', 'svAvoid'];
   const OVR_NUM = ['skillLv', 'skillPct', 'hits', 'attackMs', 'weaponStage', 'masterySkillLv', 'apPassive', 'apBuff', 'critRate', 'critDmg', 'defIgnorePct'];
   const DEFAULTS = { level: 1 };
   const DELTA_FIELDS = ['str', 'dex', 'int', 'luk', 'watk', 'matk', 'acc', 'attackMs', 'cost'];
@@ -253,6 +270,7 @@ function calcPage() {
     };
     BASE_NUM.forEach((k) => { raw[k] = num($(k), DEFAULTS[k] ?? 0); });
     OVR_NUM.forEach((k) => { raw[k] = numOrNull($(k)); });
+    SV_NUM.forEach((k) => { raw[k] = numOrNull($(k)); });
     const presetId = $('mobPreset').value;
     const preset = MOB_BY_ID.get(presetId);
     const mob = {
@@ -275,6 +293,8 @@ function calcPage() {
     fillActions($('weapon').value, raw.action);
     BASE_NUM.forEach((k) => { $(k).value = raw[k] ?? DEFAULTS[k] ?? ''; });
     OVR_NUM.forEach((k) => { $(k).value = raw[k] == null ? '' : raw[k]; });
+    SV_NUM.forEach((k) => { $(k).value = raw[k] == null ? '' : raw[k]; });
+    $('svWrap').open = SV_NUM.some((k) => raw[k] != null);
     $('skillElement').value = E.SKILL_ELEMENTS.includes(raw.skillElement) ? raw.skillElement : 'none';
     $('buffs').checked = raw.buffs !== false;
     pendingSkill = raw.skill || 'auto';
@@ -307,11 +327,13 @@ function calcPage() {
     OVR_NUM.forEach((k) => parts.push(encN(r[k])));
     parts.push(encN(E.SKILL_ELEMENTS.indexOf(r.skillElement || 'none')));
     parts.push(m.enabled ? '1' : '0', encN(m.level), encN(m.hp || 0), encN(m.eva), encN(m.wdef), encN(m.mdef), encN(E.ELEMENT_KEYS.indexOf(m.element)), m.presetId ? encN(+m.presetId) : 'x', encN(s.ref));
+    // optional survival inputs ride at the end so older links stay valid
+    if (SV_NUM.some((k) => r[k] != null)) SV_NUM.forEach((k) => parts.push(encN(r[k])));
     return 'MC4-' + parts.join('-');
   }
   function decode(code) {
     const p = String(code).trim().split('-');
-    if (p[0] !== 'MC4' || p.length !== CODE_LEN) throw new Error('format');
+    if (p[0] !== 'MC4' || (p.length !== CODE_LEN && p.length !== CODE_LEN + SV_NUM.length)) throw new Error('format');
     let i = 1;
     const job = JOB_KEYS[decN(p[i++])], subJob = SUB_KEYS[decN(p[i++])] ?? '', weapon = WEAPON_KEYS[decN(p[i++])], action = E.ACTIONS[decN(p[i++])];
     if (!job || !weapon || !action || E.WEAPONS[weapon].job !== job) throw new Error('enum');
@@ -328,6 +350,7 @@ function calcPage() {
     const pid = decN(p[i++]);
     mob.presetId = pid != null && MOB_BY_ID.has(String(pid)) ? String(pid) : '';
     const ref = decN(p[i++]);
+    SV_NUM.forEach((k) => { raw[k] = i < p.length ? decN(p[i++]) : null; });
     return { raw, mob, ref, delta: null };
   }
   const shareUrl = (code) => location.href.split('#')[0] + '#b=' + code;
@@ -493,12 +516,15 @@ function calcPage() {
     $('convBody').innerHTML = cr.items.map((it) => '<tr><td>' + esc(itemLabel(it)) + '</td><td class="n">' + pLabel + ' ' + f2(it.perPoint) + '</td></tr>').join('')
       || '<tr><td colspan="2">' + esc(t('js.convEmpty')) + '</td></tr>';
 
-    last = { s, raw, R, c, mob, magic, pLabel, rep, target, tgtAuto: tgt.auto };
+    const D = defender(raw, c);
+    $('svAvoid').placeholder = t('sv.avoidAuto', { v: SV.baseAvoid(c.dex, c.luk) });
+    last = { s, raw, R, c, mob, magic, pLabel, rep, target, tgtAuto: tgt.auto, D };
     renderSim();
     renderTarget();
     renderUpgrades();
     renderMaps();
     renderHunt();
+    renderSurvive();
     renderGear();
     renderScrolls();
     renderSkills();
@@ -618,6 +644,7 @@ function calcPage() {
       '<span class="chip ' + STATUS_TONE[r.status] + '">' + esc(killText(r)) + '</span>',
     ];
     if (r.needAcc != null && r.hit < 1) chips.push('<span class="chip">' + esc(t('rep.need', { v: f0(r.needAcc) })) + '</span>');
+    if (last && last.D) chips.push(threatChip(SV.threat(m, last.D)));
     chips.push(affinityChips({ ...m, tags: m.tags.filter((x) => x !== 'boss') }, false));
     return '<li class="card"><span class="nm withimg">' + mobImg(m) + '<span>' + esc(mobName(m)) + '<small>Lv ' + m.lv + '</small></span></span><span class="big">' + extra + '</span>' +
       '<div class="chips">' + chips.join('') + '</div><div class="acts">' + (acts || '') + '<a class="chip" href="#mob-' + m.id + '">' + esc(t('rep.calc')) + '</a></div></li>';
@@ -657,6 +684,9 @@ function calcPage() {
       '<span class="chip' + (e.limit === 'respawn' ? ' st-warn' : '') + '">' + esc(t('map.limit.' + e.limit)) + '</span>',
       '<span class="chip">' + esc(t('map.spawnCap', { s: m.spawns, n: e.cap })) + '</span>',
     ];
+    let worst = null;
+    e.mobs.forEach((x) => { if (x.mob && !x.boss) { const th = SV.threat(x.mob, last.D); if (th.worst && (!worst || th.worst > worst.worst)) worst = th; } });
+    if (worst) chips.push('<span class="chip ' + DANGER_TONE[worst.danger] + '">' + esc(t('sv.mapWorst', { v: f0(worst.worst) }) + (worst.hitsToDie != null ? ' · ' + t('sv.mapDie', { n: worst.hitsToDie }) : '')) + '</span>');
     const where = mapStreet(m);
     return '<li class="card map">' + img('map/' + m.id, 'minimap') + '<span class="nm"><a href="' + mapSrc(m) + '" target="_blank" rel="noopener">' + esc(mapName(m)) + '</a>' +
       '<small>' + (where ? esc(where) + ' · ' : '') + 'Lv ' + lvSpan(e) + '</small></span>' +
@@ -676,6 +706,25 @@ function calcPage() {
       '<td class="n">' + lvSpan(e) + '</td><td class="n">' + fc(e.kph) + '</td><td class="n">' + fc(e.eph) + '</td>' +
       '<td class="n">' + hrs(MP.hoursToLevel(c.level, e.eph, EXP)) + '</td>' +
       '<td><span class="chip ' + MAP_TONE[e.status] + '">' + esc(mapState(e)) + '</span>' + (e.eph > 0 ? '<small class="sk">' + esc(mapSkill(e)) + '</small>' : '') + '</td></tr>').join('');
+  }
+
+  // ── damage taken from monsters near your level ──
+  function renderSurvive() {
+    const { c, rep, D } = last;
+    const list = rep.rows.filter((r) => Math.abs(r.levelGap) <= 15 || r.mob.tags.includes('boss'));
+    $('svTable').innerHTML = list.map((r) => {
+      const m = r.mob, th = SV.threat(m, D);
+      const skillMax = (m.attacks || []).length ? Math.max(0, ...(m.attacks || []).map((a) => {
+        const base = a.type === 'magic' ? m.matk : m.patk;
+        return base ? SV.damageTaken({ atk: base, ratio: a.ratio ?? 100, magic: a.type === 'magic' }, D).max : 0;
+      })) : 0;
+      return '<tr><td class="name"><a href="#mob-' + m.id + '">' + mobImg(m, 'ico') + esc(mobName(m)) + '</a> <small>Lv ' + m.lv + '</small></td>' +
+        '<td class="n">' + (m.acc != null ? pct(th.hit) + '%' : '–') + '</td>' +
+        '<td class="n">' + hitRange(th.touch) + '</td>' +
+        '<td class="n">' + (skillMax ? '~' + f0(skillMax) : '–') + '</td>' +
+        '<td class="n">' + (th.hitsToDie != null ? '<span class="chip ' + DANGER_TONE[th.danger] + '">' + esc(t('sv.die', { n: th.hitsToDie })) + '</span>' : '–') + '</td></tr>';
+    }).join('');
+    $('svHpNote').textContent = D.hp ? '' : t('sv.noHp');
   }
 
   // ── gear workbench ──

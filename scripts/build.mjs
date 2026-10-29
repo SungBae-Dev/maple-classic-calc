@@ -44,7 +44,7 @@ const PAGES = [
   { id: 'mobs', path: 'mobs/', tpl: 'mobs.html', title: 'meta.mobs.title', desc: 'meta.mobs.desc', priority: '0.8' },
 ];
 // keys the browser script needs
-const JS_PREFIXES = ['js.', 'weapon.', 'action.', 'elem.', 'skillEl.', 'aff.', 'mastery.', 'mobTag.', 'mob.', 'rep.', 'res.', 'cmp.', 'kpi.', 'sim.', 'tc.', 'boss.', 'scroll.', 'sk.', 'sktype.', 'reason.', 'path.', 'bld.', 'share.', 'sub.', 'job.', 'f.', 'tab.', 'map.', 'stage.'];
+const JS_PREFIXES = ['js.', 'weapon.', 'action.', 'elem.', 'skillEl.', 'aff.', 'mastery.', 'mobTag.', 'mob.', 'rep.', 'res.', 'cmp.', 'kpi.', 'sim.', 'tc.', 'boss.', 'scroll.', 'sk.', 'sktype.', 'reason.', 'path.', 'bld.', 'share.', 'sub.', 'job.', 'f.', 'tab.', 'map.', 'stage.', 'sv.'];
 
 // ── helpers ──
 const read = (p) => readFileSync(join(ROOT, p), 'utf8');
@@ -82,6 +82,7 @@ mkdirSync(join(ROOT, '.build'), { recursive: true });
 await build({ entryPoints: [join(ROOT, 'src/engine.ts')], format: 'esm', outfile: join(ROOT, '.build/engine.mjs'), logLevel: 'warning' });
 await build({ entryPoints: [join(ROOT, 'src/advisor.ts')], bundle: true, format: 'esm', outfile: join(ROOT, '.build/advisor.mjs'), logLevel: 'warning' });
 await build({ entryPoints: [join(ROOT, 'src/maps.ts')], bundle: true, format: 'esm', outfile: join(ROOT, '.build/maps.mjs'), logLevel: 'warning' });
+await build({ entryPoints: [join(ROOT, 'src/survive.ts')], bundle: true, format: 'esm', outfile: join(ROOT, '.build/survive.mjs'), logLevel: 'warning' });
 const E = await import(pathToFileURL(join(ROOT, '.build/engine.mjs')).href + '?t=' + Date.now());
 
 // merge skill data files for the browser bundle
