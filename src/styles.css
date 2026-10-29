@@ -393,3 +393,28 @@ table.skilltab tbody tr.sel td { background: var(--maple-soft); }
 table.skilltab tbody tr.sel td:first-child { box-shadow: inset 3px 0 0 var(--maple); }
 table.skilltab td.name small { display: inline; margin-left: 4px; }
 input.auto::placeholder { color: var(--maple-ink); opacity: 0.85; }
+
+/* training maps */
+.mapopts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.card.map .nm a { color: var(--ink); text-decoration: none; }
+.card.map .nm a:hover { text-decoration: underline; }
+.card.map .nm small { display: block; margin-left: 0; font-family: var(--f-body); }
+.card .chips.mix { grid-column: 1 / -1; }
+.card .chips.mix .chip, table.maps .chips .chip { white-space: normal; font-family: var(--f-body); }
+table.maps { min-width: 820px; }
+table.maps .chip b { font-family: var(--f-num); font-weight: 600; }
+table.mobs tr.dim td { opacity: 0.55; }
+table.mobs td small.st { display: block; margin-top: 2px; font-family: var(--f-body); font-weight: 500; font-size: var(--t-xs); background: none; padding: 0; }
+table.mobs td small.st.st-good { color: var(--good); }
+table.mobs td small.st.st-warn { color: var(--warn); }
+table.mobs td small.st.st-bad { color: var(--bad); }
+.filters .toggle.near { align-self: end; padding-bottom: 10px; font-size: var(--t-sm); }
+.win.mine { margin-bottom: 16px; }
+table.mobs td small.sk { display: block; margin-top: 2px; color: var(--muted); font-weight: 400; font-size: var(--t-xs); font-family: var(--f-body); white-space: nowrap; }
+.bestmap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; align-items: center; padding: 9px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--good-soft); color: var(--ink); text-decoration: none; }
+.bestmap .k { grid-column: 1 / -1; font-size: var(--t-xs); color: var(--muted); }
+.bestmap .v { font-weight: 600; min-width: 0; overflow-wrap: anywhere; font-size: var(--t-sm); }
+.bestmap .go { font-size: var(--t-xs); color: var(--maple-ink); white-space: nowrap; }
+.bestmap:hover { border-color: var(--good); }
+.bestmap[hidden] { display: none; }
+table.maps td.n, #mapAll td.n { white-space: nowrap; }

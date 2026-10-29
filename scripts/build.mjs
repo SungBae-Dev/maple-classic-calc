@@ -40,10 +40,11 @@ export const LOCALES = [
 ];
 const PAGES = [
   { id: 'calc', path: '', tpl: 'calc.html', title: 'meta.calc.title', desc: 'meta.calc.desc', priority: '1.0' },
+  { id: 'maps', path: 'maps/', tpl: 'maps.html', title: 'meta.maps.title', desc: 'meta.maps.desc', priority: '0.8' },
   { id: 'mobs', path: 'mobs/', tpl: 'mobs.html', title: 'meta.mobs.title', desc: 'meta.mobs.desc', priority: '0.8' },
 ];
 // keys the browser script needs
-const JS_PREFIXES = ['js.', 'weapon.', 'action.', 'elem.', 'skillEl.', 'aff.', 'mastery.', 'mobTag.', 'mob.', 'rep.', 'res.', 'cmp.', 'kpi.', 'sim.', 'tc.', 'boss.', 'scroll.', 'sk.', 'sktype.', 'reason.', 'path.', 'bld.', 'share.', 'sub.', 'job.', 'f.', 'tab.'];
+const JS_PREFIXES = ['js.', 'weapon.', 'action.', 'elem.', 'skillEl.', 'aff.', 'mastery.', 'mobTag.', 'mob.', 'rep.', 'res.', 'cmp.', 'kpi.', 'sim.', 'tc.', 'boss.', 'scroll.', 'sk.', 'sktype.', 'reason.', 'path.', 'bld.', 'share.', 'sub.', 'job.', 'f.', 'tab.', 'map.', 'stage.'];
 
 // ── helpers ──
 const read = (p) => readFileSync(join(ROOT, p), 'utf8');
@@ -80,6 +81,7 @@ mkdirSync(join(DIST, 'assets'), { recursive: true });
 mkdirSync(join(ROOT, '.build'), { recursive: true });
 await build({ entryPoints: [join(ROOT, 'src/engine.ts')], format: 'esm', outfile: join(ROOT, '.build/engine.mjs'), logLevel: 'warning' });
 await build({ entryPoints: [join(ROOT, 'src/advisor.ts')], bundle: true, format: 'esm', outfile: join(ROOT, '.build/advisor.mjs'), logLevel: 'warning' });
+await build({ entryPoints: [join(ROOT, 'src/maps.ts')], bundle: true, format: 'esm', outfile: join(ROOT, '.build/maps.mjs'), logLevel: 'warning' });
 const E = await import(pathToFileURL(join(ROOT, '.build/engine.mjs')).href + '?t=' + Date.now());
 
 // merge skill data files for the browser bundle
@@ -125,6 +127,9 @@ const cssPath = `assets/style.${hash(css)}.css`;
 writeFileSync(join(DIST, cssPath), css);
 
 const MOBS = JSON.parse(read('data/mobs.json')).mobs.slice().sort((a, b) => a.lv - b.lv || a.id - b.id);
+const MOB_BY_ID = new Map(MOBS.map((m) => [m.id, m]));
+const MAPS = JSON.parse(read('data/maps.json')).maps;
+const Mx = await import(pathToFileURL(join(ROOT, '.build/maps.mjs')).href + '?t=' + Date.now());
 const HEAD = read('src/pages/head.html');
 const dicts = Object.fromEntries(LOCALES.map((l) => [l.code, dict(l.code)]));
 
@@ -154,6 +159,31 @@ function mobRows(d, l, base) {
   }).join('\n');
 }
 
+function mapRows(d, l, base) {
+  const ko = l.code === 'ko';
+  const fmt = new Intl.NumberFormat(l.code, { maximumFractionDigits: 0 });
+  return MAPS.map((m) => {
+    const mobs = m.mobs.slice().sort((a, b) => b.count - a.count);
+    const lvs = mobs.map((x) => MOB_BY_ID.get(x.id)?.lv ?? x.lv).filter(Boolean);
+    const lvMin = Math.min(...lvs), lvMax = Math.max(...lvs);
+    const chips = mobs.map((x) => {
+      const mob = MOB_BY_ID.get(x.id);
+      const nm = mob ? (ko ? mob.ko : mob.en) : x.en;
+      return `<span class="chip">${esc(nm)} <b>×${x.count}</b></span>`;
+    }).join('');
+    const q = [m.en, m.ko || '', m.region || '', ...mobs.map((x) => { const mob = MOB_BY_ID.get(x.id); return mob ? mob.en + ' ' + mob.ko : x.en || ''; })].join(' ').toLowerCase();
+    const src = `https://meowdb.com/msclassic/${l.meow}maps/${m.id}`;
+    const name = ko && m.ko ? m.ko : m.en;
+    const sub = ko && m.ko ? `<small>${esc(m.en)}</small>` : (m.region ? `<small>${esc(ko && m.regionKo ? m.regionKo : m.region)}</small>` : '');
+    return `<tr data-map="${m.id}" data-lvmin="${lvMin}" data-lvmax="${lvMax}" data-q="${esc(q)}">` +
+      `<td class="name"><a href="${src}" target="_blank" rel="noopener">${esc(name)}</a>${sub}</td>` +
+      `<td class="n">${lvMin === lvMax ? lvMin : lvMin + '–' + lvMax}</td>` +
+      `<td class="n">${m.spawns}</td><td class="n">${Mx.capacity(m.spawns)}</td><td class="n">${fmt.format(Mx.respawnPerHour(m.spawns))}</td>` +
+      `<td><div class="chips">${chips}</div></td>` +
+      `<td class="n mine kph" data-mine hidden></td><td class="n mine eph" data-mine hidden></td><td class="n mine lvup" data-mine hidden></td></tr>`;
+  }).join('\n');
+}
+
 function jsonLd(d, l, page) {
   const url = urlOf(l, page);
   const inLanguage = l.code;
@@ -169,17 +199,18 @@ function jsonLd(d, l, page) {
       },
       {
         '@context': 'https://schema.org', '@type': 'FAQPage', inLanguage,
-        mainEntity: [1, 2, 3, 4, 5].map((i) => ({ '@type': 'Question', name: d[`faq.q${i}`], acceptedAnswer: { '@type': 'Answer', text: d[`faq.a${i}`] } })),
+        mainEntity: [1, 2, 3, 4, 5, 6].map((i) => ({ '@type': 'Question', name: d[`faq.q${i}`], acceptedAnswer: { '@type': 'Answer', text: d[`faq.a${i}`] } })),
       },
     ];
   }
+  const h1 = d[page.id + '.h1'];
   return [
-    { '@context': 'https://schema.org', '@type': 'WebPage', name: d['mobs.h1'], url, inLanguage, description: d['meta.mobs.desc'] },
+    { '@context': 'https://schema.org', '@type': 'WebPage', name: h1, url, inLanguage, description: d[page.desc] },
     {
       '@context': 'https://schema.org', '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: d['meta.siteName'], item: urlOf(l, PAGES[0]) },
-        { '@type': 'ListItem', position: 2, name: d['mobs.h1'], item: url },
+        { '@type': 'ListItem', position: 2, name: h1, item: url },
       ],
     },
   ];
@@ -200,6 +231,7 @@ for (const l of LOCALES) {
 
     const nav = [
       `<a href="${base}${l.path}"${page.id === 'calc' ? ' aria-current="page"' : ''}>${esc(d['nav.calc'])}</a>`,
+      `<a href="${base}${l.path}maps/"${page.id === 'maps' ? ' aria-current="page"' : ''}>${esc(d['nav.maps'])}</a>`,
       `<a href="${base}${l.path}mobs/"${page.id === 'mobs' ? ' aria-current="page"' : ''}>${esc(d['nav.mobs'])}</a>`,
       `<details class="langs"><summary>${esc(d['nav.lang'])} · ${esc(l.code.toUpperCase())}</summary><ul>` +
         LOCALES.map((x) => `<li><a href="${base}${x.path}${page.path}" hreflang="${x.code}" lang="${x.code}" data-lang-link${x === l ? ' aria-current="true"' : ''}>${esc(x.name)}</a></li>`).join('') +
@@ -227,6 +259,7 @@ for (const l of LOCALES) {
     };
     ctx.head = render(HEAD, ctx, where);
     if (page.id === 'mobs') ctx.mobRows = mobRows(d, l, base);
+    if (page.id === 'maps') ctx.mapRows = mapRows(d, l, base);
     const html = render(read(`src/pages/${page.tpl}`), ctx, where);
     mkdirSync(join(DIST, rel), { recursive: true });
     writeFileSync(join(DIST, rel, 'index.html'), html);

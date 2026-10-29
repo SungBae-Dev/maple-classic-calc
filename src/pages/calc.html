@@ -145,6 +145,7 @@
               <div class="kpi"><span class="k">{{kpi.dps}}</span><b id="kpiDps">0</b><small id="kpiDpsSub"></small></div>
               <div class="kpi"><span class="k">{{kpi.kill}}</span><b id="kpiKill">–</b><small id="kpiKillSub"></small></div>
             </div>
+            <a class="bestmap" id="bestMap" href="#hunt" hidden><span class="k">{{map.best}}</span><span class="v" id="bestMapText"></span><span class="go">{{map.go}}</span></a>
             <div class="refrow">
               <div class="field"><label for="ref" id="refLabel">{{res.refPhys}}</label><input type="number" id="ref" inputmode="numeric" min="1" placeholder="{{res.refPh}}"></div>
               <button class="btn" type="button" id="pinRef">{{res.pin}}</button>
@@ -228,6 +229,28 @@
   <!-- ═════════ HUNTING & BOSSES ═════════ -->
   <section class="tabpanel" id="tab-hunt" data-panel="hunt" aria-labelledby="h-hunt" hidden>
     <div class="report">
+      <section class="win" id="mapeff" aria-labelledby="h-map">
+        <div class="bar"><h2 id="h-map">{{map.title}}</h2><span class="tag">EXP / HOUR</span></div>
+        <div class="body">
+          <p class="note">{{map.note}}</p>
+          <div class="grid mapopts">
+            <div class="field"><label for="mapPack">{{map.pack}}</label><select id="mapPack"><option value="">{{map.packAutoLabel}}</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="6">6</option></select><span class="hint" id="mapPackHint"></span></div>
+            <div class="field"><label for="mapActive">{{map.active}}</label><select id="mapActive"><option value="0.4">40%</option><option value="0.6">60%</option><option value="0.8">80%</option><option value="1">100%</option></select><span class="hint">{{map.activeHint}}</span></div>
+          </div>
+          <ol class="cards" id="mapList"></ol>
+          <details class="explain">
+            <summary>{{map.all}}</summary>
+            <div class="tablewrap" style="margin-top:10px">
+              <table class="mobs compact">
+                <thead><tr><th scope="col">{{col.map}}</th><th scope="col" class="n">{{col.lv}}</th><th scope="col" class="n">{{col.kph}}</th><th scope="col" class="n">{{col.eph}}</th><th scope="col" class="n">{{col.lvup}}</th><th scope="col">{{map.colState}}</th></tr></thead>
+                <tbody id="mapAll"></tbody>
+              </table>
+            </div>
+          </details>
+          <a class="btn wide" href="maps/">{{map.more}}</a>
+        </div>
+      </section>
+
       <section class="win" id="hunting" aria-labelledby="h-hunt">
         <div class="bar"><h2 id="h-hunt">{{rep.hunt.title}}</h2><span class="tag">HUNTING</span></div>
         <div class="body">
@@ -393,6 +416,7 @@
       <details><summary>{{faq.q3}}</summary><p>{{faq.a3}}</p></details>
       <details><summary>{{faq.q4}}</summary><p>{{faq.a4}}</p></details>
       <details><summary>{{faq.q5}}</summary><p>{{faq.a5}}</p></details>
+      <details><summary>{{faq.q6}}</summary><p>{{faq.a6}}</p></details>
     </div>
   </section>
 

@@ -15,10 +15,11 @@ MapleStory Classic World (GMS) effective-main-stat calculator with a spec report
 | 탭 | 내용 |
 |---|---|
 | **진단** | 환산 주스탯 · 1타 기대 데미지 · 예상 DPS · 타깃 처치 횟수/시간, 업그레이드 시뮬레이션 차트(공격력·주스탯·명중 +n 시 DPS와 "몇 방" 변곡점), 타깃 체크(현재 → 교체 후, 편차), 다음 스펙업 순위 + 목표 |
-| **사냥·보스** | 현재 레벨 추천 사냥터(명중률·처치 횟수·시간·공격당 경험치), ±15레벨 전체 표, 보스 준비도(필요 명중·처치 시간) + **보스 빌드 공유 링크** |
+| **사냥·보스** | **맵별 사냥 효율**: 맵 스폰·리젠 한도와 내 처치 속도로 시간당 처치 수·경험치·레벨업 시간 순위(다수기 대상 수·실제 공격 시간 비율 조정), 몹별 추천(명중률·처치 횟수·공격당 경험치), 보스 준비도 + **보스 빌드 공유 링크** |
 | **장비·주문서** | 장비 교체 비교표(공격력·스탯·공격 간격·평균 데미지·DPS·처치 횟수·시간), **100만 메소당 DPS 증가율**, 교체 세팅 적용, 주문서 100%/60%/10% 기대값·메소 효율 |
 | **스킬** | 2차 전직·무기별 **SP 투자 순서**(현재 레벨에서 찍을 수 있는 단계 체크), 스킬북(마스터 레벨·효과, 출처 링크), 성장 로드맵 |
 | **내 빌드** | 빌드 저장/불러오기/삭제, 현재 대비 DPS 비교, JSON 내보내기·가져오기, 공유 링크(`#b=MC3-…`) |
+| `/maps/` | 사냥터 효율: 맵별 몬스터 × 스폰 수, 솔로 동시 최대 몹 수, 시간당 리젠 한도, 저장된 캐릭터 기준 시간당 처치·경험치·레벨업 시간 |
 | `/mobs/` | 몬스터 명중표: 몹별 100% 명중 필요치, 내 레벨·명중 기준 명중률 |
 
 8 languages, static HTML per language with `hreflang`, canonical, Open Graph, JSON-LD (WebApplication + FAQPage), sitemap with alternates.
@@ -30,6 +31,9 @@ Community reverse-engineered formulas published by NiaDB — reproduced exactly 
 - [Damage formula](https://meowdb.com/msclassic/guides/explaining-the-damage-formula): `MAX = S × TotalWATK × (1.0 + (P·W + Q)/100 + AP/50)`, mastery `m = (lv/10 + 0.1) × 0.7`
 - [Elements](https://meowdb.com/msclassic/formulas/damage): single element — immune 0 · resistant 0.75 · neutral 1 · weak 1.25
 - Hit chance, level-gap scaling, defense `raw × 100 / (DEF + 100)`
+- [Spawn engine](https://meowdb.com/msclassic/guides/spawn-engine-respawn-and-map-capacity): respawn tick 7.56 s, capacity `floor(spawn points × 75%)` solo (+5%/extra player, 100% at six), timed spawns `3600 / (timer + 3.78 s)` per point per hour
+
+**시간당 효율 (EXP/hour)**: 몬스터 종류별 처치 수 = min(리젠 한도, 내 처치 속도) — 처치 속도 = 1시간 × 실제 공격 비율(기본 60%) ÷ (처치당 예상 공격 횟수 × 공격 간격 ÷ 한 번에 맞히는 몹 수(다수기 기본 3)). 처치 속도가 모자라면 스폰 수 비율대로 잡고, 리젠이 먼저 막힌 몹 몫의 시간은 다른 몹에 씀. 시간당 경험치 = Σ 처치 수 × 몹 경험치, 레벨업 시간 = [경험치 표](https://meowdb.com/msclassic/guides/exp-table-level-1-to-100) ÷ 시간당 경험치.
 
 **환산 주스탯 정의**: 기준 공격력(기본=현재)에서 부스탯·AP 0인 캐릭터가 같은 평균 데미지를 내는 데 필요한 주스탯. 기준을 고정하면 공격력 강화까지 반영.
 
@@ -39,14 +43,16 @@ Community reverse-engineered formulas published by NiaDB — reproduced exactly 
 
 `data/skills-*.json` — Classic skill lists per job (names, max level, key values at max) from NiaDB class pages, each skill linked to its source. Skill **order** in `src/guides.js` is this project's recommendation.
 
-`data/mobs.json` — 40 popular monsters (level, HP, EXP, avoidability, W.DEF, M.DEF, elements), each value taken from its individual [NiaDB](https://meowdb.com/msclassic/monsters) page and linked in the UI. This is a curated subset on purpose: NiaDB's [reuse policy](https://meowdb.com/reuse) allows individual facts with attribution but asks for permission before copying the database. To extend the list, email contact@meowdb.com (subject `Permission request: Maple Classic Calc`) or add values you measured yourself.
+`data/maps.json` — 29 popular training maps: spawn points per monster, timed spawns, mob rate, each linked to its [NiaDB map page](https://meowdb.com/msclassic/maps). `data/exp.json` — EXP table (levels 1–99).
+
+`data/mobs.json` — 48 popular monsters (level, HP, EXP, avoidability, W.DEF, M.DEF, elements), each value taken from its individual [NiaDB](https://meowdb.com/msclassic/monsters) page and linked in the UI. This is a curated subset on purpose: NiaDB's [reuse policy](https://meowdb.com/reuse) allows individual facts with attribution but asks for permission before copying the database. To extend the list, email contact@meowdb.com (subject `Permission request: Maple Classic Calc`) or add values you measured yourself.
 
 ## 개발 (Development)
 
 ```bash
 npm ci
-npm test          # engine, advisor, guide, auto-fill tests (NiaDB worked examples, SP budgets)
-npm run build     # → dist/ (16 pages, 8 languages)
+npm test          # engine, advisor, guide, auto-fill, map-efficiency tests (NiaDB worked examples, SP budgets)
+npm run build     # → dist/ (24 pages, 8 languages)
 npm run serve     # preview dist/
 ```
 
@@ -55,6 +61,7 @@ src/engine.ts     damage / conversion engine (no deps, language-neutral)
 src/advisor.ts    spec report: hunting spots, bosses, upgrades, goals, DPS, simulation, gear, scrolls
 src/guides.js     skill point orders per job/weapon, roadmap, Korean skill names
 src/auto.ts       auto-fill: skill levels from the guide, skill %/hits/element, mastery, buffs, attack time
+src/maps.ts       map efficiency: respawn limits, kills & EXP per hour, time per level
 src/app.js        browser UI
 src/pages/*.html  page templates   src/i18n/*.json  strings (en is the fallback)
 scripts/build.mjs static build, hreflang, JSON-LD, sitemap, robots

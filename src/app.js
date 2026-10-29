@@ -4,11 +4,19 @@ import * as AU from './auto.ts';
 import MOBDATA from '../data/mobs.json';
 import SKILLDATA from '../.build/skills.json';
 import { guideFor, spAvailable, ROADMAP, SKILL_KO } from './guides.js';
+import * as MP from './maps.ts';
+import MAPDATA from '../data/maps.json';
+import EXPDATA from '../data/exp.json';
 
 const I = window.__I18N__ || {};
 const L = window.__LOCALE__ || { code: 'en', mobName: 'en', meowPath: '', locales: [] };
 const MOBS = MOBDATA.mobs.slice().sort((a, b) => a.lv - b.lv || a.id - b.id);
 const MOB_BY_ID = new Map(MOBS.map((m) => [String(m.id), m]));
+const MOB_BY_NUM = new Map(MOBS.map((m) => [m.id, m]));
+const MAPS = MAPDATA.maps;
+const EXP = EXPDATA.exp;
+const CALC_KEY = 'msc-classic-v4';
+const MAPOPT_KEY = 'msc-mapopt-v1';
 
 const $ = (id) => document.getElementById(id);
 const t = (k, vars) => {
@@ -33,6 +41,65 @@ const signed = (n, fmt) => (!Number.isFinite(n) ? '–' : (n > 0.0005 ? '+' : n 
 const tone = (el, n) => { el.classList.toggle('pos', n > 0.0005); el.classList.toggle('neg', n < -0.0005); };
 const secs = (s) => (!Number.isFinite(s) ? '–' : s < 10 ? t('js.sec', { v: f1(s) }) : t('js.sec', { v: f0(s) }));
 const pct = (h) => (h * 100).toFixed(h >= 1 || h <= 0 ? 0 : 1);
+const skName = (o) => (o.slug === 'basic' ? t('f.basicAttack') : (L.code === 'ko' && SKILL_KO[o.slug]) ? SKILL_KO[o.slug] : (o.name || o.en));
+
+// ── training maps (shared by the calculator and /maps/) ──
+const nfc = new Intl.NumberFormat(L.code, { notation: 'compact', maximumFractionDigits: 1 });
+/** compact big numbers (55.9만, 558.9K); locales without a short form for thousands keep the full number */
+const fc = (n) => {
+  if (!Number.isFinite(n)) return '–';
+  if (n < 10000) return f0(n);
+  const parts = nfc.formatToParts(n);
+  return parts.some((x) => x.type === 'compact') ? parts.map((x) => x.value).join('') : f0(n);
+};
+const hrs = (h) => (!Number.isFinite(h) || h > 9999 ? '–' : h < 1 ? t('map.minutes', { v: f0(Math.max(1, h * 60)) }) : t('map.hours', { v: h < 10 ? f1(h) : f0(h) }));
+const mapName = (m) => (L.mobName === 'ko' && m.ko ? m.ko : m.en);
+const mapStreet = (m) => (L.mobName === 'ko' && m.streetKo ? m.streetKo : m.street || '');
+const mapSrc = (m) => 'https://meowdb.com/msclassic/' + (L.meowPath || '') + 'maps/' + m.id;
+const MAP_TONE = { good: 'st-good', ok: 'st-good', slow: 'st-warn', miss: 'st-bad', hard: 'st-bad', blocked: 'st-bad' };
+const mapState = (e) => (e.status === 'miss' ? t('map.st.miss', { v: pct(e.hit) }) : t('map.st.' + e.status));
+const lvSpan = (e) => (e.lvMin === e.lvMax ? String(e.lvMin) : e.lvMin + '–' + e.lvMax);
+function mapOpts() {
+  const o = store.get(MAPOPT_KEY) || {};
+  const active = parseFloat(o.active);
+  return { pack: o.pack ? +o.pack : null, active: active > 0 ? active : MP.DEFAULT_ACTIVE };
+}
+function bindMapOpts(onChange) {
+  const o = mapOpts();
+  $('mapPack').value = o.pack ? String(o.pack) : '';
+  $('mapActive').value = String(o.active);
+  if (!$('mapActive').value) $('mapActive').value = String(MP.DEFAULT_ACTIVE);
+  ['mapPack', 'mapActive'].forEach((id) => $(id).addEventListener('change', () => {
+    store.set(MAPOPT_KEY, { pack: $('mapPack').value, active: $('mapActive').value });
+    onChange();
+  }));
+}
+/** attacks to try on maps: the chosen skill, or every learned attack when the skill is on auto */
+function mapVariants(R, raw) {
+  const own = { c: R.c, targets: R.skill ? R.skill.targets : 1, skill: R.skill };
+  if (!raw || raw.skill !== 'auto' || !R.options.length) return [own];
+  const out = [own];
+  for (const o of R.options) {
+    if ((R.skill && o.slug === R.skill.slug) || (o.slug !== 'basic' && !(o.lv > 0))) continue;
+    try {
+      const r = AU.resolve({ ...raw, skill: o.slug, skillLv: null, skillPct: null, hits: null, attackMs: null }, SKILLDATA, E.NO_MOB);
+      if (r.skill && r.skill.slug === o.slug) out.push({ c: r.c, targets: r.skill.targets, skill: r.skill });
+    } catch (e) { /* skip */ }
+  }
+  return out;
+}
+/** rank maps for a resolved character (best attack per map); also refreshes the pack hint */
+function rankMapsFor(R, raw) {
+  const vs = mapVariants(R, raw);
+  const o = mapOpts();
+  const maxT = Math.max(1, ...vs.map((v) => v.targets));
+  $('mapPack').options[0].textContent = t('map.packAuto', { n: MP.mobsPerCast({ targets: maxT, pack: null }) });
+  $('mapPackHint').textContent = maxT > 1 ? t('map.packHint', { max: maxT, n: MP.mobsPerCast({ targets: maxT, pack: o.pack }) }) : t('map.packSingle');
+  return MP.rankMapsBest(vs, MAPS, MOB_BY_NUM, { pack: o.pack, active: o.active }).map((e) => ({ ...e, skill: vs[e.variant].skill }));
+}
+const mapSkill = (e) => (e.skill ? skName(e.skill) + (e.perCast > 1 ? ' ×' + e.perCast : '') : '');
+/** maps worth listing for this level: anything you can farm, plus the ones around your level */
+const suits = (e, lv) => MP.isRecommendable(e) || (e.lvMax >= lv - 25 && e.lvMin <= lv + 15);
 
 function affinityChips(m, withSource) {
   const parts = Object.entries(m.el).map(([el, a]) =>
@@ -72,7 +139,7 @@ langTip();
 
 // ═════════════════════════ calculator / dashboard ═════════════════════════
 function calcPage() {
-  const KEY = 'msc-classic-v4';
+  const KEY = CALC_KEY;
   const BUILDS_KEY = 'msc-builds-v1';
   const BASE_NUM = ['level', 'str', 'dex', 'int', 'luk', 'watk', 'matk', 'acc'];
   const OVR_NUM = ['skillLv', 'skillPct', 'hits', 'attackMs', 'weaponStage', 'masterySkillLv', 'apPassive', 'apBuff', 'critRate', 'critDmg', 'defIgnorePct'];
@@ -135,7 +202,6 @@ function calcPage() {
     addOpt(sel, '', t('stage.auto'));
     for (let n = 2; n <= 9; n++) addOpt(sel, String(n), n + ' · ' + t(n <= 4 ? 'stage.fast' : n <= 6 ? 'stage.normal' : 'stage.slow'));
   })();
-  const skName = (o) => (o.slug === 'basic' ? t('f.basicAttack') : (L.code === 'ko' && SKILL_KO[o.slug]) ? SKILL_KO[o.slug] : (o.name || o.en));
   function fillSkills(R, selected) {
     const sel = $('skill');
     const keep = selected ?? sel.value;
@@ -416,6 +482,7 @@ function calcPage() {
     renderSim();
     renderTarget();
     renderUpgrades();
+    renderMaps();
     renderHunt();
     renderGear();
     renderScrolls();
@@ -542,6 +609,43 @@ function calcPage() {
       const extra = (tc.hit > 0 ? esc(secs(tc.seconds)) : '–') + '<small>' + esc(tc.hit > 0 ? t('boss.kill', { n: f0(Math.ceil(r.castsExpected)) }) : t('rep.st.cant')) + '</small>';
       return mobCard(r, extra, '<button class="chip" type="button" data-share-boss="' + r.mob.id + '">' + esc(t('boss.share')) + '</button>');
     }).join('');
+  }
+
+  // ── training maps: kills & EXP per hour ──
+  function mapCard(e, c) {
+    const m = e.map;
+    const mix = e.mobs.slice().sort((a, b) => b.spawn.count - a.spawn.count).map((x) => {
+      const nm = x.mob ? mobName(x.mob) : (x.spawn.en || '#' + x.spawn.id);
+      const k = x.boss ? t('map.boss') : !x.row || x.row.hit <= 0 ? t('rep.st.cant') : killText(x.row);
+      const tone = x.boss ? '' : !x.killable ? ' st-bad' : x.row.hit < 0.9 ? ' st-warn' : '';
+      return '<span class="chip' + tone + '">' + esc(nm) + ' ×' + x.spawn.count + (x.timed ? ' ⏱' : '') + ' · ' + esc(k) + '</span>';
+    }).join('');
+    const chips = [
+      '<span class="chip ' + MAP_TONE[e.status] + '">' + esc(mapState(e)) + '</span>',
+      mapSkill(e) ? '<span class="chip">' + esc(mapSkill(e)) + '</span>' : '',
+      '<span class="chip">' + esc(t('map.kph', { v: fc(e.kph) })) + '</span>',
+      '<span class="chip' + (e.limit === 'respawn' ? ' st-warn' : '') + '">' + esc(t('map.limit.' + e.limit)) + '</span>',
+      '<span class="chip">' + esc(t('map.spawnCap', { s: m.spawns, n: e.cap })) + '</span>',
+    ];
+    const where = mapStreet(m);
+    return '<li class="card map"><span class="nm"><a href="' + mapSrc(m) + '" target="_blank" rel="noopener">' + esc(mapName(m)) + '</a>' +
+      '<small>' + (where ? esc(where) + ' · ' : '') + 'Lv ' + lvSpan(e) + '</small></span>' +
+      '<span class="big">' + fc(e.eph) + '<small>' + esc(t('map.ephUnit')) + ' · ' + esc(t('map.lvup', { v: hrs(MP.hoursToLevel(c.level, e.eph, EXP)) })) + '</small></span>' +
+      '<div class="chips">' + chips.join('') + '</div><div class="chips mix">' + mix + '</div></li>';
+  }
+  function renderMaps() {
+    const { c, R, raw } = last;
+    const effs = rankMapsFor(R, { ...raw, skill: $('skill').value || 'auto' });
+    const rec = effs.filter(MP.isRecommendable).slice(0, 3);
+    $('mapList').innerHTML = rec.length ? rec.map((e) => mapCard(e, c)).join('') : '<li class="empty">' + esc(t('map.empty')) + '</li>';
+    const top = rec[0];
+    $('bestMap').hidden = !top;
+    if (top) $('bestMapText').textContent = t('map.bestLine', { map: mapName(top.map), eph: fc(top.eph), time: hrs(MP.hoursToLevel(c.level, top.eph, EXP)) });
+    $('mapAll').innerHTML = effs.filter((e) => suits(e, c.level)).map((e) =>
+      '<tr' + (MP.isRecommendable(e) ? '' : ' class="dim"') + '><td class="name"><a href="' + mapSrc(e.map) + '" target="_blank" rel="noopener">' + esc(mapName(e.map)) + '</a></td>' +
+      '<td class="n">' + lvSpan(e) + '</td><td class="n">' + fc(e.kph) + '</td><td class="n">' + fc(e.eph) + '</td>' +
+      '<td class="n">' + hrs(MP.hoursToLevel(c.level, e.eph, EXP)) + '</td>' +
+      '<td><span class="chip ' + MAP_TONE[e.status] + '">' + esc(mapState(e)) + '</span>' + (e.eph > 0 ? '<small class="sk">' + esc(mapSkill(e)) + '</small>' : '') + '</td></tr>').join('');
   }
 
   // ── gear workbench ──
@@ -718,7 +822,7 @@ function calcPage() {
   // ── events ──
   const onEdit = (e) => {
     const id = e.target.id || '';
-    if (id === 'codeIn' || id === 'bldName' || id === 'shareOut' || id === 'codeOut') return;
+    if (id === 'codeIn' || id === 'bldName' || id === 'shareOut' || id === 'codeOut' || id === 'mapPack' || id === 'mapActive') return;
     if (MOB_EDIT.includes(id)) $('mobPreset').value = '';
     if (e.type === 'change') {
       if (e.target.name === 'job') { fillSubJobs(e.target.value, null); fillWeapons(e.target.value, null); fillActions($('weapon').value, null); }
@@ -826,12 +930,14 @@ function calcPage() {
     r.readAsText(f);
   });
 
+  bindMapOpts(() => renderMaps());
+
   // ── boot ──
   ['sc_slots'].forEach((id) => { if (!$(id).value) $(id).value = 7; });
   function boot(fromSaved) {
     const saved = store.get(KEY);
     let ok = false;
-    if (saved && saved.c && E.WEAPONS[saved.c.weapon]) { try { writeState(saved); setPresetPressed(null); ok = true; } catch (e) { ok = false; } }
+    if (saved && saved.raw && E.WEAPONS[saved.raw.weapon]) { try { writeState(saved); setPresetPressed(null); ok = true; } catch (e) { ok = false; } }
     if (!ok) { writeState(PRESETS.fighter70); setPresetPressed('fighter70'); }
     render();
     if (!fromSaved) route();
@@ -872,5 +978,57 @@ function mobsPage() {
   update();
 }
 
+// ═════════════════════════ training maps page ═════════════════════════
+function mapsPage() {
+  const tbody = $('mapRows');
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+  const rowById = new Map(rows.map((tr) => [tr.dataset.map, tr]));
+  const mineCells = Array.from(document.querySelectorAll('[data-mine]'));
+  let R = null, raw = null;
+  const saved = store.get(CALC_KEY);
+  if (saved && saved.raw && E.WEAPONS[saved.raw.weapon]) {
+    try {
+      raw = { ...saved.raw };
+      raw.action = E.normalizeAction(raw);
+      R = AU.resolve(raw, SKILLDATA, E.NO_MOB);
+    } catch (e) { R = null; }
+  }
+  $('mineNone').hidden = !!R;
+  $('mineOpts').hidden = !R;
+  $('nearWrap').hidden = !R;
+  mineCells.forEach((el) => { el.hidden = !R; });
+  if (R) {
+    const c = R.c, sk = R.skill;
+    const who = (c.subJob ? t('sub.' + c.subJob) : t('job.' + c.job)) + ' · Lv ' + c.level;
+    $('mineWho').textContent = t('map.who', { who, skill: (sk ? skName(sk) : t('f.basicAttack')) + (sk && sk.targets > 1 ? ' ×' + sk.targets : ''), s: f2(c.attackMs / 1000) }) +
+      (raw.skill === 'auto' ? ' ' + t('map.whoAuto') : '');
+  }
+  function update() {
+    const q = $('mapSearch').value.trim().toLowerCase();
+    const near = R && $('mapNear').checked;
+    if (R) {
+      const c = R.c;
+      const effs = rankMapsFor(R, raw);
+      effs.forEach((e) => {
+        const tr = rowById.get(e.map.id);
+        if (!tr) return;
+        tr.classList.toggle('dim', !MP.isRecommendable(e));
+        tr.dataset.near = suits(e, c.level) ? '1' : '';
+        tr.querySelector('.kph').textContent = fc(e.kph);
+        tr.querySelector('.eph').innerHTML = esc(fc(e.eph)) + '<small class="st ' + MAP_TONE[e.status] + '">' + esc(mapState(e)) + '</small>' +
+          (e.eph > 0 ? '<small class="sk">' + esc(mapSkill(e)) + '</small>' : '');
+        tr.querySelector('.lvup').textContent = hrs(MP.hoursToLevel(c.level, e.eph, EXP));
+        tbody.appendChild(tr);
+      });
+    }
+    rows.forEach((tr) => { tr.hidden = (!!q && !tr.dataset.q.includes(q)) || (!!near && !q && !tr.dataset.near); });
+  }
+  $('mapSearch').addEventListener('input', update);
+  $('mapNear').addEventListener('change', update);
+  if (R) bindMapOpts(update);
+  update();
+}
+
 if (document.body.dataset.page === 'calc') calcPage();
 else if (document.body.dataset.page === 'mobs') mobsPage();
+else if (document.body.dataset.page === 'maps') mapsPage();

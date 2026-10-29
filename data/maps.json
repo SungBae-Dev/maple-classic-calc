@@ -1,0 +1,1335 @@
+{
+  "source": "NiaDB (meowdb.com) map pages",
+  "checked": "2026-10-30",
+  "respawn": {
+    "tickS": 7.56,
+    "cooldownS": 5,
+    "soloScalar": 0.75,
+    "perExtraPlayer": 0.05,
+    "fullPlayers": 6,
+    "src": "https://meowdb.com/msclassic/guides/spawn-engine-respawn-and-map-capacity",
+    "notes": "Capacity = spawn points x scalar (75% solo, +5%/extra player, 100% at 6+). Timed spawns use their own mobTime instead of the 5s cooldown. Map mobRate is shown on pages but NiaDB says MSC does not apply it to capacity."
+  },
+  "maps": [
+    {
+      "id": "010001010",
+      "en": "Henesys Hunting Ground I",
+      "ko": "헤네시스사냥터1",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Victoria Road",
+      "streetKo": "빅토리아 로드",
+      "lv": [
+        2,
+        14
+      ],
+      "spawns": 39,
+      "mobRate": 1.5,
+      "medianLv": 4,
+      "mobs": [
+        {
+          "id": 3,
+          "en": "Blue Snail",
+          "lv": 2,
+          "hp": 51,
+          "exp": 4,
+          "count": 4
+        },
+        {
+          "id": 4,
+          "en": "Shroom",
+          "lv": 3,
+          "hp": 62,
+          "exp": 6,
+          "count": 10
+        },
+        {
+          "id": 5,
+          "en": "Red Snail",
+          "lv": 4,
+          "hp": 68,
+          "exp": 8,
+          "count": 6
+        },
+        {
+          "id": 6,
+          "en": "Stump",
+          "lv": 5,
+          "hp": 133,
+          "exp": 10,
+          "count": 4
+        },
+        {
+          "id": 7,
+          "en": "Slime",
+          "lv": 6,
+          "hp": 115,
+          "exp": 12,
+          "count": 5
+        },
+        {
+          "id": 9,
+          "en": "Orange Mushroom",
+          "lv": 8,
+          "hp": 142,
+          "exp": 15,
+          "count": 5
+        },
+        {
+          "id": 13,
+          "en": "Green Mushroom",
+          "lv": 14,
+          "hp": 233,
+          "exp": 26,
+          "count": 5
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010001010"
+    },
+    {
+      "id": "010001021",
+      "en": "Mushroom Garden",
+      "ko": "버섯동산",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Hidden Street",
+      "streetKo": "히든 스트리트",
+      "lv": [
+        3,
+        8
+      ],
+      "spawns": 34,
+      "mobRate": 1.3,
+      "medianLv": 4,
+      "mobs": [
+        {
+          "id": 4,
+          "en": "Shroom",
+          "lv": 3,
+          "hp": 62,
+          "exp": 6,
+          "count": 10
+        },
+        {
+          "id": 5,
+          "en": "Red Snail",
+          "lv": 4,
+          "hp": 68,
+          "exp": 8,
+          "count": 9
+        },
+        {
+          "id": 9,
+          "en": "Orange Mushroom",
+          "lv": 8,
+          "hp": 142,
+          "exp": 15,
+          "count": 15
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010001021"
+    },
+    {
+      "id": "010004010",
+      "en": "West Street Corner of Perion",
+      "ko": "페리온서쪽길목",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Victoria Road",
+      "streetKo": "빅토리아 로드",
+      "lv": [
+        2,
+        14
+      ],
+      "spawns": 53,
+      "mobRate": 1,
+      "medianLv": 5,
+      "mobs": [
+        {
+          "id": 3,
+          "en": "Blue Snail",
+          "lv": 2,
+          "hp": 51,
+          "exp": 4,
+          "count": 10
+        },
+        {
+          "id": 6,
+          "en": "Stump",
+          "lv": 5,
+          "hp": 133,
+          "exp": 10,
+          "count": 24
+        },
+        {
+          "id": 11,
+          "en": "Dark Stump",
+          "lv": 11,
+          "hp": 236,
+          "exp": 21,
+          "count": 14
+        },
+        {
+          "id": 13,
+          "en": "Green Mushroom",
+          "lv": 14,
+          "hp": 233,
+          "exp": 26,
+          "count": 5
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010004010"
+    },
+    {
+      "id": "010002061",
+      "en": "The Tree That Grew II",
+      "ko": "솟아오른나무2",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Victoria Road",
+      "streetKo": "빅토리아 로드",
+      "lv": [
+        5,
+        11
+      ],
+      "spawns": 70,
+      "mobRate": 1,
+      "medianLv": 6,
+      "mobs": [
+        {
+          "id": 6,
+          "en": "Stump",
+          "lv": 5,
+          "hp": 133,
+          "exp": 10,
+          "count": 28
+        },
+        {
+          "id": 7,
+          "en": "Slime",
+          "lv": 6,
+          "hp": 115,
+          "exp": 12,
+          "count": 30
+        },
+        {
+          "id": 11,
+          "en": "Dark Stump",
+          "lv": 11,
+          "hp": 236,
+          "exp": 21,
+          "count": 12
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010002061"
+    },
+    {
+      "id": "010001081",
+      "en": "The Blue Mushroom Forest",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Hidden Street",
+      "streetKo": "히든 스트리트",
+      "lv": [
+        2,
+        19
+      ],
+      "spawns": 32,
+      "mobRate": 1,
+      "medianLv": 12.5,
+      "mobs": [
+        {
+          "id": 3,
+          "en": "Blue Snail",
+          "lv": 2,
+          "hp": 51,
+          "exp": 4,
+          "count": 7
+        },
+        {
+          "id": 5,
+          "en": "Red Snail",
+          "lv": 4,
+          "hp": 68,
+          "exp": 8,
+          "count": 1
+        },
+        {
+          "id": 7,
+          "en": "Slime",
+          "lv": 6,
+          "hp": 115,
+          "exp": 12,
+          "count": 8
+        },
+        {
+          "id": 16,
+          "en": "Blue Mushroom",
+          "lv": 19,
+          "hp": 342,
+          "exp": 35,
+          "count": 16
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010001081"
+    },
+    {
+      "id": "010003061",
+      "en": "Line 1 <Area 1>",
+      "ko": "1호선<1구역>",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Kerning City Subway",
+      "streetKo": "커닝시티 지하철",
+      "spawns": 64,
+      "mobRate": 0.9,
+      "medianLv": 15,
+      "mobs": [
+        {
+          "id": 14,
+          "en": "Bubbling",
+          "lv": 15,
+          "hp": 259,
+          "exp": 28,
+          "count": 64
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010003061"
+    },
+    {
+      "id": "010003062",
+      "en": "Transfer Area",
+      "ko": "환승구역",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Kerning City Subway",
+      "streetKo": "커닝시티 지하철",
+      "lv": [
+        20,
+        20
+      ],
+      "spawns": 38,
+      "mobRate": 0.7,
+      "medianLv": 20,
+      "mobs": [
+        {
+          "id": 17,
+          "en": "Stirge",
+          "lv": 20,
+          "hp": 296,
+          "exp": 37,
+          "count": 38
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010003062"
+    },
+    {
+      "id": "010003094",
+      "en": "Dangerous Croko II",
+      "ko": "위험한크로코2",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Warning Street",
+      "streetKo": "워닝 스트리트",
+      "lv": [
+        6,
+        52
+      ],
+      "spawns": 54,
+      "mobRate": 1,
+      "medianLv": 21,
+      "mobs": [
+        {
+          "id": 7,
+          "en": "Slime",
+          "lv": 6,
+          "hp": 115,
+          "exp": 12,
+          "count": 9
+        },
+        {
+          "id": 18,
+          "en": "Jr. Necki",
+          "lv": 21,
+          "hp": 272,
+          "exp": 39,
+          "count": 21
+        },
+        {
+          "id": 46,
+          "en": "Croco",
+          "lv": 52,
+          "hp": 3136,
+          "exp": 146,
+          "count": 24
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010003094"
+    },
+    {
+      "id": "010001102",
+      "en": "The Entrance of Golem's Temple",
+      "ko": "골렘의사원입구",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Victoria Road",
+      "streetKo": "빅토리아 로드",
+      "lv": [
+        19,
+        56
+      ],
+      "spawns": 24,
+      "mobRate": 1.5,
+      "medianLv": 24,
+      "mobs": [
+        {
+          "id": 16,
+          "en": "Blue Mushroom",
+          "lv": 19,
+          "hp": 342,
+          "exp": 35,
+          "count": 12
+        },
+        {
+          "id": 28,
+          "en": "Fairy 4",
+          "lv": 29,
+          "hp": 593,
+          "exp": 54,
+          "count": 3
+        },
+        {
+          "id": 48,
+          "en": "Stone Golem",
+          "lv": 56,
+          "hp": 5134,
+          "exp": 175,
+          "count": 9
+        }
+      ],
+      "timed": [
+        {
+          "id": 28,
+          "en": "Fairy 4",
+          "respawnS": 180,
+          "respawnMaxS": 1800
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010001102"
+    },
+    {
+      "id": "010005062",
+      "en": "Ant Tunnel III",
+      "ko": "개미굴3",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Dungeon",
+      "streetKo": "던전",
+      "lv": [
+        22,
+        24
+      ],
+      "spawns": 99,
+      "mobRate": 0.6,
+      "medianLv": 24,
+      "mobs": [
+        {
+          "id": 19,
+          "en": "Horny Mushroom",
+          "lv": 22,
+          "hp": 403,
+          "exp": 41,
+          "count": 38
+        },
+        {
+          "id": 21,
+          "en": "Zombie Mushroom",
+          "lv": 24,
+          "hp": 436,
+          "exp": 45,
+          "count": 61
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010005062"
+    },
+    {
+      "id": "010005078",
+      "en": "The Grave of Mushmom",
+      "ko": "머쉬맘의 무덤",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Dungeon",
+      "streetKo": "던전",
+      "lv": [
+        24,
+        55
+      ],
+      "spawns": 16,
+      "mobRate": 1,
+      "medianLv": 24,
+      "mobs": [
+        {
+          "id": 21,
+          "en": "Zombie Mushroom",
+          "lv": 24,
+          "hp": 436,
+          "exp": 45,
+          "count": 13
+        },
+        {
+          "id": 34,
+          "en": "Jr. Boogie 2",
+          "lv": 35,
+          "hp": 1395,
+          "exp": 69,
+          "count": 2
+        },
+        {
+          "id": 700002,
+          "en": "Zombie Mushmom",
+          "lv": 55,
+          "hp": 66640,
+          "exp": 668,
+          "count": 1
+        }
+      ],
+      "timed": [
+        {
+          "id": 700002,
+          "en": "Zombie Mushmom",
+          "respawnS": 3600,
+          "respawnMaxS": 7200
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010005078"
+    },
+    {
+      "id": "010004041",
+      "en": "Land of Wild Boar",
+      "ko": "와일드보어의 땅",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Hidden Street",
+      "streetKo": "히든 스트리트",
+      "lv": [
+        23,
+        35
+      ],
+      "spawns": 35,
+      "mobRate": 1,
+      "medianLv": 25,
+      "mobs": [
+        {
+          "id": 20,
+          "en": "Dark Axe Stump",
+          "lv": 23,
+          "hp": 547,
+          "exp": 43,
+          "count": 7
+        },
+        {
+          "id": 22,
+          "en": "Wild Boar",
+          "lv": 25,
+          "hp": 510,
+          "exp": 46,
+          "count": 22
+        },
+        {
+          "id": 33,
+          "en": "Jr. Boogie 1",
+          "lv": 35,
+          "hp": 1395,
+          "exp": 69,
+          "count": 3
+        },
+        {
+          "id": 34,
+          "en": "Jr. Boogie 2",
+          "lv": 35,
+          "hp": 1395,
+          "exp": 69,
+          "count": 3
+        }
+      ],
+      "timed": [
+        {
+          "id": 33,
+          "en": "Jr. Boogie 1",
+          "respawnS": 600
+        },
+        {
+          "id": 34,
+          "en": "Jr. Boogie 2",
+          "respawnS": 300
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010004041"
+    },
+    {
+      "id": "010005070",
+      "en": "Ant Tunnel Park",
+      "ko": "개미굴광장",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Dungeon",
+      "streetKo": "던전",
+      "lv": [
+        22,
+        27
+      ],
+      "spawns": 58,
+      "mobRate": 0.8,
+      "medianLv": 27,
+      "mobs": [
+        {
+          "id": 19,
+          "en": "Horny Mushroom",
+          "lv": 22,
+          "hp": 403,
+          "exp": 41,
+          "count": 4
+        },
+        {
+          "id": 21,
+          "en": "Zombie Mushroom",
+          "lv": 24,
+          "hp": 436,
+          "exp": 45,
+          "count": 23
+        },
+        {
+          "id": 23,
+          "en": "Evil Eye",
+          "lv": 27,
+          "hp": 606,
+          "exp": 50,
+          "count": 31
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010005070"
+    },
+    {
+      "id": "010003090",
+      "en": "The Swamp of Despair I",
+      "ko": "방황의늪1",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Warning Street",
+      "streetKo": "워닝 스트리트",
+      "lv": [
+        6,
+        31
+      ],
+      "spawns": 63,
+      "mobRate": 1,
+      "medianLv": 31,
+      "mobs": [
+        {
+          "id": 7,
+          "en": "Slime",
+          "lv": 6,
+          "hp": 115,
+          "exp": 12,
+          "count": 9
+        },
+        {
+          "id": 18,
+          "en": "Jr. Necki",
+          "lv": 21,
+          "hp": 272,
+          "exp": 39,
+          "count": 10
+        },
+        {
+          "id": 19,
+          "en": "Horny Mushroom",
+          "lv": 22,
+          "hp": 403,
+          "exp": 41,
+          "count": 3
+        },
+        {
+          "id": 29,
+          "en": "Ligator",
+          "lv": 31,
+          "hp": 853,
+          "exp": 58,
+          "count": 41
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010003090"
+    },
+    {
+      "id": "010004101",
+      "en": "Dangerous Valley",
+      "ko": "위험한골짜기",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Hidden Street",
+      "streetKo": "히든 스트리트",
+      "lv": [
+        32,
+        45
+      ],
+      "spawns": 34,
+      "mobRate": 1,
+      "medianLv": 32,
+      "mobs": [
+        {
+          "id": 30,
+          "en": "Fire Boar",
+          "lv": 32,
+          "hp": 842,
+          "exp": 60,
+          "count": 21
+        },
+        {
+          "id": 40,
+          "en": "Copper Drake",
+          "lv": 45,
+          "hp": 2595,
+          "exp": 107,
+          "count": 13
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010004101"
+    },
+    {
+      "id": "010003066",
+      "en": "Line 2 <Area 1>",
+      "ko": "2호선<1구역>",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Kerning City Subway",
+      "streetKo": "커닝시티 지하철",
+      "lv": [
+        21,
+        34
+      ],
+      "spawns": 97,
+      "mobRate": 0.9,
+      "medianLv": 34,
+      "mobs": [
+        {
+          "id": 18,
+          "en": "Jr. Necki",
+          "lv": 21,
+          "hp": 272,
+          "exp": 39,
+          "count": 14
+        },
+        {
+          "id": 32,
+          "en": "Jr. Wraith",
+          "lv": 34,
+          "hp": 982,
+          "exp": 66,
+          "count": 83
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010003066"
+    },
+    {
+      "id": "010005054",
+      "en": "Sleepy Dungeon V",
+      "ko": "슬리피던전5",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Dungeon",
+      "streetKo": "던전",
+      "lv": [
+        6,
+        58
+      ],
+      "spawns": 88,
+      "mobRate": 0.4,
+      "medianLv": 35,
+      "mobs": [
+        {
+          "id": 7,
+          "en": "Slime",
+          "lv": 6,
+          "hp": 115,
+          "exp": 12,
+          "count": 4
+        },
+        {
+          "id": 18,
+          "en": "Jr. Necki",
+          "lv": 21,
+          "hp": 272,
+          "exp": 39,
+          "count": 9
+        },
+        {
+          "id": 31,
+          "en": "Curse Eye",
+          "lv": 33,
+          "hp": 1001,
+          "exp": 63,
+          "count": 23
+        },
+        {
+          "id": 33,
+          "en": "Jr. Boogie 1",
+          "lv": 35,
+          "hp": 1395,
+          "exp": 69,
+          "count": 5
+        },
+        {
+          "id": 34,
+          "en": "Jr. Boogie 2",
+          "lv": 35,
+          "hp": 1395,
+          "exp": 69,
+          "count": 5
+        },
+        {
+          "id": 35,
+          "en": "Lupin",
+          "lv": 37,
+          "hp": 1336,
+          "exp": 75,
+          "count": 23
+        },
+        {
+          "id": 49,
+          "en": "Dark Stone Golem",
+          "lv": 58,
+          "hp": 5428,
+          "exp": 192,
+          "count": 19
+        }
+      ],
+      "timed": [
+        {
+          "id": 33,
+          "en": "Jr. Boogie 1",
+          "respawnS": 300
+        },
+        {
+          "id": 34,
+          "en": "Jr. Boogie 2",
+          "respawnS": 600
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010005054"
+    },
+    {
+      "id": "010007020",
+      "en": "Lorang Lorang",
+      "ko": "로랑로랑",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Florina Road",
+      "streetKo": "플로리나 로드",
+      "lv": [
+        37,
+        38
+      ],
+      "spawns": 40,
+      "mobRate": 0.7,
+      "medianLv": 38,
+      "mobs": [
+        {
+          "id": 35,
+          "en": "Lupin",
+          "lv": 37,
+          "hp": 1336,
+          "exp": 75,
+          "count": 5
+        },
+        {
+          "id": 36,
+          "en": "Lorang",
+          "lv": 38,
+          "hp": 1714,
+          "exp": 78,
+          "count": 35
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010007020"
+    },
+    {
+      "id": "010005091",
+      "en": "Wild Kargo's Area",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Dungeon",
+      "streetKo": "던전",
+      "lv": [
+        40,
+        62
+      ],
+      "spawns": 31,
+      "mobRate": 1,
+      "medianLv": 40,
+      "mobs": [
+        {
+          "id": 37,
+          "en": "Cold Eye",
+          "lv": 40,
+          "hp": 1894,
+          "exp": 85,
+          "count": 17
+        },
+        {
+          "id": 51,
+          "en": "Wild Kargo",
+          "lv": 62,
+          "hp": 5057,
+          "exp": 231,
+          "count": 14
+        }
+      ],
+      "timed": [
+        {
+          "id": 51,
+          "en": "Wild Kargo",
+          "respawnS": 120
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010005091"
+    },
+    {
+      "id": "010005103",
+      "en": "Sanctuary Entrance III",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Dungeon",
+      "streetKo": "던전",
+      "lv": [
+        40,
+        75
+      ],
+      "spawns": 14,
+      "mobRate": 0.8,
+      "medianLv": 40,
+      "mobs": [
+        {
+          "id": 37,
+          "en": "Cold Eye",
+          "lv": 40,
+          "hp": 1894,
+          "exp": 85,
+          "count": 8
+        },
+        {
+          "id": 52,
+          "en": "Tauromacis",
+          "lv": 70,
+          "hp": 9328,
+          "exp": 337,
+          "count": 2
+        },
+        {
+          "id": 53,
+          "en": "Taurospear",
+          "lv": 75,
+          "hp": 12535,
+          "exp": 429,
+          "count": 4
+        }
+      ],
+      "timed": [
+        {
+          "id": 37,
+          "en": "Cold Eye",
+          "respawnS": 10
+        },
+        {
+          "id": 52,
+          "en": "Tauromacis",
+          "respawnS": 60
+        },
+        {
+          "id": 53,
+          "en": "Taurospear",
+          "respawnS": 30,
+          "respawnMaxS": 60
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010005103"
+    },
+    {
+      "id": "010002023",
+      "en": "Monkey Forest II",
+      "ko": "원숭이의숲2",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Victoria Road",
+      "streetKo": "빅토리아 로드",
+      "lv": [
+        37,
+        41
+      ],
+      "spawns": 35,
+      "mobRate": 0.8,
+      "medianLv": 41,
+      "mobs": [
+        {
+          "id": 35,
+          "en": "Lupin",
+          "lv": 37,
+          "hp": 1336,
+          "exp": 75,
+          "count": 10
+        },
+        {
+          "id": 38,
+          "en": "Zombie Lupin",
+          "lv": 41,
+          "hp": 1774,
+          "exp": 89,
+          "count": 25
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010002023"
+    },
+    {
+      "id": "010007040",
+      "en": "Hot Sand",
+      "ko": "따뜻한모래밭",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Florina Road",
+      "streetKo": "플로리나 로드",
+      "lv": [
+        46,
+        49
+      ],
+      "spawns": 38,
+      "mobRate": 1,
+      "medianLv": 46,
+      "mobs": [
+        {
+          "id": 41,
+          "en": "Tortie",
+          "lv": 46,
+          "hp": 2671,
+          "exp": 111,
+          "count": 25
+        },
+        {
+          "id": 44,
+          "en": "Clang",
+          "lv": 49,
+          "hp": 2899,
+          "exp": 127,
+          "count": 13
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010007040"
+    },
+    {
+      "id": "010003067",
+      "en": "Line 2 <Area 2>",
+      "ko": "2호선<2구역>",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Kerning City Subway",
+      "streetKo": "커닝시티 지하철",
+      "lv": [
+        21,
+        48
+      ],
+      "spawns": 107,
+      "mobRate": 0.9,
+      "medianLv": 48,
+      "mobs": [
+        {
+          "id": 18,
+          "en": "Jr. Necki",
+          "lv": 21,
+          "hp": 272,
+          "exp": 39,
+          "count": 18
+        },
+        {
+          "id": 32,
+          "en": "Jr. Wraith",
+          "lv": 34,
+          "hp": 982,
+          "exp": 66,
+          "count": 32
+        },
+        {
+          "id": 43,
+          "en": "Wraith",
+          "lv": 48,
+          "hp": 2350,
+          "exp": 122,
+          "count": 57
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010003067"
+    },
+    {
+      "id": "010005075",
+      "en": "Drake Hunting Ground",
+      "ko": "드레이크사냥터",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Dungeon",
+      "streetKo": "던전",
+      "lv": [
+        22,
+        50
+      ],
+      "spawns": 22,
+      "mobRate": 1.1,
+      "medianLv": 50,
+      "mobs": [
+        {
+          "id": 19,
+          "en": "Horny Mushroom",
+          "lv": 22,
+          "hp": 403,
+          "exp": 41,
+          "count": 2
+        },
+        {
+          "id": 34,
+          "en": "Jr. Boogie 2",
+          "lv": 35,
+          "hp": 1395,
+          "exp": 69,
+          "count": 2
+        },
+        {
+          "id": 45,
+          "en": "Drake",
+          "lv": 50,
+          "hp": 3218,
+          "exp": 133,
+          "count": 18
+        }
+      ],
+      "timed": [
+        {
+          "id": 34,
+          "en": "Jr. Boogie 2",
+          "respawnS": 300
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010005075"
+    },
+    {
+      "id": "010004102",
+      "en": "Dangerous Valley II",
+      "ko": "위험한골짜기2",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Hidden Street",
+      "streetKo": "히든 스트리트",
+      "lv": [
+        32,
+        60
+      ],
+      "spawns": 30,
+      "mobRate": 1,
+      "medianLv": 60,
+      "mobs": [
+        {
+          "id": 30,
+          "en": "Fire Boar",
+          "lv": 32,
+          "hp": 842,
+          "exp": 60,
+          "count": 8
+        },
+        {
+          "id": 40,
+          "en": "Copper Drake",
+          "lv": 45,
+          "hp": 2595,
+          "exp": 107,
+          "count": 5
+        },
+        {
+          "id": 50,
+          "en": "Red Drake",
+          "lv": 60,
+          "hp": 5184,
+          "exp": 211,
+          "count": 17
+        }
+      ],
+      "timed": [
+        {
+          "id": 50,
+          "en": "Red Drake",
+          "respawnS": 20,
+          "respawnMaxS": 60
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010004102"
+    },
+    {
+      "id": "010004137",
+      "en": "Remains <Tomb> IV",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Victoria Road",
+      "streetKo": "빅토리아 로드",
+      "spawns": 14,
+      "mobRate": 0.7,
+      "medianLv": 63,
+      "mobs": [
+        {
+          "id": 68,
+          "en": "Officer Skeleton",
+          "lv": 63,
+          "hp": 5976,
+          "exp": 242,
+          "count": 9
+        },
+        {
+          "id": 69,
+          "en": "Commander Skeleton",
+          "lv": 73,
+          "hp": 11915,
+          "exp": 390,
+          "count": 5
+        }
+      ],
+      "note": "Map page did not render its spawn table; counts, share and mob rate taken from NiaDB monster pages 68 and 69.",
+      "src": "https://meowdb.com/msclassic/maps/010004137",
+      "srcAlso": [
+        "https://meowdb.com/msclassic/monsters/68",
+        "https://meowdb.com/msclassic/monsters/69"
+      ]
+    },
+    {
+      "id": "010004142",
+      "en": "Camp 3",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Victoria Road",
+      "streetKo": "빅토리아 로드",
+      "lv": [
+        57,
+        63
+      ],
+      "spawns": 20,
+      "mobRate": 1.1,
+      "medianLv": 63,
+      "mobs": [
+        {
+          "id": 67,
+          "en": "Skeleton Soldier",
+          "lv": 57,
+          "hp": 3872,
+          "exp": 183,
+          "count": 6
+        },
+        {
+          "id": 68,
+          "en": "Officer Skeleton",
+          "lv": 63,
+          "hp": 5976,
+          "exp": 242,
+          "count": 14
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010004142"
+    },
+    {
+      "id": "010005104",
+      "en": "Sanctuary Entrance IV",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Dungeon",
+      "streetKo": "던전",
+      "lv": [
+        40,
+        75
+      ],
+      "spawns": 12,
+      "mobRate": 0.8,
+      "medianLv": 70,
+      "mobs": [
+        {
+          "id": 37,
+          "en": "Cold Eye",
+          "lv": 40,
+          "hp": 1894,
+          "exp": 85,
+          "count": 5
+        },
+        {
+          "id": 52,
+          "en": "Tauromacis",
+          "lv": 70,
+          "hp": 9328,
+          "exp": 337,
+          "count": 2
+        },
+        {
+          "id": 53,
+          "en": "Taurospear",
+          "lv": 75,
+          "hp": 12535,
+          "exp": 429,
+          "count": 5
+        }
+      ],
+      "timed": [
+        {
+          "id": 37,
+          "en": "Cold Eye",
+          "respawnS": 10,
+          "respawnMaxS": 20
+        },
+        {
+          "id": 52,
+          "en": "Tauromacis",
+          "respawnS": 60
+        },
+        {
+          "id": 53,
+          "en": "Taurospear",
+          "respawnS": 30,
+          "respawnMaxS": 120
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010005104"
+    },
+    {
+      "id": "010004138",
+      "en": "Remains <Cliff>",
+      "region": "Victoria Island",
+      "regionKo": "빅토리아 아일랜드",
+      "street": "Victoria Road",
+      "streetKo": "빅토리아 로드",
+      "lv": [
+        63,
+        73
+      ],
+      "spawns": 17,
+      "mobRate": 0.6,
+      "medianLv": 73,
+      "mobs": [
+        {
+          "id": 68,
+          "en": "Officer Skeleton",
+          "lv": 63,
+          "hp": 5976,
+          "exp": 242,
+          "count": 3
+        },
+        {
+          "id": 69,
+          "en": "Commander Skeleton",
+          "lv": 73,
+          "hp": 11915,
+          "exp": 390,
+          "count": 14
+        }
+      ],
+      "src": "https://meowdb.com/msclassic/maps/010004138"
+    }
+  ]
+}

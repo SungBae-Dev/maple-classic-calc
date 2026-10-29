@@ -1,0 +1,56 @@
+{{{head}}}
+<body data-page="maps" data-lang="{{lang}}">
+<div class="wrap">
+  {{{topnav}}}
+  <div class="langtip" id="langTip" hidden></div>
+
+  <header class="top">
+    <div class="eyebrow">MAPLESTORY CLASSIC WORLD · GMS</div>
+    <h1>{{maps.h1}}</h1>
+    <p class="lede">{{maps.lede}}</p>
+  </header>
+
+  <section class="win mine" aria-labelledby="h-mine">
+    <div class="bar"><h2 id="h-mine">{{maps.mine}}</h2><span class="tag">EXP / HOUR</span></div>
+    <div class="body">
+      <p class="note" id="mineWho"></p>
+      <p class="note" id="mineNone" hidden>{{maps.noChar}} <a class="btn sm" href="../">{{maps.toCalc}}</a></p>
+      <div class="grid g2 mapopts" id="mineOpts" hidden>
+        <div class="field"><label for="mapPack">{{map.pack}}</label><select id="mapPack"><option value="">{{map.packAutoLabel}}</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="6">6</option></select><span class="hint" id="mapPackHint"></span></div>
+        <div class="field"><label for="mapActive">{{map.active}}</label><select id="mapActive"><option value="0.4">40%</option><option value="0.6">60%</option><option value="0.8">80%</option><option value="1">100%</option></select><span class="hint">{{map.activeHint}}</span></div>
+      </div>
+    </div>
+  </section>
+
+  <form class="filters" autocomplete="off" onsubmit="return false">
+    <div class="field"><label for="mapSearch">{{maps.search}}</label><input type="search" id="mapSearch" inputmode="search"></div>
+    <label class="toggle near" id="nearWrap" hidden><input type="checkbox" id="mapNear" checked> <span>{{maps.near}}</span></label>
+  </form>
+
+  <div class="tablewrap">
+    <table class="mobs maps">
+      <thead><tr>
+        <th scope="col">{{col.map}}</th>
+        <th scope="col" class="n">{{col.lv}}</th>
+        <th scope="col" class="n">{{col.spawns}}</th>
+        <th scope="col" class="n">{{col.cap}}</th>
+        <th scope="col" class="n">{{col.ceiling}}</th>
+        <th scope="col">{{col.mobsOn}}</th>
+        <th scope="col" class="n" data-mine hidden>{{col.kph}}</th>
+        <th scope="col" class="n" data-mine hidden>{{col.eph}}</th>
+        <th scope="col" class="n" data-mine hidden>{{col.lvup}}</th>
+      </tr></thead>
+      <tbody id="mapRows">
+{{{mapRows}}}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">{{maps.ruleNote}}</p>
+  <p class="note">{{map.note}}</p>
+  <p class="note">{{{maps.note_html}}}</p>
+
+  {{{footer}}}
+</div>
+{{{scripts}}}
+</body>
+</html>
