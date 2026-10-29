@@ -104,7 +104,7 @@
   "faq.q5": "¿Qué precisión tiene?",
   "faq.a5": "Reproduce exactamente los ejemplos resueltos de NiaDB, como el rango 59–172 y el Power Strike de 154–449. Las fórmulas son mediciones de la comunidad y pueden cambiar con los parches.",
   "footer.formula_html": "Las fórmulas son estimaciones medidas por la comunidad y pueden cambiar con los parches. Fuente: <a href=\"https://meowdb.com/msclassic/guides/explaining-the-damage-formula\" target=\"_blank\" rel=\"noopener\">fórmula de daño de NiaDB</a>.",
-  "footer.notNexon": "Herramienta hecha por fans. No está afiliada ni respaldada por Nexon.",
+  "footer.notNexon": "Herramienta hecha por fans. No está afiliada ni respaldada por Nexon. Imágenes del juego © Nexon.",
   "footer.code_html": "Código abierto en <a href=\"https://github.com/SungBae-Dev/maple-classic-calc\" target=\"_blank\" rel=\"noopener\">GitHub</a>.",
   "mobs.h1": "Tabla de precisión de monstruos",
   "mobs.lede": "La precisión que necesitas para acertar siempre a los monstruos populares de Classic World. Ingresa tu nivel y tu precisión para ver tu probabilidad de acierto contra cada uno.",

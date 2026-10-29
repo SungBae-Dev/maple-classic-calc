@@ -104,7 +104,7 @@
   "faq.q5": "准确度如何？",
   "faq.a5": "能完全复现 NiaDB 的计算示例，例如 59–172 的伤害范围和 154–449 的强力攻击。公式来自社区实测，可能随补丁变化。",
   "footer.formula_html": "公式为社区实测的估算值，可能随补丁变化。来源：<a href=\"https://meowdb.com/msclassic/guides/explaining-the-damage-formula\" target=\"_blank\" rel=\"noopener\">NiaDB 伤害公式</a>。",
-  "footer.notNexon": "粉丝自制工具，与 Nexon 无关，也未获其认可。",
+  "footer.notNexon": "粉丝自制工具，与 Nexon 无关，也未获其认可。游戏图片 © Nexon。",
   "footer.code_html": "已在 <a href=\"https://github.com/SungBae-Dev/maple-classic-calc\" target=\"_blank\" rel=\"noopener\">GitHub</a> 开源。",
   "mobs.h1": "怪物命中表",
   "mobs.lede": "经典世界热门怪物的100%命中所需命中值。输入你的等级和命中，即可看到对每只怪物的命中率。",

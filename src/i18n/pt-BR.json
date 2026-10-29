@@ -104,7 +104,7 @@
   "faq.q5": "Os cálculos são confiáveis?",
   "faq.a5": "Ela reproduz exatamente os exemplos do NiaDB, como a faixa 59–172 e o Power Strike de 154–449. As fórmulas são medições da comunidade e podem mudar com patches.",
   "footer.formula_html": "As fórmulas são estimativas medidas pela comunidade e podem mudar com patches. Fonte: <a href=\"https://meowdb.com/msclassic/guides/explaining-the-damage-formula\" target=\"_blank\" rel=\"noopener\">fórmula de dano do NiaDB</a>.",
-  "footer.notNexon": "Ferramenta feita por fã. Sem afiliação ou endosso da Nexon.",
+  "footer.notNexon": "Ferramenta feita por fã. Sem afiliação ou endosso da Nexon. Imagens do jogo © Nexon.",
   "footer.code_html": "Código aberto no <a href=\"https://github.com/SungBae-Dev/maple-classic-calc\" target=\"_blank\" rel=\"noopener\">GitHub</a>.",
   "mobs.h1": "Tabela de precisão por monstro",
   "mobs.lede": "A precisão necessária para acerto garantido nos monstros populares do Classic World. Informe seu nível e sua precisão para ver a chance de acerto em cada um.",

@@ -7,6 +7,8 @@ import { guideFor, spAvailable, ROADMAP, SKILL_KO } from './guides.js';
 import * as MP from './maps.ts';
 import MAPDATA from '../data/maps.json';
 import EXPDATA from '../data/exp.json';
+import IMGKEYS from '../.build/img.json';
+import IMGDATA from '../data/images.json';
 
 const I = window.__I18N__ || {};
 const L = window.__LOCALE__ || { code: 'en', mobName: 'en', meowPath: '', locales: [] };
@@ -41,6 +43,18 @@ const signed = (n, fmt) => (!Number.isFinite(n) ? '–' : (n > 0.0005 ? '+' : n 
 const tone = (el, n) => { el.classList.toggle('pos', n > 0.0005); el.classList.toggle('neg', n < -0.0005); };
 const secs = (s) => (!Number.isFinite(s) ? '–' : s < 10 ? t('js.sec', { v: f1(s) }) : t('js.sec', { v: f0(s) }));
 const pct = (h) => (h * 100).toFixed(h >= 1 || h <= 0 ? 0 : 1);
+
+// ── game images (downloaded at build time; absent keys simply render nothing) ──
+const IMGSET = new Set(IMGKEYS);
+const img = (key, cls) => (IMGSET.has(key) ? '<img class="' + cls + '" src="' + (L.base || '') + 'img/' + key + '.png" alt="" loading="lazy" decoding="async">' : '');
+const mobImg = (m, cls) => img('mob/' + m.id, cls || 'sprite');
+/** skill icon: try the 2nd job, then the 1st job, then beginner */
+const skillImg = (slug, c) => {
+  for (const j of [c && c.subJob, c && c.job, 'beginner']) if (j && IMGSET.has('skill/' + j + '.' + slug)) return img('skill/' + j + '.' + slug, 'skico');
+  return '';
+};
+const weaponImg = (w) => (IMGDATA.items.weapons[w] ? img('item/' + IMGDATA.items.weapons[w], 'itemico') : '');
+const scrollImg = (w, pct) => ((IMGDATA.items.scrolls[w] || {})[pct] ? img('item/' + IMGDATA.items.scrolls[w][pct], 'itemico') : '');
 const skName = (o) => (o.slug === 'basic' ? t('f.basicAttack') : (L.code === 'ko' && SKILL_KO[o.slug]) ? SKILL_KO[o.slug] : (o.name || o.en));
 
 // ── training maps (shared by the calculator and /maps/) ──
@@ -358,6 +372,7 @@ function calcPage() {
     const ml = c.masteryLv != null ? c.masteryLv : E.masteryLevelFromSkill(c.masterySkillLv);
     $('masteryLabel').textContent = t('js.masteryLabel', { skill: t('mastery.' + spec.mastery) });
     $('masteryHint').textContent = (!magic && c.action === 'lucky7') ? t('js.masteryLucky') : t('js.masteryHint', { n: ml });
+    $('weaponIco').innerHTML = weaponImg(c.weapon);
     $('watkHint').textContent = c.weapon === 'claw' ? t('js.watkStars') : (c.weapon === 'bow' || c.weapon === 'crossbow') ? t('js.watkArrows') : t('js.watkBase');
     $('apPassiveHint').textContent = c.weapon === 'claw' ? t('js.apPassiveClaw') : t('js.apPassiveHint');
     const ph = (id, v, on) => { const el = $(id); el.placeholder = on ? t('js.autoVal', { v }) : ''; el.classList.toggle('auto', !!on); };
@@ -382,11 +397,11 @@ function calcPage() {
       ];
       if (R.c.skillElement && R.c.skillElement !== 'none') chips.push(t('skillEl.' + R.c.skillElement));
       if (sk.approx) chips.push(t('js.approx'));
-      $('skillInfo').innerHTML = chips.map((x) => '<span class="chip">' + esc(x) + '</span>').join('');
+      $('skillInfo').innerHTML = chips.map((x, i) => '<span class="chip">' + (i === 0 && sk.slug !== 'basic' ? skillImg(sk.slug, c) : '') + esc(x) + '</span>').join('');
     }
     const maxDps = Math.max(1, ...R.options.map((o) => o.dps));
     $('skillCompare').innerHTML = R.options.map((o) =>
-      '<tr data-skill="' + o.slug + '"' + (sk && o.slug === sk.slug ? ' class="sel"' : '') + '><td class="name">' + esc(skName(o)) + (o.targets > 1 ? '<small>×' + o.targets + '</small>' : '') + '</td>' +
+      '<tr data-skill="' + o.slug + '"' + (sk && o.slug === sk.slug ? ' class="sel"' : '') + '><td class="name">' + skillImg(o.slug, c) + esc(skName(o)) + (o.targets > 1 ? '<small>×' + o.targets + '</small>' : '') + '</td>' +
       '<td class="n">' + (o.slug === 'basic' ? '–' : o.lv) + '</td><td class="n">' + f0(o.dmg) + (o.hits > 1 ? '×' + o.hits : '') + '</td>' +
       '<td class="n">' + f2(o.animMs / 1000) + '</td>' +
       '<td class="n">' + f0(o.dps) + (o.dps >= maxDps ? ' ★' : '') + '</td></tr>').join('');
@@ -400,7 +415,7 @@ function calcPage() {
 
     // monster element
     const preset = MOB_BY_ID.get(mob.presetId);
-    $('mobInfo').innerHTML = preset ? affinityChips(preset, true) : '';
+    $('mobInfo').innerHTML = preset ? mobImg(preset, 'sprite') + affinityChips(preset, true) : '';
     $('mobInfo').hidden = !preset;
     const auto = E.elementFromAffinity(mob.affinity, c.skillElement);
     const elSel = $('mobElement');
@@ -589,7 +604,7 @@ function calcPage() {
     ];
     if (r.needAcc != null && r.hit < 1) chips.push('<span class="chip">' + esc(t('rep.need', { v: f0(r.needAcc) })) + '</span>');
     chips.push(affinityChips({ ...m, tags: m.tags.filter((x) => x !== 'boss') }, false));
-    return '<li class="card"><span class="nm">' + esc(mobName(m)) + '<small>Lv ' + m.lv + '</small></span><span class="big">' + extra + '</span>' +
+    return '<li class="card"><span class="nm withimg">' + mobImg(m) + '<span>' + esc(mobName(m)) + '<small>Lv ' + m.lv + '</small></span></span><span class="big">' + extra + '</span>' +
       '<div class="chips">' + chips.join('') + '</div><div class="acts">' + (acts || '') + '<a class="chip" href="#mob-' + m.id + '">' + esc(t('rep.calc')) + '</a></div></li>';
   }
   function renderHunt() {
@@ -600,7 +615,7 @@ function calcPage() {
       : '<li class="empty">' + esc(t('rep.hunt.empty')) + '</li>';
     const near = rep.rows.filter((r) => !r.mob.tags.includes('boss') && Math.abs(r.levelGap) <= 15);
     $('huntAll').innerHTML = near.map((r) =>
-      '<tr><td class="name"><a href="#mob-' + r.mob.id + '">' + esc(mobName(r.mob)) + '</a></td><td class="n">' + r.mob.lv + '</td>' +
+      '<tr><td class="name"><a href="#mob-' + r.mob.id + '">' + mobImg(r.mob, 'ico') + esc(mobName(r.mob)) + '</a></td><td class="n">' + r.mob.lv + '</td>' +
       '<td class="n hitcell ' + (r.hit >= 1 ? 'good' : r.hit >= 0.9 ? 'warn' : 'bad') + '">' + pct(r.hit) + '%</td>' +
       '<td><span class="chip ' + STATUS_TONE[r.status] + '">' + esc(killText(r)) + '</span></td><td class="n">' + esc(tsec(r.mob)) + '</td>' +
       '<td class="n">' + f1(r.expPerCast) + '</td><td class="n">' + (r.needAcc == null ? '–' : f0(r.needAcc)) + '</td></tr>').join('');
@@ -618,7 +633,7 @@ function calcPage() {
       const nm = x.mob ? mobName(x.mob) : (x.spawn.en || '#' + x.spawn.id);
       const k = x.boss ? t('map.boss') : !x.row || x.row.hit <= 0 ? t('rep.st.cant') : killText(x.row);
       const tone = x.boss ? '' : !x.killable ? ' st-bad' : x.row.hit < 0.9 ? ' st-warn' : '';
-      return '<span class="chip' + tone + '">' + esc(nm) + ' ×' + x.spawn.count + (x.timed ? ' ⏱' : '') + ' · ' + esc(k) + '</span>';
+      return '<span class="chip' + tone + '">' + (x.mob ? mobImg(x.mob, 'ico') : '') + esc(nm) + ' ×' + x.spawn.count + (x.timed ? ' ⏱' : '') + ' · ' + esc(k) + '</span>';
     }).join('');
     const chips = [
       '<span class="chip ' + MAP_TONE[e.status] + '">' + esc(mapState(e)) + '</span>',
@@ -628,7 +643,7 @@ function calcPage() {
       '<span class="chip">' + esc(t('map.spawnCap', { s: m.spawns, n: e.cap })) + '</span>',
     ];
     const where = mapStreet(m);
-    return '<li class="card map"><span class="nm"><a href="' + mapSrc(m) + '" target="_blank" rel="noopener">' + esc(mapName(m)) + '</a>' +
+    return '<li class="card map">' + img('map/' + m.id, 'minimap') + '<span class="nm"><a href="' + mapSrc(m) + '" target="_blank" rel="noopener">' + esc(mapName(m)) + '</a>' +
       '<small>' + (where ? esc(where) + ' · ' : '') + 'Lv ' + lvSpan(e) + '</small></span>' +
       '<span class="big">' + fc(e.eph) + '<small>' + esc(t('map.ephUnit')) + ' · ' + esc(t('map.lvup', { v: hrs(MP.hoursToLevel(c.level, e.eph, EXP)) })) + '</small></span>' +
       '<div class="chips">' + chips.join('') + '</div><div class="chips mix">' + mix + '</div></li>';
@@ -687,7 +702,7 @@ function calcPage() {
     const res = plans.map((p) => ({ p, r: A.scrollExpectation(c, target && target.hp > 0 ? target : null, { ...p, slots }) }));
     const best = res.filter((x) => x.r.perMillion != null).sort((a, b) => b.r.perMillion - a.r.perMillion)[0];
     $('scrollTable').innerHTML = res.map(({ p, r }) =>
-      '<tr' + (best && best.p === p ? ' class="best"' : '') + '><td>' + esc(t('scroll.type', { pct: p.successPct, gain: p.gain, unit })) + '</td>' +
+      '<tr' + (best && best.p === p ? ' class="best"' : '') + '><td>' + scrollImg(c.weapon, p.key) + esc(t('scroll.type', { pct: p.successPct, gain: p.gain, unit })) + '</td>' +
       '<td class="n">+' + f1(r.expectedGain) + '</td><td class="n">' + signed(r.dpsPct * 100, f1) + '%</td>' +
       '<td class="n">' + (r.allSuccessPct >= 0.1 ? f1(r.allSuccessPct) : '<0.1') + '%</td>' +
       '<td class="n">' + (r.perMillion == null ? '–' : signed(r.perMillion, f2) + '%p') + '</td></tr>').join('');
@@ -721,14 +736,14 @@ function calcPage() {
         levels[g.skill] = Math.max(from, to);
         const start = used; used += cost;
         const state = avail >= used ? 'done' : avail > start ? 'now' : '';
-        items += '<li class="' + state + '"><span class="t">' + esc(skName(sk)) + ' <small>Lv ' + from + ' → ' + to + '</small></span>' +
+        items += '<li class="' + state + '"><span class="t">' + img('skill/' + tr.key + '.' + sk.slug, 'skico') + esc(skName(sk)) + ' <small>Lv ' + from + ' → ' + to + '</small></span>' +
           '<span class="d">' + esc(t('reason.' + g.why)) + ' · SP ' + cost + '</span></li>';
       });
       html += '<h3 class="skhead">' + esc(t('sk.tierHead', { job: tr.label, sp: avail, need: used })) + '</h3>' +
         (items ? '<ol class="steps">' + items + '</ol>' : '<p class="note">' + esc(t('sk.none')) + '</p>');
       if (data) {
         tableRows += '<tr class="grp"><th colspan="3" scope="rowgroup">' + esc(tr.label) + '</th></tr>' + data.skills.map((sk) =>
-          '<tr><td class="name"><a href="' + esc(sk.src || data.src) + '" target="_blank" rel="noopener">' + esc(skName(sk)) + '</a><small>' + esc(t('sktype.' + sk.type)) + (sk.dmgPct ? ' · ' + sk.dmgPct + '%' + (sk.hits > 1 ? ' ×' + sk.hits : '') : '') + '</small></td>' +
+          '<tr><td class="name"><a href="' + esc(sk.src || data.src) + '" target="_blank" rel="noopener">' + img('skill/' + tr.key + '.' + sk.slug, 'skico') + esc(skName(sk)) + '</a><small>' + esc(t('sktype.' + sk.type)) + (sk.dmgPct ? ' · ' + sk.dmgPct + '%' + (sk.hits > 1 ? ' ×' + sk.hits : '') : '') + '</small></td>' +
           '<td class="n">' + esc(sk.maxLv ?? '–') + '</td><td>' + esc(sk.atMax || '') + '</td></tr>').join('');
       }
     });
@@ -1000,6 +1015,7 @@ function mapsPage() {
   if (R) {
     const c = R.c, sk = R.skill;
     const who = (c.subJob ? t('sub.' + c.subJob) : t('job.' + c.job)) + ' · Lv ' + c.level;
+    $('mineIco').innerHTML = weaponImg(c.weapon) + (sk && sk.slug !== 'basic' ? skillImg(sk.slug, c) : '');
     $('mineWho').textContent = t('map.who', { who, skill: (sk ? skName(sk) : t('f.basicAttack')) + (sk && sk.targets > 1 ? ' ×' + sk.targets : ''), s: f2(c.attackMs / 1000) }) +
       (raw.skill === 'auto' ? ' ' + t('map.whoAuto') : '');
   }

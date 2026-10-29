@@ -115,6 +115,13 @@ for (const j of Object.values(skillJobs)) {
 const { boosterStages, ordinaryAttackMs, weaponStageRange, magicFixedMs, healMs } = timing;
 writeFileSync(join(ROOT, '.build/skills.json'), JSON.stringify({ jobs: skillJobs, timing: { boosterStages, ordinaryAttackMs, weaponStageRange, magicFixedMs, healMs } }));
 
+// game images downloaded by scripts/fetch-images.mjs (optional — the site works without them)
+const IMG_DIR = join(ROOT, '.cache/img');
+const IMG = existsSync(join(IMG_DIR, 'manifest.json')) ? JSON.parse(read('.cache/img/manifest.json')) : {};
+const IMG_KEYS = Object.keys(IMG).filter((k) => existsSync(join(IMG_DIR, IMG[k]))).sort();
+writeFileSync(join(ROOT, '.build/img.json'), JSON.stringify(IMG_KEYS));
+const hasImg = new Set(IMG_KEYS);
+
 const js = (await build({
   entryPoints: [join(ROOT, 'src/app.js')], bundle: true, minify: true, format: 'iife', target: 'es2019',
   write: false, logLevel: 'warning', loader: { '.json': 'json' },
@@ -141,6 +148,8 @@ const verification = [
 
 const urlOf = (l, page) => SITE_URL + l.path + page.path;
 
+const imgTag = (base, key, cls) => (hasImg.has(key) ? `<img class="${cls}" src="${base}img/${IMG[key]}" alt="" loading="lazy" decoding="async">` : '');
+
 function mobRows(d, l, base) {
   const name = (m) => (l.code === 'ko' ? m.ko : m.en);
   return MOBS.map((m) => {
@@ -151,7 +160,7 @@ function mobRows(d, l, base) {
     const src = `https://meowdb.com/msclassic/${l.meow}monsters/${m.id}`;
     const sub = l.code === 'ko' ? `<small>${esc(m.en)}</small>` : '';
     return `<tr data-lv="${m.lv}" data-eva="${m.eva}" data-q="${esc(q)}">` +
-      `<td class="name"><a href="${src}" target="_blank" rel="noopener">${esc(name(m))}</a>${sub}</td>` +
+      `<td class="name"><div class="withimg">${imgTag(base, 'mob/' + m.id, 'sprite')}<div><a href="${src}" target="_blank" rel="noopener">${esc(name(m))}</a>${sub}</div></div></td>` +
       `<td class="n">${m.lv}</td><td class="n need">${need ?? '–'}</td><td class="n hitcell" data-hitcol hidden></td>` +
       `<td class="n">${m.eva}</td><td class="n">${m.wdef}</td><td class="n">${m.mdef}</td>` +
       `<td><div class="chips">${chips}</div></td>` +
@@ -169,14 +178,14 @@ function mapRows(d, l, base) {
     const chips = mobs.map((x) => {
       const mob = MOB_BY_ID.get(x.id);
       const nm = mob ? (ko ? mob.ko : mob.en) : x.en;
-      return `<span class="chip">${esc(nm)} <b>×${x.count}</b></span>`;
+      return `<span class="chip">${imgTag(base, 'mob/' + x.id, 'ico')}${esc(nm)} <b>×${x.count}</b></span>`;
     }).join('');
     const q = [m.en, m.ko || '', m.region || '', ...mobs.map((x) => { const mob = MOB_BY_ID.get(x.id); return mob ? mob.en + ' ' + mob.ko : x.en || ''; })].join(' ').toLowerCase();
     const src = `https://meowdb.com/msclassic/${l.meow}maps/${m.id}`;
     const name = ko && m.ko ? m.ko : m.en;
     const sub = ko && m.ko ? `<small>${esc(m.en)}</small>` : (m.region ? `<small>${esc(ko && m.regionKo ? m.regionKo : m.region)}</small>` : '');
     return `<tr data-map="${m.id}" data-lvmin="${lvMin}" data-lvmax="${lvMax}" data-q="${esc(q)}">` +
-      `<td class="name"><a href="${src}" target="_blank" rel="noopener">${esc(name)}</a>${sub}</td>` +
+      `<td class="name"><div class="withimg">${imgTag(base, 'map/' + m.id, 'minimap')}<div><a href="${src}" target="_blank" rel="noopener">${esc(name)}</a>${sub}</div></div></td>` +
       `<td class="n">${lvMin === lvMax ? lvMin : lvMin + '–' + lvMax}</td>` +
       `<td class="n">${m.spawns}</td><td class="n">${Mx.capacity(m.spawns)}</td><td class="n">${fmt.format(Mx.respawnPerHour(m.spawns))}</td>` +
       `<td><div class="chips">${chips}</div></td>` +
@@ -243,7 +252,7 @@ for (const l of LOCALES) {
 
     const i18n = Object.fromEntries(Object.entries(d).filter(([k]) => JS_PREFIXES.some((p) => k.startsWith(p))));
     const locale = {
-      code: l.code, mobName: l.code === 'ko' ? 'ko' : 'en', meowPath: l.meow,
+      code: l.code, mobName: l.code === 'ko' ? 'ko' : 'en', meowPath: l.meow, base,
       locales: LOCALES.map((x) => ({ code: x.code, href: `${base}${x.path}${page.path}`, suggest: dicts[x.code].langSuggest })),
     };
     const scripts = `<script>window.__I18N__=${jsonForScript(i18n)};window.__LOCALE__=${jsonForScript(locale)};</script>\n<script src="${base}${jsPath}" defer></script>`;
@@ -296,5 +305,6 @@ writeFileSync(join(DIST, 'site.webmanifest'), JSON.stringify({
 }, null, 2));
 writeFileSync(join(DIST, '.nojekyll'), '');
 if (existsSync(join(ROOT, 'public'))) cpSync(join(ROOT, 'public'), DIST, { recursive: true });
+for (const k of IMG_KEYS) { mkdirSync(dirname(join(DIST, 'img', IMG[k])), { recursive: true }); cpSync(join(IMG_DIR, IMG[k]), join(DIST, 'img', IMG[k])); }
 
-console.log(`built ${sitemapUrls.length} pages · ${jsPath} (${(js.length / 1024).toFixed(1)} KB) · ${cssPath} · ${SITE_URL}`);
+console.log(`built ${sitemapUrls.length} pages · ${IMG_KEYS.length} images · ${jsPath} (${(js.length / 1024).toFixed(1)} KB) · ${cssPath} · ${SITE_URL}`);

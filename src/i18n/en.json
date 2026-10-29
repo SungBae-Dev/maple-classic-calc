@@ -104,7 +104,7 @@
   "faq.q5": "How accurate is it?",
   "faq.a5": "It reproduces NiaDB's worked examples exactly, such as the 59–172 range and the 154–449 Power Strike. The formulas are community measurements and can change with patches.",
   "footer.formula_html": "Formulas are community-measured estimates and may change with patches. Source: <a href=\"https://meowdb.com/msclassic/guides/explaining-the-damage-formula\" target=\"_blank\" rel=\"noopener\">NiaDB damage formula</a>.",
-  "footer.notNexon": "Fan-made tool. Not affiliated with or endorsed by Nexon.",
+  "footer.notNexon": "Fan-made tool. Not affiliated with or endorsed by Nexon. Game images © Nexon.",
   "footer.code_html": "Open source on <a href=\"https://github.com/SungBae-Dev/maple-classic-calc\" target=\"_blank\" rel=\"noopener\">GitHub</a>.",
   "mobs.h1": "Monster accuracy table",
   "mobs.lede": "The accuracy you need for a guaranteed hit on popular Classic World monsters. Enter your level and accuracy to see your hit chance on each one.",

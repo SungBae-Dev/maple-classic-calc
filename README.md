@@ -45,6 +45,8 @@ Community reverse-engineered formulas published by NiaDB — reproduced exactly 
 
 `data/maps.json` — 29 popular training maps: spawn points per monster, timed spawns, mob rate, each linked to its [NiaDB map page](https://meowdb.com/msclassic/maps). `data/exp.json` — EXP table (levels 1–99).
 
+`data/images.json` — game images: monster sprites, map minimaps, skill icons and item icons (weapons, attack scrolls), mapped to GMS v83 in-game IDs by name from the v83 `String.wz` tables ([Cosmic](https://github.com/P0nk/Cosmic)). `scripts/fetch-images.mjs` downloads them once from the [maplestory.io](https://maplestory.io) asset API in CI (cached), and the site serves them itself; anything that fails to download is simply not shown. Game images © Nexon.
+
 `data/mobs.json` — 48 popular monsters (level, HP, EXP, avoidability, W.DEF, M.DEF, elements), each value taken from its individual [NiaDB](https://meowdb.com/msclassic/monsters) page and linked in the UI. This is a curated subset on purpose: NiaDB's [reuse policy](https://meowdb.com/reuse) allows individual facts with attribution but asks for permission before copying the database. To extend the list, email contact@meowdb.com (subject `Permission request: Maple Classic Calc`) or add values you measured yourself.
 
 ## 개발 (Development)

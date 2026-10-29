@@ -125,5 +125,17 @@ t('막힌 맵(못 잡는 웨이브 몹)은 시간당 경험치 0, 맨 뒤', () =
   blocked.forEach((e) => { assert.equal(e.eph, 0); assert.equal(e.kph, 0); });
   assert.ok(r.indexOf(blocked[0]) > r.findIndex((e) => M.isRecommendable(e)));
 });
+t('images.json: 모든 몬스터·맵(1곳 제외)·스킬 매핑, 무기·주문서 아이템 ID', () => {
+  const I = JSON.parse(readFileSync(new URL('../data/images.json', import.meta.url)));
+  for (const m of mobs) assert.ok(I.mobs[m.id] > 0, 'mob ' + m.id);
+  const unmapped = MAPS.maps.filter((m) => !I.maps[m.id]).map((m) => m.id);
+  assert.ok(unmapped.length <= 1, 'maps without image: ' + unmapped);
+  assert.ok(Object.keys(I.skills).length >= 80);
+  for (const [k, id] of Object.entries(I.skills)) assert.ok(/^[a-z]+\/[a-z0-9-]+$/.test(k) && Number.isInteger(id) && id > 0, k);
+  for (const w of Object.keys(E.WEAPONS)) {
+    assert.ok(I.items.weapons[w] >= 1300000, 'weapon ' + w);
+    assert.deepEqual(Object.keys(I.items.scrolls[w]).sort(), ['10', '100', '60']);
+  }
+});
 
 console.log(`\n${pass} map tests passed`);

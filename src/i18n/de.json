@@ -104,7 +104,7 @@
   "faq.q5": "Wie genau ist der Rechner?",
   "faq.a5": "Er reproduziert die Rechenbeispiele von NiaDB exakt, etwa den Bereich 59–172 und Power Strike mit 154–449. Die Formeln beruhen auf Messungen der Community und können sich mit Patches ändern.",
   "footer.formula_html": "Die Formeln sind von der Community gemessene Schätzungen und können sich mit Patches ändern. Quelle: <a href=\"https://meowdb.com/msclassic/guides/explaining-the-damage-formula\" target=\"_blank\" rel=\"noopener\">NiaDB-Schadensformel</a>.",
-  "footer.notNexon": "Fan-Tool. Nicht mit Nexon verbunden und nicht von Nexon unterstützt.",
+  "footer.notNexon": "Fan-Tool. Nicht mit Nexon verbunden und nicht von Nexon unterstützt. Spielgrafiken © Nexon.",
   "footer.code_html": "Open Source auf <a href=\"https://github.com/SungBae-Dev/maple-classic-calc\" target=\"_blank\" rel=\"noopener\">GitHub</a>.",
   "mobs.h1": "Monster-Genauigkeitstabelle",
   "mobs.lede": "Die Genauigkeit, die du für sichere Treffer auf beliebte Monster in Classic World brauchst. Gib dein Level und deine Genauigkeit ein, um deine Trefferchance bei jedem Monster zu sehen.",

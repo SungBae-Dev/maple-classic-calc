@@ -104,7 +104,7 @@
   "faq.q5": "精度はどのくらいですか？",
   "faq.a5": "NiaDBの計算例（範囲59–172、パワーストライク154–449など）を正確に再現します。計算式はコミュニティによる測定値のため、パッチで変わる可能性があります。",
   "footer.formula_html": "計算式はコミュニティが測定した推定値で、パッチにより変わる可能性があります。出典: <a href=\"https://meowdb.com/msclassic/guides/explaining-the-damage-formula\" target=\"_blank\" rel=\"noopener\">NiaDB ダメージ計算式</a>",
-  "footer.notNexon": "ファンが制作した非公式ツールです。Nexonとは関係がなく、承認も受けていません。",
+  "footer.notNexon": "ファンが制作した非公式ツールです。Nexonとは関係がなく、承認も受けていません。ゲーム画像 © Nexon",
   "footer.code_html": "ソースコードは<a href=\"https://github.com/SungBae-Dev/maple-classic-calc\" target=\"_blank\" rel=\"noopener\">GitHub</a>で公開しています。",
   "mobs.h1": "モンスター命中表",
   "mobs.lede": "クラシック ワールドの人気モンスターに確定で命中させるために必要な命中です。自分のレベルと命中を入力すると、モンスターごとの命中確率が表示されます。",
