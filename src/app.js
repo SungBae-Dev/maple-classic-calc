@@ -1,5 +1,6 @@
 import * as E from './engine.ts';
 import * as A from './advisor.ts';
+import * as AU from './auto.ts';
 import MOBDATA from '../data/mobs.json';
 import SKILLDATA from '../.build/skills.json';
 import { guideFor, spAvailable, ROADMAP, SKILL_KO } from './guides.js';
@@ -71,31 +72,36 @@ langTip();
 
 // ═════════════════════════ calculator / dashboard ═════════════════════════
 function calcPage() {
-  const KEY = 'msc-classic-v3';
+  const KEY = 'msc-classic-v4';
   const BUILDS_KEY = 'msc-builds-v1';
-  const NUM_FIELDS = ['level', 'masterySkillLv', 'str', 'dex', 'int', 'luk', 'watk', 'matk', 'acc', 'apPassive', 'apBuff', 'skillPct', 'hits', 'critRate', 'critDmg', 'defIgnorePct', 'attackMs'];
-  const DEFAULTS = { level: 1, skillPct: 100, hits: 1, attackMs: A.DEFAULT_ATTACK_MS };
+  const BASE_NUM = ['level', 'str', 'dex', 'int', 'luk', 'watk', 'matk', 'acc'];
+  const OVR_NUM = ['skillLv', 'skillPct', 'hits', 'attackMs', 'weaponStage', 'masterySkillLv', 'apPassive', 'apBuff', 'critRate', 'critDmg', 'defIgnorePct'];
+  const DEFAULTS = { level: 1 };
   const DELTA_FIELDS = ['str', 'dex', 'int', 'luk', 'watk', 'matk', 'acc', 'attackMs', 'cost'];
   const MOB_EDIT = ['mobLevel', 'mobHp', 'mobEva', 'mobWdef', 'mobMdef'];
   const JOB_KEYS = Object.keys(E.JOBS);
   const WEAPON_KEYS = Object.keys(E.WEAPONS);
   const SUB_KEYS = ['', ...Object.values(E.SUBJOBS).flat()];
-  const base = E.DEFAULT_CHAR;
+  const NULLS = Object.fromEntries(OVR_NUM.map((k) => [k, null]));
+  const RAW_BASE = {
+    job: 'warrior', subJob: 'fighter', weapon: '2h_axe', action: 'inherited', level: 70,
+    str: 337, dex: 70, int: 4, luk: 4, watk: 105, matk: 0, acc: 100, skill: 'auto', skillElement: 'none', buffs: true, ...NULLS,
+  };
   const tauro = MOB_BY_ID.get('52');
   const mobFrom = (m, enabled) => ({ enabled, level: m.lv, hp: m.hp, eva: m.eva, wdef: m.wdef, mdef: m.mdef, element: 'neutral', presetId: String(m.id) });
 
   const PRESETS = {
-    fighter70: { c: { ...base }, mob: mobFrom(tauro, false), ref: null, delta: { watk: 3, dex: -2, cost: 150 } },
+    fighter70: { raw: { ...RAW_BASE }, mob: mobFrom(tauro, false), ref: null, delta: { watk: 3, dex: -2, cost: 150 } },
     warrior30: {
-      c: { ...base, weapon: '1h_sword', action: 'inherited', level: 30, str: 132, dex: 30, int: 4, luk: 4, watk: 47, apPassive: 0, apBuff: 0, masterySkillLv: 0, acc: 49, skillPct: 260, subJob: 'fighter' },
+      raw: { ...RAW_BASE, subJob: '', weapon: '1h_sword', level: 30, str: 132, dex: 30, watk: 47, acc: 49 },
       mob: mobFrom(MOB_BY_ID.get('19'), true), ref: null, delta: { watk: 10, str: 4, cost: 150 },
     },
     assassin70: {
-      c: { ...base, job: 'thief', subJob: 'assassin', weapon: 'claw', action: 'shoot', level: 70, str: 4, dex: 70, int: 4, luk: 320, watk: 88, apPassive: 20, apBuff: 0, masterySkillLv: 20, acc: 120, skillPct: 100, hits: 1, attackMs: 600 },
+      raw: { ...RAW_BASE, job: 'thief', subJob: 'assassin', weapon: 'claw', action: 'shoot', level: 70, str: 4, dex: 70, luk: 320, watk: 88, acc: 120 },
       mob: mobFrom(tauro, false), ref: null, delta: { luk: 3, watk: -1 },
     },
     mage70: {
-      c: { ...base, job: 'magician', subJob: 'il', weapon: 'wand', action: 'inherited', level: 70, str: 4, dex: 4, int: 340, luk: 40, watk: 0, matk: 100, apPassive: 0, apBuff: 0, masterySkillLv: 0, acc: 95, skillPct: 100, hits: 1, skillElement: 'ice' },
+      raw: { ...RAW_BASE, job: 'magician', subJob: 'il', weapon: 'wand', level: 70, str: 4, dex: 4, int: 340, luk: 40, watk: 0, matk: 100, acc: 95 },
       mob: mobFrom(tauro, false), ref: null, delta: { int: 3, matk: 2 },
     },
   };
@@ -123,7 +129,22 @@ function calcPage() {
     if (acts.length) sel.value = acts.includes(selected) ? selected : acts[0];
   }
   E.ELEMENT_KEYS.forEach((k) => addOpt($('mobElement'), k, t('elem.' + k)));
-  E.SKILL_ELEMENTS.forEach((k) => addOpt($('skillElement'), k, t('skillEl.' + k)));
+  E.SKILL_ELEMENTS.forEach((k) => addOpt($('skillElement'), k, k === 'none' ? t('f.skillElAuto') : t('skillEl.' + k)));
+  (function fillStages() {
+    const sel = $('weaponStage');
+    addOpt(sel, '', t('stage.auto'));
+    for (let n = 2; n <= 9; n++) addOpt(sel, String(n), n + ' · ' + t(n <= 4 ? 'stage.fast' : n <= 6 ? 'stage.normal' : 'stage.slow'));
+  })();
+  const skName = (o) => (o.slug === 'basic' ? t('f.basicAttack') : (L.code === 'ko' && SKILL_KO[o.slug]) ? SKILL_KO[o.slug] : (o.name || o.en));
+  function fillSkills(R, selected) {
+    const sel = $('skill');
+    const keep = selected ?? sel.value;
+    sel.innerHTML = '';
+    const best = R.options.filter((o) => o.lv > 0 || o.slug === 'basic').sort((a, b) => b.dps - a.dps)[0];
+    addOpt(sel, 'auto', t('f.skillAuto', { name: best ? skName(best) : '–' }));
+    R.options.forEach((o) => addOpt(sel, o.slug, skName(o) + (o.slug === 'basic' ? '' : ' · Lv ' + o.lv + (o.lv === 0 ? ' (' + t('f.notLearned') + ')' : ''))));
+    sel.value = [...sel.options].some((op) => op.value === keep) ? keep : 'auto';
+  }
   (function fillMobPresets() {
     const sel = $('mobPreset');
     addOpt(sel, '', t('mob.custom'));
@@ -142,13 +163,16 @@ function calcPage() {
   // ── state ──
   const num = (el, d = 0) => { const v = parseFloat(el.value); return Number.isFinite(v) ? v : d; };
 
+  const numOrNull = (el) => { const v = parseFloat(el.value); return Number.isFinite(v) ? v : null; };
   function readState() {
     const jobEl = document.querySelector('input[name="job"]:checked');
-    const c = {
+    const raw = {
       job: jobEl ? jobEl.value : 'warrior', subJob: $('subJob').value || '', weapon: $('weapon').value,
       action: $('action').value || 'inherited', skillElement: $('skillElement').value || 'none',
+      skill: $('skill').value || 'auto', buffs: $('buffs').checked,
     };
-    NUM_FIELDS.forEach((k) => { c[k] = num($(k), DEFAULTS[k] ?? 0); });
+    BASE_NUM.forEach((k) => { raw[k] = num($(k), DEFAULTS[k] ?? 0); });
+    OVR_NUM.forEach((k) => { raw[k] = numOrNull($(k)); });
     const presetId = $('mobPreset').value;
     const preset = MOB_BY_ID.get(presetId);
     const mob = {
@@ -159,18 +183,21 @@ function calcPage() {
     const ref = refRaw === '' ? null : parseFloat(refRaw);
     const delta = {};
     DELTA_FIELDS.forEach((k) => { delta[k] = num($('d_' + k)); });
-    return { c, mob, ref: Number.isFinite(ref) ? ref : null, delta };
+    return { raw, mob, ref: Number.isFinite(ref) ? ref : null, delta };
   }
 
   function writeState(s) {
-    const c = { ...base, ...s.c };
-    const jobEl = $('job-' + c.job);
+    const raw = { ...RAW_BASE, ...NULLS, ...(s.raw || {}) };
+    const jobEl = $('job-' + raw.job);
     if (jobEl) jobEl.checked = true;
-    fillSubJobs(c.job, c.subJob);
-    fillWeapons(c.job, c.weapon);
-    fillActions($('weapon').value, c.action);
-    NUM_FIELDS.forEach((k) => { $(k).value = c[k] ?? DEFAULTS[k] ?? ''; });
-    $('skillElement').value = E.SKILL_ELEMENTS.includes(c.skillElement) ? c.skillElement : 'none';
+    fillSubJobs(raw.job, raw.subJob);
+    fillWeapons(raw.job, raw.weapon);
+    fillActions($('weapon').value, raw.action);
+    BASE_NUM.forEach((k) => { $(k).value = raw[k] ?? DEFAULTS[k] ?? ''; });
+    OVR_NUM.forEach((k) => { $(k).value = raw[k] == null ? '' : raw[k]; });
+    $('skillElement').value = E.SKILL_ELEMENTS.includes(raw.skillElement) ? raw.skillElement : 'none';
+    $('buffs').checked = raw.buffs !== false;
+    pendingSkill = raw.skill || 'auto';
     const mob = { ...E.DEFAULT_MOB, hp: 0, ...(s.mob || {}) };
     $('mobEnabled').checked = !!mob.enabled;
     $('mobLevel').value = mob.level; $('mobHp').value = mob.hp || ''; $('mobEva').value = mob.eva; $('mobWdef').value = mob.wdef; $('mobMdef').value = mob.mdef;
@@ -179,6 +206,7 @@ function calcPage() {
     $('ref').value = s.ref != null ? s.ref : '';
     if (s.delta) DELTA_FIELDS.forEach((k) => { const v = s.delta[k]; $('d_' + k).value = v ? v : ''; });
   }
+  let pendingSkill = null;
 
   function applyMobPreset(id) {
     const m = MOB_BY_ID.get(String(id));
@@ -187,27 +215,32 @@ function calcPage() {
     $('mobLevel').value = m.lv; $('mobHp').value = m.hp; $('mobEva').value = m.eva; $('mobWdef').value = m.wdef; $('mobMdef').value = m.mdef;
   }
 
-  // ── build code (MC3-…) ──
+  // ── build code (MC4-…) ──
   const encN = (n) => { if (n == null || !Number.isFinite(n)) return 'x'; const s = String(Math.round(n * 100) / 100).replace('.', 'p'); return n < 0 ? 'n' + s.slice(1) : s; };
   const decN = (s) => { if (s === 'x') return null; const neg = s[0] === 'n'; const v = parseFloat((neg ? s.slice(1) : s).replace('p', '.')); if (!Number.isFinite(v)) throw new Error('bad'); return neg ? -v : v; };
-  const CODE_LEN = 1 + 4 + NUM_FIELDS.length + 1 + 9;
+  const CODE_LEN = 1 + 4 + 1 + 1 + BASE_NUM.length + OVR_NUM.length + 1 + 9;
   function encode(s) {
-    const c = s.c, m = s.mob;
-    const parts = [JOB_KEYS.indexOf(c.job), SUB_KEYS.indexOf(c.subJob || ''), WEAPON_KEYS.indexOf(c.weapon), E.ACTIONS.indexOf(c.action)].map(encN);
-    NUM_FIELDS.forEach((k) => parts.push(encN(c[k])));
-    parts.push(encN(E.SKILL_ELEMENTS.indexOf(c.skillElement || 'none')));
+    const r = s.raw, m = s.mob;
+    const parts = [JOB_KEYS.indexOf(r.job), SUB_KEYS.indexOf(r.subJob || ''), WEAPON_KEYS.indexOf(r.weapon), E.ACTIONS.indexOf(r.action)].map(encN);
+    parts.push(String(r.skill || 'auto').replace(/-/g, '.'), r.buffs === false ? '0' : '1');
+    BASE_NUM.forEach((k) => parts.push(encN(r[k])));
+    OVR_NUM.forEach((k) => parts.push(encN(r[k])));
+    parts.push(encN(E.SKILL_ELEMENTS.indexOf(r.skillElement || 'none')));
     parts.push(m.enabled ? '1' : '0', encN(m.level), encN(m.hp || 0), encN(m.eva), encN(m.wdef), encN(m.mdef), encN(E.ELEMENT_KEYS.indexOf(m.element)), m.presetId ? encN(+m.presetId) : 'x', encN(s.ref));
-    return 'MC3-' + parts.join('-');
+    return 'MC4-' + parts.join('-');
   }
   function decode(code) {
     const p = String(code).trim().split('-');
-    if (p[0] !== 'MC3' || p.length !== CODE_LEN) throw new Error('format');
+    if (p[0] !== 'MC4' || p.length !== CODE_LEN) throw new Error('format');
     let i = 1;
     const job = JOB_KEYS[decN(p[i++])], subJob = SUB_KEYS[decN(p[i++])] ?? '', weapon = WEAPON_KEYS[decN(p[i++])], action = E.ACTIONS[decN(p[i++])];
     if (!job || !weapon || !action || E.WEAPONS[weapon].job !== job) throw new Error('enum');
-    const c = { job, subJob: E.SUBJOBS[job].includes(subJob) ? subJob : '', weapon, action };
-    NUM_FIELDS.forEach((k) => { c[k] = decN(p[i++]) ?? DEFAULTS[k] ?? 0; });
-    c.skillElement = E.SKILL_ELEMENTS[decN(p[i++])] || 'none';
+    const raw = { job, subJob: E.SUBJOBS[job].includes(subJob) ? subJob : '', weapon, action };
+    raw.skill = /^[a-z.]+$/.test(p[i]) ? p[i].replace(/\./g, '-') : 'auto'; i++;
+    raw.buffs = p[i++] !== '0';
+    BASE_NUM.forEach((k) => { raw[k] = decN(p[i++]) ?? DEFAULTS[k] ?? 0; });
+    OVR_NUM.forEach((k) => { raw[k] = decN(p[i++]); });
+    raw.skillElement = E.SKILL_ELEMENTS[decN(p[i++])] || 'none';
     const mob = {
       enabled: p[i++] === '1', level: decN(p[i++]) ?? 1, hp: decN(p[i++]) ?? 0, eva: decN(p[i++]) ?? 0, wdef: decN(p[i++]) ?? 0, mdef: decN(p[i++]) ?? 0,
       element: E.ELEMENT_KEYS[decN(p[i++])] || 'neutral',
@@ -215,7 +248,7 @@ function calcPage() {
     const pid = decN(p[i++]);
     mob.presetId = pid != null && MOB_BY_ID.has(String(pid)) ? String(pid) : '';
     const ref = decN(p[i++]);
-    return { c, mob, ref, delta: null };
+    return { raw, mob, ref, delta: null };
   }
   const shareUrl = (code) => location.href.split('#')[0] + '#b=' + code;
 
@@ -243,18 +276,54 @@ function calcPage() {
   // ── render ──
   function render() {
     const s = readState();
-    const c = s.c, mob = s.mob;
-    c.action = E.normalizeAction(c);
+    const raw = s.raw, mob = s.mob;
+    raw.action = E.normalizeAction(raw);
+    const preMob = mob.enabled ? mob : E.NO_MOB;
+    const R = AU.resolve(raw, SKILLDATA, preMob);
+    fillSkills(R, pendingSkill);
+    pendingSkill = null;
+    const c = R.c;
+    s.c = c;
     const magic = E.isMagic(c);
     const spec = E.WEAPONS[c.weapon];
     const pLabel = E.STAT_LABEL[spec.primary];
     applyVisibility(magic, mob.enabled);
 
-    const ml = E.masteryLevelFromSkill(c.masterySkillLv);
+    const ml = c.masteryLv != null ? c.masteryLv : E.masteryLevelFromSkill(c.masterySkillLv);
     $('masteryLabel').textContent = t('js.masteryLabel', { skill: t('mastery.' + spec.mastery) });
     $('masteryHint').textContent = (!magic && c.action === 'lucky7') ? t('js.masteryLucky') : t('js.masteryHint', { n: ml });
     $('watkHint').textContent = c.weapon === 'claw' ? t('js.watkStars') : (c.weapon === 'bow' || c.weapon === 'crossbow') ? t('js.watkArrows') : t('js.watkBase');
     $('apPassiveHint').textContent = c.weapon === 'claw' ? t('js.apPassiveClaw') : t('js.apPassiveHint');
+    const ph = (id, v, on) => { const el = $(id); el.placeholder = on ? t('js.autoVal', { v }) : ''; el.classList.toggle('auto', !!on); };
+    const sk = R.skill;
+    ph('skillLv', sk && sk.slug !== 'basic' ? sk.lv : '–', true);
+    ph('skillPct', sk ? sk.dmg : 100, true);
+    ph('hits', sk ? sk.hits : 1, true);
+    ph('attackMs', R.c.attackMs, true);
+    ph('masterySkillLv', magic ? ml : R.c.masterySkillLv, true);
+    ph('apPassive', R.c.apPassive, true);
+    ph('apBuff', R.c.apBuff, true);
+    ph('critRate', 5, true); ph('critDmg', 20, true); ph('defIgnorePct', 0, true);
+    $('weaponStage').options[0].textContent = t('stage.auto') + ' (' + R.weaponStage + ')';
+    $('apBuffHint').textContent = R.buffAp ? t('js.buffAp', { skill: t('js.rage'), lv: R.buffAp.lv, v: R.buffAp.ap }) : t('f.apBuffHint');
+    $('buffsLabel').textContent = t('f.buffs') + (R.booster ? ' · ' + t('js.boosterOn') : '') + (R.buffMatk ? ' · ' + t('js.medOn', { v: R.buffMatk.matk }) : '');
+    // skill info + comparison
+    if (sk) {
+      const chips = [
+        (sk.slug === 'basic' ? t('f.basicAttack') : skName(sk) + ' Lv ' + sk.lv) + (R.auto.skill ? ' · ' + t('js.autoPick') : ''),
+        f0(R.c.skillPct) + '% × ' + R.c.hits, t('js.targets', { n: sk.targets }),
+        f2(R.c.attackMs / 1000) + 's',
+      ];
+      if (R.c.skillElement && R.c.skillElement !== 'none') chips.push(t('skillEl.' + R.c.skillElement));
+      if (sk.approx) chips.push(t('js.approx'));
+      $('skillInfo').innerHTML = chips.map((x) => '<span class="chip">' + esc(x) + '</span>').join('');
+    }
+    const maxDps = Math.max(1, ...R.options.map((o) => o.dps));
+    $('skillCompare').innerHTML = R.options.map((o) =>
+      '<tr data-skill="' + o.slug + '"' + (sk && o.slug === sk.slug ? ' class="sel"' : '') + '><td class="name">' + esc(skName(o)) + (o.targets > 1 ? '<small>×' + o.targets + '</small>' : '') + '</td>' +
+      '<td class="n">' + (o.slug === 'basic' ? '–' : o.lv) + '</td><td class="n">' + f0(o.dmg) + (o.hits > 1 ? '×' + o.hits : '') + '</td>' +
+      '<td class="n">' + f2(o.animMs / 1000) + '</td>' +
+      '<td class="n">' + f0(o.dps) + (o.dps >= maxDps ? ' ★' : '') + '</td></tr>').join('');
     $('refLabel').textContent = magic ? t('res.refMagic') : t('res.refPhys');
     if (!magic) {
       const wm = spec.mult;
@@ -284,7 +353,7 @@ function calcPage() {
     $('convSub').textContent = s.ref == null
       ? (magic ? t('js.convSubMagic', { p: f0(P) }) : t('js.convSubPhys', { stat: pLabel, p: f0(P), x: f1(conv - P) }))
       : t(magic ? 'js.convSubPinMagic' : 'js.convSubPinPhys', { r: f0(s.ref), now: f0(magic ? c.matk : c.watk) });
-    const win = E.statWindowRange(c);
+    const win = E.statWindowRange({ ...c, apBuff: R.auto.apBuff ? 0 : c.apBuff, matk: raw.matk });
     $('winLabel').textContent = win.kind === 'magic' ? t('res.winMagic') : t('res.winPhys');
     $('winRange').textContent = f0(win.min) + ' ~ ' + f0(win.max);
     $('statAtk').textContent = f0(E.statAttack(c));
@@ -343,7 +412,7 @@ function calcPage() {
     $('convBody').innerHTML = cr.items.map((it) => '<tr><td>' + esc(itemLabel(it)) + '</td><td class="n">' + pLabel + ' ' + f2(it.perPoint) + '</td></tr>').join('')
       || '<tr><td colspan="2">' + esc(t('js.convEmpty')) + '</td></tr>';
 
-    last = { s, c, mob, magic, pLabel, rep, target, tgtAuto: tgt.auto };
+    last = { s, raw, R, c, mob, magic, pLabel, rep, target, tgtAuto: tgt.auto };
     renderSim();
     renderTarget();
     renderUpgrades();
@@ -352,7 +421,7 @@ function calcPage() {
     renderScrolls();
     renderSkills();
 
-    const snapshot = { c, mob: { ...mob, affinity: undefined }, ref: s.ref, delta: s.delta };
+    const snapshot = { raw: { ...raw, skill: $('skill').value || 'auto' }, mob: { ...mob, affinity: undefined }, ref: s.ref, delta: s.delta };
     const code = encode(snapshot);
     $('codeOut').value = code;
     $('shareOut').value = shareUrl(code);
@@ -522,7 +591,6 @@ function calcPage() {
 
   // ── skills & roadmap ──
   const SK = SKILLDATA.jobs || {};
-  const skName = (sk) => (L.code === 'ko' && SKILL_KO[sk.slug]) ? SKILL_KO[sk.slug] : sk.en;
   function renderSkills() {
     const { c, rep, magic } = last;
     const sub = c.subJob;
@@ -590,7 +658,7 @@ function calcPage() {
       let info = '';
       try {
         const st = decode(b.code);
-        const cc = { ...base, ...st.c };
+        const cc = AU.resolve({ ...RAW_BASE, ...st.raw }, SKILLDATA, E.NO_MOB).c;
         const d = A.dps(cc, last && last.target);
         info = (cc.subJob ? t('sub.' + cc.subJob) : t('job.' + cc.job)) + ' · Lv ' + cc.level + ' · ' + t('res.conv') + ' ' + f0(E.convertedMainStat(cc, st.ref)) +
           ' · DPS ' + f0(d) + (cur > 0 ? ' (' + signed((d / cur - 1) * 100, f1) + '%)' : '');
@@ -614,11 +682,11 @@ function calcPage() {
     if (scroll) { const tb = $('tabbar'); const top = tb.getBoundingClientRect().top + window.scrollY - 8; if (window.scrollY > top) window.scrollTo({ top }); }
   }
 
-  // ── shared builds (#b=MC3-…) ──
+  // ── shared builds (#b=MC4-…) ──
   let viewingShared = false;
   function route() {
     const h = location.hash;
-    const mb = /^#b=(MC3-[\w.-]+)$/.exec(h);
+    const mb = /^#b=(MC4-[\w.-]+)$/.exec(h);
     if (mb) {
       try {
         writeState(decode(mb[1]));
@@ -656,6 +724,7 @@ function calcPage() {
       if (e.target.name === 'job') { fillSubJobs(e.target.value, null); fillWeapons(e.target.value, null); fillActions($('weapon').value, null); }
       else if (id === 'weapon') fillActions(e.target.value, $('action').value);
       else if (id === 'mobPreset') applyMobPreset(e.target.value);
+      else if (id === 'skill') $('skillLv').value = '';
     }
     if (e.target.name !== 'simKind') setPresetPressed(null);
     render();
@@ -663,13 +732,26 @@ function calcPage() {
   document.addEventListener('input', (e) => { if (e.target.closest('.tabpanel')) onEdit(e); });
   document.addEventListener('change', (e) => { if (e.target.closest('.tabpanel') && e.target.type !== 'file') onEdit(e); });
   document.querySelectorAll('[data-preset]').forEach((b) => b.addEventListener('click', () => { writeState(PRESETS[b.dataset.preset]); setPresetPressed(b.dataset.preset); render(); }));
-  $('pinRef').addEventListener('click', () => { const s = readState(); $('ref').value = E.isMagic(s.c) ? s.c.matk : s.c.watk; render(); });
+  $('pinRef').addEventListener('click', () => { const c = last.c; $('ref').value = E.isMagic(c) ? last.raw.matk : c.watk; render(); });
+  $('skillCompare').addEventListener('click', (e) => {
+    const tr = e.target.closest('tr[data-skill]');
+    if (!tr) return;
+    $('skill').value = tr.dataset.skill;
+    $('skillLv').value = '';
+    render();
+  });
+  $('resetAuto').addEventListener('click', () => {
+    OVR_NUM.forEach((k) => { $(k).value = ''; });
+    $('skill').value = 'auto'; $('skillElement').value = 'none'; $('buffs').checked = true;
+    render();
+  });
   $('clearDelta').addEventListener('click', () => { DELTA_FIELDS.forEach((k) => { $('d_' + k).value = ''; }); render(); });
   $('applyDelta').addEventListener('click', () => {
     const s = readState();
-    const g = A.gearCompare(s.c, s.delta, null, 0);
-    const after = g.afterChar;
-    writeState({ ...s, c: after, delta: {} });
+    const r = { ...s.raw, skill: $('skill').value || 'auto' };
+    ['str', 'dex', 'int', 'luk', 'watk', 'matk', 'acc'].forEach((k) => { r[k] = (r[k] || 0) + (s.delta[k] || 0); });
+    if (s.delta.attackMs) r.attackMs = last.c.attackMs + s.delta.attackMs;
+    writeState({ ...s, raw: r, delta: {} });
     DELTA_FIELDS.forEach((k) => { $('d_' + k).value = ''; });
     render();
     $('cmpCallout').textContent = t('cmp.applied');
@@ -686,7 +768,7 @@ function calcPage() {
     if (b.dataset.shareBoss) {
       const s = readState();
       const m = MOB_BY_ID.get(b.dataset.shareBoss);
-      const code = encode({ c: { ...s.c, action: E.normalizeAction(s.c) }, mob: mobFrom(m, true), ref: s.ref });
+      const code = encode({ raw: { ...s.raw, action: E.normalizeAction(s.raw), skill: $('skill').value || 'auto' }, mob: mobFrom(m, true), ref: s.ref });
       copyText($('shareOut'), shareUrl(code), $('bossMsg'), 'boss.copied', 'js.code.selected');
       return;
     }
@@ -707,10 +789,11 @@ function calcPage() {
   });
   $('bldSave').addEventListener('click', () => {
     const s = readState();
-    s.c.action = E.normalizeAction(s.c);
-    const name = $('bldName').value.trim() || ((s.c.subJob ? t('sub.' + s.c.subJob) : t('job.' + s.c.job)) + ' Lv' + s.c.level);
+    s.raw.action = E.normalizeAction(s.raw);
+    s.raw.skill = $('skill').value || 'auto';
+    const name = $('bldName').value.trim() || ((s.raw.subJob ? t('sub.' + s.raw.subJob) : t('job.' + s.raw.job)) + ' Lv' + s.raw.level);
     const list = builds();
-    list.unshift({ name, at: Date.now(), code: encode({ c: s.c, mob: { ...s.mob, affinity: undefined }, ref: s.ref }) });
+    list.unshift({ name, at: Date.now(), code: encode({ raw: s.raw, mob: { ...s.mob, affinity: undefined }, ref: s.ref }) });
     store.set(BUILDS_KEY, list.slice(0, 50));
     $('bldName').value = '';
     renderBuilds();

@@ -1,0 +1,2105 @@
+{
+  "source": "NiaDB (meowdb.com) skill pages",
+  "checked": "2026-10-29",
+  "skills": {
+    "energy-bolt": {
+      "src": "https://meowdb.com/msclassic/skills/magician/energy-bolt",
+      "animMs": 810,
+      "animMsBooster": 720,
+      "element": null,
+      "levels": [
+        {
+          "lv": 1,
+          "dmg": 90,
+          "hits": 1,
+          "targets": 1,
+          "mp": 8,
+          "mastery": 1
+        },
+        {
+          "lv": 2,
+          "dmg": 92,
+          "hits": 1,
+          "targets": 1,
+          "mp": 8,
+          "mastery": 1
+        },
+        {
+          "lv": 3,
+          "dmg": 94,
+          "hits": 1,
+          "targets": 1,
+          "mp": 8,
+          "mastery": 1
+        },
+        {
+          "lv": 4,
+          "dmg": 96,
+          "hits": 1,
+          "targets": 1,
+          "mp": 8,
+          "mastery": 2
+        },
+        {
+          "lv": 5,
+          "dmg": 98,
+          "hits": 1,
+          "targets": 1,
+          "mp": 9,
+          "mastery": 2
+        },
+        {
+          "lv": 6,
+          "dmg": 100,
+          "hits": 1,
+          "targets": 1,
+          "mp": 9,
+          "mastery": 3
+        },
+        {
+          "lv": 7,
+          "dmg": 102,
+          "hits": 1,
+          "targets": 1,
+          "mp": 9,
+          "mastery": 3
+        },
+        {
+          "lv": 8,
+          "dmg": 104,
+          "hits": 1,
+          "targets": 1,
+          "mp": 10,
+          "mastery": 4
+        },
+        {
+          "lv": 9,
+          "dmg": 106,
+          "hits": 1,
+          "targets": 1,
+          "mp": 10,
+          "mastery": 4
+        },
+        {
+          "lv": 10,
+          "dmg": 108,
+          "hits": 1,
+          "targets": 1,
+          "mp": 11,
+          "mastery": 5
+        },
+        {
+          "lv": 11,
+          "dmg": 110,
+          "hits": 1,
+          "targets": 1,
+          "mp": 11,
+          "mastery": 5
+        },
+        {
+          "lv": 12,
+          "dmg": 112,
+          "hits": 1,
+          "targets": 1,
+          "mp": 12,
+          "mastery": 6
+        },
+        {
+          "lv": 13,
+          "dmg": 114,
+          "hits": 1,
+          "targets": 1,
+          "mp": 12,
+          "mastery": 6
+        },
+        {
+          "lv": 14,
+          "dmg": 116,
+          "hits": 1,
+          "targets": 1,
+          "mp": 13,
+          "mastery": 7
+        },
+        {
+          "lv": 15,
+          "dmg": 118,
+          "hits": 1,
+          "targets": 1,
+          "mp": 13,
+          "mastery": 7
+        },
+        {
+          "lv": 16,
+          "dmg": 120,
+          "hits": 1,
+          "targets": 1,
+          "mp": 14,
+          "mastery": 8
+        },
+        {
+          "lv": 17,
+          "dmg": 122,
+          "hits": 1,
+          "targets": 1,
+          "mp": 14,
+          "mastery": 8
+        },
+        {
+          "lv": 18,
+          "dmg": 124,
+          "hits": 1,
+          "targets": 1,
+          "mp": 15,
+          "mastery": 9
+        },
+        {
+          "lv": 19,
+          "dmg": 126,
+          "hits": 1,
+          "targets": 1,
+          "mp": 15,
+          "mastery": 9
+        },
+        {
+          "lv": 20,
+          "dmg": 130,
+          "hits": 1,
+          "targets": 1,
+          "mp": 16,
+          "mastery": 10
+        }
+      ]
+    },
+    "magic-claw": {
+      "src": "https://meowdb.com/msclassic/skills/magician/magic-claw",
+      "animMs": 810,
+      "animMsBooster": 720,
+      "element": null,
+      "levels": [
+        {
+          "lv": 1,
+          "dmg": 45,
+          "hits": 2,
+          "targets": 1,
+          "mp": 10,
+          "mastery": 1
+        },
+        {
+          "lv": 2,
+          "dmg": 46,
+          "hits": 2,
+          "targets": 1,
+          "mp": 10,
+          "mastery": 1
+        },
+        {
+          "lv": 3,
+          "dmg": 47,
+          "hits": 2,
+          "targets": 1,
+          "mp": 10,
+          "mastery": 1
+        },
+        {
+          "lv": 4,
+          "dmg": 48,
+          "hits": 2,
+          "targets": 1,
+          "mp": 10,
+          "mastery": 2
+        },
+        {
+          "lv": 5,
+          "dmg": 49,
+          "hits": 2,
+          "targets": 1,
+          "mp": 11,
+          "mastery": 2
+        },
+        {
+          "lv": 6,
+          "dmg": 50,
+          "hits": 2,
+          "targets": 1,
+          "mp": 11,
+          "mastery": 3
+        },
+        {
+          "lv": 7,
+          "dmg": 51,
+          "hits": 2,
+          "targets": 1,
+          "mp": 11,
+          "mastery": 3
+        },
+        {
+          "lv": 8,
+          "dmg": 52,
+          "hits": 2,
+          "targets": 1,
+          "mp": 12,
+          "mastery": 4
+        },
+        {
+          "lv": 9,
+          "dmg": 53,
+          "hits": 2,
+          "targets": 1,
+          "mp": 12,
+          "mastery": 4
+        },
+        {
+          "lv": 10,
+          "dmg": 54,
+          "hits": 2,
+          "targets": 1,
+          "mp": 13,
+          "mastery": 5
+        },
+        {
+          "lv": 11,
+          "dmg": 55,
+          "hits": 2,
+          "targets": 1,
+          "mp": 13,
+          "mastery": 5
+        },
+        {
+          "lv": 12,
+          "dmg": 56,
+          "hits": 2,
+          "targets": 1,
+          "mp": 14,
+          "mastery": 6
+        },
+        {
+          "lv": 13,
+          "dmg": 57,
+          "hits": 2,
+          "targets": 1,
+          "mp": 14,
+          "mastery": 6
+        },
+        {
+          "lv": 14,
+          "dmg": 58,
+          "hits": 2,
+          "targets": 1,
+          "mp": 15,
+          "mastery": 7
+        },
+        {
+          "lv": 15,
+          "dmg": 59,
+          "hits": 2,
+          "targets": 1,
+          "mp": 15,
+          "mastery": 7
+        },
+        {
+          "lv": 16,
+          "dmg": 60,
+          "hits": 2,
+          "targets": 1,
+          "mp": 16,
+          "mastery": 8
+        },
+        {
+          "lv": 17,
+          "dmg": 61,
+          "hits": 2,
+          "targets": 1,
+          "mp": 17,
+          "mastery": 8
+        },
+        {
+          "lv": 18,
+          "dmg": 62,
+          "hits": 2,
+          "targets": 1,
+          "mp": 18,
+          "mastery": 9
+        },
+        {
+          "lv": 19,
+          "dmg": 63,
+          "hits": 2,
+          "targets": 1,
+          "mp": 19,
+          "mastery": 9
+        },
+        {
+          "lv": 20,
+          "dmg": 65,
+          "hits": 2,
+          "targets": 1,
+          "mp": 20,
+          "mastery": 10
+        }
+      ]
+    },
+    "fire-arrow": {
+      "src": "https://meowdb.com/msclassic/skills/f-p-wizard/fire-arrow",
+      "animMs": 810,
+      "animMsBooster": 720,
+      "element": "fire",
+      "levels": [
+        {
+          "lv": 1,
+          "dmg": 120,
+          "targets": 1,
+          "mp": 14,
+          "mastery": 1,
+          "burnPower": 20,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 2,
+          "dmg": 122,
+          "targets": 1,
+          "mp": 14,
+          "mastery": 1,
+          "burnPower": 21,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 3,
+          "dmg": 124,
+          "targets": 1,
+          "mp": 14,
+          "mastery": 1,
+          "burnPower": 22,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 4,
+          "dmg": 126,
+          "targets": 1,
+          "mp": 15,
+          "mastery": 1,
+          "burnPower": 23,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 5,
+          "dmg": 128,
+          "targets": 1,
+          "mp": 15,
+          "mastery": 1,
+          "burnPower": 24,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 6,
+          "dmg": 130,
+          "targets": 1,
+          "mp": 15,
+          "mastery": 2,
+          "burnPower": 25,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 7,
+          "dmg": 132,
+          "targets": 1,
+          "mp": 16,
+          "mastery": 2,
+          "burnPower": 26,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 8,
+          "dmg": 134,
+          "targets": 1,
+          "mp": 16,
+          "mastery": 2,
+          "burnPower": 27,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 9,
+          "dmg": 136,
+          "targets": 1,
+          "mp": 16,
+          "mastery": 3,
+          "burnPower": 28,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 10,
+          "dmg": 138,
+          "targets": 1,
+          "mp": 17,
+          "mastery": 3,
+          "burnPower": 29,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 11,
+          "dmg": 140,
+          "targets": 1,
+          "mp": 17,
+          "mastery": 3,
+          "burnPower": 30,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 12,
+          "dmg": 142,
+          "targets": 1,
+          "mp": 18,
+          "mastery": 4,
+          "burnPower": 31,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 13,
+          "dmg": 144,
+          "targets": 1,
+          "mp": 18,
+          "mastery": 4,
+          "burnPower": 32,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 14,
+          "dmg": 146,
+          "targets": 1,
+          "mp": 19,
+          "mastery": 4,
+          "burnPower": 33,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 15,
+          "dmg": 148,
+          "targets": 1,
+          "mp": 19,
+          "mastery": 5,
+          "burnPower": 34,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 16,
+          "dmg": 150,
+          "targets": 1,
+          "mp": 20,
+          "mastery": 5,
+          "burnPower": 35,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 17,
+          "dmg": 152,
+          "targets": 1,
+          "mp": 20,
+          "mastery": 5,
+          "burnPower": 36,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 18,
+          "dmg": 154,
+          "targets": 1,
+          "mp": 21,
+          "mastery": 6,
+          "burnPower": 37,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 19,
+          "dmg": 156,
+          "targets": 1,
+          "mp": 21,
+          "mastery": 6,
+          "burnPower": 38,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 20,
+          "dmg": 158,
+          "targets": 1,
+          "mp": 22,
+          "mastery": 6,
+          "burnPower": 39,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 21,
+          "dmg": 160,
+          "targets": 1,
+          "mp": 22,
+          "mastery": 7,
+          "burnPower": 40,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 22,
+          "dmg": 162,
+          "targets": 1,
+          "mp": 23,
+          "mastery": 7,
+          "burnPower": 41,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 23,
+          "dmg": 164,
+          "targets": 1,
+          "mp": 23,
+          "mastery": 7,
+          "burnPower": 42,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 24,
+          "dmg": 166,
+          "targets": 1,
+          "mp": 24,
+          "mastery": 8,
+          "burnPower": 43,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 25,
+          "dmg": 168,
+          "targets": 1,
+          "mp": 24,
+          "mastery": 8,
+          "burnPower": 44,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 26,
+          "dmg": 170,
+          "targets": 1,
+          "mp": 25,
+          "mastery": 8,
+          "burnPower": 45,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 27,
+          "dmg": 172,
+          "targets": 1,
+          "mp": 25,
+          "mastery": 9,
+          "burnPower": 46,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 28,
+          "dmg": 174,
+          "targets": 1,
+          "mp": 26,
+          "mastery": 9,
+          "burnPower": 47,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 29,
+          "dmg": 176,
+          "targets": 1,
+          "mp": 26,
+          "mastery": 9,
+          "burnPower": 48,
+          "burnDurationS": 3
+        },
+        {
+          "lv": 30,
+          "dmg": 180,
+          "targets": 1,
+          "mp": 28,
+          "mastery": 10,
+          "burnPower": 50,
+          "burnDurationS": 3
+        }
+      ]
+    },
+    "poison-breath": {
+      "src": "https://meowdb.com/msclassic/skills/f-p-wizard/poison-breath",
+      "animMs": 810,
+      "animMsBooster": 720,
+      "element": "poison",
+      "levels": [
+        {
+          "lv": 1,
+          "dmg": 50,
+          "targets": 6,
+          "mp": 20,
+          "mastery": 1,
+          "poisonPct": 45,
+          "poisonPower": 10,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 2,
+          "dmg": 51,
+          "targets": 6,
+          "mp": 20,
+          "mastery": 1,
+          "poisonPct": 46,
+          "poisonPower": 11,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 3,
+          "dmg": 52,
+          "targets": 6,
+          "mp": 22,
+          "mastery": 1,
+          "poisonPct": 47,
+          "poisonPower": 12,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 4,
+          "dmg": 53,
+          "targets": 6,
+          "mp": 22,
+          "mastery": 1,
+          "poisonPct": 48,
+          "poisonPower": 13,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 5,
+          "dmg": 54,
+          "targets": 6,
+          "mp": 22,
+          "mastery": 1,
+          "poisonPct": 49,
+          "poisonPower": 14,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 6,
+          "dmg": 55,
+          "targets": 6,
+          "mp": 24,
+          "mastery": 2,
+          "poisonPct": 50,
+          "poisonPower": 15,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 7,
+          "dmg": 56,
+          "targets": 6,
+          "mp": 24,
+          "mastery": 2,
+          "poisonPct": 51,
+          "poisonPower": 16,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 8,
+          "dmg": 57,
+          "targets": 6,
+          "mp": 24,
+          "mastery": 2,
+          "poisonPct": 52,
+          "poisonPower": 17,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 9,
+          "dmg": 58,
+          "targets": 6,
+          "mp": 26,
+          "mastery": 3,
+          "poisonPct": 53,
+          "poisonPower": 18,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 10,
+          "dmg": 59,
+          "targets": 6,
+          "mp": 26,
+          "mastery": 3,
+          "poisonPct": 54,
+          "poisonPower": 19,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 11,
+          "dmg": 60,
+          "targets": 6,
+          "mp": 26,
+          "mastery": 3,
+          "poisonPct": 55,
+          "poisonPower": 20,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 12,
+          "dmg": 61,
+          "targets": 6,
+          "mp": 28,
+          "mastery": 4,
+          "poisonPct": 56,
+          "poisonPower": 21,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 13,
+          "dmg": 62,
+          "targets": 6,
+          "mp": 28,
+          "mastery": 4,
+          "poisonPct": 57,
+          "poisonPower": 22,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 14,
+          "dmg": 63,
+          "targets": 6,
+          "mp": 28,
+          "mastery": 4,
+          "poisonPct": 58,
+          "poisonPower": 23,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 15,
+          "dmg": 64,
+          "targets": 6,
+          "mp": 30,
+          "mastery": 5,
+          "poisonPct": 59,
+          "poisonPower": 24,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 16,
+          "dmg": 65,
+          "targets": 6,
+          "mp": 30,
+          "mastery": 5,
+          "poisonPct": 60,
+          "poisonPower": 25,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 17,
+          "dmg": 66,
+          "targets": 6,
+          "mp": 30,
+          "mastery": 5,
+          "poisonPct": 61,
+          "poisonPower": 26,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 18,
+          "dmg": 67,
+          "targets": 6,
+          "mp": 32,
+          "mastery": 6,
+          "poisonPct": 62,
+          "poisonPower": 27,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 19,
+          "dmg": 68,
+          "targets": 6,
+          "mp": 32,
+          "mastery": 6,
+          "poisonPct": 63,
+          "poisonPower": 28,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 20,
+          "dmg": 69,
+          "targets": 6,
+          "mp": 32,
+          "mastery": 6,
+          "poisonPct": 64,
+          "poisonPower": 29,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 21,
+          "dmg": 70,
+          "targets": 6,
+          "mp": 34,
+          "mastery": 7,
+          "poisonPct": 65,
+          "poisonPower": 30,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 22,
+          "dmg": 71,
+          "targets": 6,
+          "mp": 34,
+          "mastery": 7,
+          "poisonPct": 66,
+          "poisonPower": 31,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 23,
+          "dmg": 72,
+          "targets": 6,
+          "mp": 34,
+          "mastery": 7,
+          "poisonPct": 67,
+          "poisonPower": 32,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 24,
+          "dmg": 73,
+          "targets": 6,
+          "mp": 36,
+          "mastery": 8,
+          "poisonPct": 68,
+          "poisonPower": 33,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 25,
+          "dmg": 74,
+          "targets": 6,
+          "mp": 36,
+          "mastery": 8,
+          "poisonPct": 69,
+          "poisonPower": 34,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 26,
+          "dmg": 75,
+          "targets": 6,
+          "mp": 36,
+          "mastery": 8,
+          "poisonPct": 70,
+          "poisonPower": 35,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 27,
+          "dmg": 76,
+          "targets": 6,
+          "mp": 38,
+          "mastery": 9,
+          "poisonPct": 71,
+          "poisonPower": 36,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 28,
+          "dmg": 77,
+          "targets": 6,
+          "mp": 38,
+          "mastery": 9,
+          "poisonPct": 72,
+          "poisonPower": 37,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 29,
+          "dmg": 78,
+          "targets": 6,
+          "mp": 38,
+          "mastery": 9,
+          "poisonPct": 73,
+          "poisonPower": 38,
+          "poisonDurationS": 5
+        },
+        {
+          "lv": 30,
+          "dmg": 80,
+          "targets": 6,
+          "mp": 40,
+          "mastery": 10,
+          "poisonPct": 75,
+          "poisonPower": 40,
+          "poisonDurationS": 5
+        }
+      ]
+    },
+    "cold-beam": {
+      "src": "https://meowdb.com/msclassic/skills/i-l-wizard/cold-beam",
+      "animMs": 810,
+      "animMsBooster": 720,
+      "element": "ice",
+      "levels": [
+        {
+          "lv": 1,
+          "dmg": 110,
+          "hits": 1,
+          "targets": 1,
+          "mp": 11,
+          "mastery": 1,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 2,
+          "dmg": 112,
+          "hits": 1,
+          "targets": 1,
+          "mp": 11,
+          "mastery": 1,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 3,
+          "dmg": 114,
+          "hits": 1,
+          "targets": 1,
+          "mp": 12,
+          "mastery": 1,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 4,
+          "dmg": 116,
+          "hits": 1,
+          "targets": 1,
+          "mp": 12,
+          "mastery": 1,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 5,
+          "dmg": 118,
+          "hits": 1,
+          "targets": 1,
+          "mp": 12,
+          "mastery": 1,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 6,
+          "dmg": 120,
+          "hits": 1,
+          "targets": 1,
+          "mp": 13,
+          "mastery": 2,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 7,
+          "dmg": 122,
+          "hits": 1,
+          "targets": 1,
+          "mp": 13,
+          "mastery": 2,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 8,
+          "dmg": 124,
+          "hits": 1,
+          "targets": 1,
+          "mp": 13,
+          "mastery": 2,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 9,
+          "dmg": 126,
+          "hits": 1,
+          "targets": 1,
+          "mp": 14,
+          "mastery": 3,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 10,
+          "dmg": 128,
+          "hits": 1,
+          "targets": 1,
+          "mp": 14,
+          "mastery": 3,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 11,
+          "dmg": 130,
+          "hits": 1,
+          "targets": 1,
+          "mp": 14,
+          "mastery": 3,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 12,
+          "dmg": 132,
+          "hits": 1,
+          "targets": 1,
+          "mp": 15,
+          "mastery": 4,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 13,
+          "dmg": 134,
+          "hits": 1,
+          "targets": 1,
+          "mp": 15,
+          "mastery": 4,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 14,
+          "dmg": 136,
+          "hits": 1,
+          "targets": 1,
+          "mp": 15,
+          "mastery": 4,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 15,
+          "dmg": 138,
+          "hits": 1,
+          "targets": 1,
+          "mp": 16,
+          "mastery": 5,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 16,
+          "dmg": 140,
+          "hits": 1,
+          "targets": 1,
+          "mp": 16,
+          "mastery": 5,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 17,
+          "dmg": 142,
+          "hits": 1,
+          "targets": 1,
+          "mp": 16,
+          "mastery": 5,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 18,
+          "dmg": 144,
+          "hits": 1,
+          "targets": 1,
+          "mp": 17,
+          "mastery": 6,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 19,
+          "dmg": 146,
+          "hits": 1,
+          "targets": 1,
+          "mp": 17,
+          "mastery": 6,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 20,
+          "dmg": 148,
+          "hits": 1,
+          "targets": 1,
+          "mp": 17,
+          "mastery": 6,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 21,
+          "dmg": 150,
+          "hits": 1,
+          "targets": 1,
+          "mp": 18,
+          "mastery": 7,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 22,
+          "dmg": 152,
+          "hits": 1,
+          "targets": 1,
+          "mp": 18,
+          "mastery": 7,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 23,
+          "dmg": 154,
+          "hits": 1,
+          "targets": 1,
+          "mp": 18,
+          "mastery": 7,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 24,
+          "dmg": 156,
+          "hits": 1,
+          "targets": 1,
+          "mp": 19,
+          "mastery": 8,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 25,
+          "dmg": 158,
+          "hits": 1,
+          "targets": 1,
+          "mp": 19,
+          "mastery": 8,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 26,
+          "dmg": 160,
+          "hits": 1,
+          "targets": 1,
+          "mp": 19,
+          "mastery": 8,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 27,
+          "dmg": 162,
+          "hits": 1,
+          "targets": 1,
+          "mp": 20,
+          "mastery": 9,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 28,
+          "dmg": 164,
+          "hits": 1,
+          "targets": 1,
+          "mp": 20,
+          "mastery": 9,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 29,
+          "dmg": 166,
+          "hits": 1,
+          "targets": 1,
+          "mp": 20,
+          "mastery": 9,
+          "slowDurationS": 3
+        },
+        {
+          "lv": 30,
+          "dmg": 170,
+          "hits": 1,
+          "targets": 1,
+          "mp": 22,
+          "mastery": 10,
+          "slowDurationS": 3
+        }
+      ]
+    },
+    "thunder-bolt": {
+      "src": "https://meowdb.com/msclassic/skills/i-l-wizard/thunder-bolt",
+      "animMs": 810,
+      "animMsBooster": 720,
+      "element": "lightning",
+      "levels": [
+        {
+          "lv": 1,
+          "dmg": 40,
+          "hits": 1,
+          "targets": 6,
+          "mp": 20,
+          "mastery": 1,
+          "stunPct": 10
+        },
+        {
+          "lv": 2,
+          "dmg": 41,
+          "hits": 1,
+          "targets": 6,
+          "mp": 20,
+          "mastery": 1,
+          "stunPct": 10
+        },
+        {
+          "lv": 3,
+          "dmg": 42,
+          "hits": 1,
+          "targets": 6,
+          "mp": 22,
+          "mastery": 1,
+          "stunPct": 15
+        },
+        {
+          "lv": 4,
+          "dmg": 43,
+          "hits": 1,
+          "targets": 6,
+          "mp": 22,
+          "mastery": 1,
+          "stunPct": 15
+        },
+        {
+          "lv": 5,
+          "dmg": 44,
+          "hits": 1,
+          "targets": 6,
+          "mp": 22,
+          "mastery": 1,
+          "stunPct": 15
+        },
+        {
+          "lv": 6,
+          "dmg": 45,
+          "hits": 1,
+          "targets": 6,
+          "mp": 24,
+          "mastery": 2,
+          "stunPct": 16
+        },
+        {
+          "lv": 7,
+          "dmg": 46,
+          "hits": 1,
+          "targets": 6,
+          "mp": 24,
+          "mastery": 2,
+          "stunPct": 16
+        },
+        {
+          "lv": 8,
+          "dmg": 47,
+          "hits": 1,
+          "targets": 6,
+          "mp": 24,
+          "mastery": 2,
+          "stunPct": 16
+        },
+        {
+          "lv": 9,
+          "dmg": 48,
+          "hits": 1,
+          "targets": 6,
+          "mp": 26,
+          "mastery": 3,
+          "stunPct": 17
+        },
+        {
+          "lv": 10,
+          "dmg": 49,
+          "hits": 1,
+          "targets": 6,
+          "mp": 26,
+          "mastery": 3,
+          "stunPct": 17
+        },
+        {
+          "lv": 11,
+          "dmg": 50,
+          "hits": 1,
+          "targets": 6,
+          "mp": 26,
+          "mastery": 3,
+          "stunPct": 17
+        },
+        {
+          "lv": 12,
+          "dmg": 51,
+          "hits": 1,
+          "targets": 6,
+          "mp": 28,
+          "mastery": 4,
+          "stunPct": 18
+        },
+        {
+          "lv": 13,
+          "dmg": 52,
+          "hits": 1,
+          "targets": 6,
+          "mp": 28,
+          "mastery": 4,
+          "stunPct": 18
+        },
+        {
+          "lv": 14,
+          "dmg": 53,
+          "hits": 1,
+          "targets": 6,
+          "mp": 28,
+          "mastery": 4,
+          "stunPct": 18
+        },
+        {
+          "lv": 15,
+          "dmg": 54,
+          "hits": 1,
+          "targets": 6,
+          "mp": 30,
+          "mastery": 5,
+          "stunPct": 19
+        },
+        {
+          "lv": 16,
+          "dmg": 55,
+          "hits": 1,
+          "targets": 6,
+          "mp": 30,
+          "mastery": 5,
+          "stunPct": 19
+        },
+        {
+          "lv": 17,
+          "dmg": 56,
+          "hits": 1,
+          "targets": 6,
+          "mp": 30,
+          "mastery": 5,
+          "stunPct": 19
+        },
+        {
+          "lv": 18,
+          "dmg": 57,
+          "hits": 1,
+          "targets": 6,
+          "mp": 32,
+          "mastery": 6,
+          "stunPct": 20
+        },
+        {
+          "lv": 19,
+          "dmg": 58,
+          "hits": 1,
+          "targets": 6,
+          "mp": 32,
+          "mastery": 6,
+          "stunPct": 20
+        },
+        {
+          "lv": 20,
+          "dmg": 59,
+          "hits": 1,
+          "targets": 6,
+          "mp": 32,
+          "mastery": 6,
+          "stunPct": 20
+        },
+        {
+          "lv": 21,
+          "dmg": 60,
+          "hits": 1,
+          "targets": 6,
+          "mp": 34,
+          "mastery": 7,
+          "stunPct": 21
+        },
+        {
+          "lv": 22,
+          "dmg": 61,
+          "hits": 1,
+          "targets": 6,
+          "mp": 34,
+          "mastery": 7,
+          "stunPct": 21
+        },
+        {
+          "lv": 23,
+          "dmg": 62,
+          "hits": 1,
+          "targets": 6,
+          "mp": 34,
+          "mastery": 7,
+          "stunPct": 21
+        },
+        {
+          "lv": 24,
+          "dmg": 63,
+          "hits": 1,
+          "targets": 6,
+          "mp": 36,
+          "mastery": 8,
+          "stunPct": 22
+        },
+        {
+          "lv": 25,
+          "dmg": 64,
+          "hits": 1,
+          "targets": 6,
+          "mp": 36,
+          "mastery": 8,
+          "stunPct": 22
+        },
+        {
+          "lv": 26,
+          "dmg": 65,
+          "hits": 1,
+          "targets": 6,
+          "mp": 36,
+          "mastery": 8,
+          "stunPct": 22
+        },
+        {
+          "lv": 27,
+          "dmg": 66,
+          "hits": 1,
+          "targets": 6,
+          "mp": 38,
+          "mastery": 9,
+          "stunPct": 23
+        },
+        {
+          "lv": 28,
+          "dmg": 67,
+          "hits": 1,
+          "targets": 6,
+          "mp": 38,
+          "mastery": 9,
+          "stunPct": 23
+        },
+        {
+          "lv": 29,
+          "dmg": 68,
+          "hits": 1,
+          "targets": 6,
+          "mp": 38,
+          "mastery": 9,
+          "stunPct": 23
+        },
+        {
+          "lv": 30,
+          "dmg": 70,
+          "hits": 1,
+          "targets": 6,
+          "mp": 40,
+          "mastery": 10,
+          "stunPct": 25
+        }
+      ]
+    },
+    "holy-arrow": {
+      "src": "https://meowdb.com/msclassic/skills/cleric/holy-arrow",
+      "animMs": 810,
+      "element": "holy",
+      "levels": [
+        {
+          "lv": 1,
+          "dmg": 100,
+          "hits": 1,
+          "targets": 1,
+          "mp": 14,
+          "mastery": 1
+        },
+        {
+          "lv": 2,
+          "dmg": 102,
+          "hits": 1,
+          "targets": 1,
+          "mp": 14,
+          "mastery": 1
+        },
+        {
+          "lv": 3,
+          "dmg": 104,
+          "hits": 1,
+          "targets": 1,
+          "mp": 14,
+          "mastery": 1
+        },
+        {
+          "lv": 4,
+          "dmg": 106,
+          "hits": 1,
+          "targets": 1,
+          "mp": 15,
+          "mastery": 1
+        },
+        {
+          "lv": 5,
+          "dmg": 108,
+          "hits": 1,
+          "targets": 1,
+          "mp": 15,
+          "mastery": 2
+        },
+        {
+          "lv": 6,
+          "dmg": 110,
+          "hits": 1,
+          "targets": 1,
+          "mp": 15,
+          "mastery": 2
+        },
+        {
+          "lv": 7,
+          "dmg": 112,
+          "hits": 1,
+          "targets": 1,
+          "mp": 16,
+          "mastery": 2
+        },
+        {
+          "lv": 8,
+          "dmg": 114,
+          "hits": 1,
+          "targets": 1,
+          "mp": 16,
+          "mastery": 2
+        },
+        {
+          "lv": 9,
+          "dmg": 116,
+          "hits": 1,
+          "targets": 1,
+          "mp": 16,
+          "mastery": 3
+        },
+        {
+          "lv": 10,
+          "dmg": 118,
+          "hits": 1,
+          "targets": 1,
+          "mp": 17,
+          "mastery": 3
+        },
+        {
+          "lv": 11,
+          "dmg": 120,
+          "hits": 1,
+          "targets": 1,
+          "mp": 17,
+          "mastery": 3
+        },
+        {
+          "lv": 12,
+          "dmg": 122,
+          "hits": 1,
+          "targets": 1,
+          "mp": 18,
+          "mastery": 4
+        },
+        {
+          "lv": 13,
+          "dmg": 124,
+          "hits": 1,
+          "targets": 1,
+          "mp": 18,
+          "mastery": 4
+        },
+        {
+          "lv": 14,
+          "dmg": 126,
+          "hits": 1,
+          "targets": 1,
+          "mp": 19,
+          "mastery": 4
+        },
+        {
+          "lv": 15,
+          "dmg": 128,
+          "hits": 1,
+          "targets": 1,
+          "mp": 19,
+          "mastery": 5
+        },
+        {
+          "lv": 16,
+          "dmg": 130,
+          "hits": 1,
+          "targets": 1,
+          "mp": 20,
+          "mastery": 5
+        },
+        {
+          "lv": 17,
+          "dmg": 132,
+          "hits": 1,
+          "targets": 1,
+          "mp": 20,
+          "mastery": 5
+        },
+        {
+          "lv": 18,
+          "dmg": 134,
+          "hits": 1,
+          "targets": 1,
+          "mp": 21,
+          "mastery": 6
+        },
+        {
+          "lv": 19,
+          "dmg": 136,
+          "hits": 1,
+          "targets": 1,
+          "mp": 21,
+          "mastery": 6
+        },
+        {
+          "lv": 20,
+          "dmg": 138,
+          "hits": 1,
+          "targets": 1,
+          "mp": 22,
+          "mastery": 6
+        },
+        {
+          "lv": 21,
+          "dmg": 140,
+          "hits": 1,
+          "targets": 1,
+          "mp": 22,
+          "mastery": 7
+        },
+        {
+          "lv": 22,
+          "dmg": 142,
+          "hits": 1,
+          "targets": 1,
+          "mp": 23,
+          "mastery": 7
+        },
+        {
+          "lv": 23,
+          "dmg": 144,
+          "hits": 1,
+          "targets": 1,
+          "mp": 23,
+          "mastery": 7
+        },
+        {
+          "lv": 24,
+          "dmg": 146,
+          "hits": 1,
+          "targets": 1,
+          "mp": 24,
+          "mastery": 8
+        },
+        {
+          "lv": 25,
+          "dmg": 148,
+          "hits": 1,
+          "targets": 1,
+          "mp": 24,
+          "mastery": 8
+        },
+        {
+          "lv": 26,
+          "dmg": 150,
+          "hits": 1,
+          "targets": 1,
+          "mp": 25,
+          "mastery": 8
+        },
+        {
+          "lv": 27,
+          "dmg": 152,
+          "hits": 1,
+          "targets": 1,
+          "mp": 25,
+          "mastery": 9
+        },
+        {
+          "lv": 28,
+          "dmg": 154,
+          "hits": 1,
+          "targets": 1,
+          "mp": 26,
+          "mastery": 9
+        },
+        {
+          "lv": 29,
+          "dmg": 156,
+          "hits": 1,
+          "targets": 1,
+          "mp": 26,
+          "mastery": 9
+        },
+        {
+          "lv": 30,
+          "dmg": 160,
+          "hits": 1,
+          "targets": 1,
+          "mp": 28,
+          "mastery": 10
+        }
+      ]
+    },
+    "meditation": {
+      "src": "https://meowdb.com/msclassic/skills/f-p-wizard/meditation",
+      "animMs": 600,
+      "animMsBooster": 540,
+      "levels": [
+        {
+          "lv": 1,
+          "matk": 5,
+          "durationS": 100,
+          "mp": 15
+        },
+        {
+          "lv": 2,
+          "matk": 6,
+          "durationS": 110,
+          "mp": 15
+        },
+        {
+          "lv": 3,
+          "matk": 7,
+          "durationS": 120,
+          "mp": 15
+        },
+        {
+          "lv": 4,
+          "matk": 8,
+          "durationS": 130,
+          "mp": 16
+        },
+        {
+          "lv": 5,
+          "matk": 9,
+          "durationS": 140,
+          "mp": 16
+        },
+        {
+          "lv": 6,
+          "matk": 10,
+          "durationS": 150,
+          "mp": 17
+        },
+        {
+          "lv": 7,
+          "matk": 11,
+          "durationS": 160,
+          "mp": 17
+        },
+        {
+          "lv": 8,
+          "matk": 12,
+          "durationS": 170,
+          "mp": 18
+        },
+        {
+          "lv": 9,
+          "matk": 13,
+          "durationS": 180,
+          "mp": 18
+        },
+        {
+          "lv": 10,
+          "matk": 14,
+          "durationS": 190,
+          "mp": 19
+        },
+        {
+          "lv": 11,
+          "matk": 15,
+          "durationS": 200,
+          "mp": 19
+        },
+        {
+          "lv": 12,
+          "matk": 16,
+          "durationS": 210,
+          "mp": 20
+        },
+        {
+          "lv": 13,
+          "matk": 17,
+          "durationS": 220,
+          "mp": 20
+        },
+        {
+          "lv": 14,
+          "matk": 18,
+          "durationS": 230,
+          "mp": 21
+        },
+        {
+          "lv": 15,
+          "matk": 19,
+          "durationS": 240,
+          "mp": 21
+        },
+        {
+          "lv": 16,
+          "matk": 20,
+          "durationS": 250,
+          "mp": 22
+        },
+        {
+          "lv": 17,
+          "matk": 21,
+          "durationS": 260,
+          "mp": 22
+        },
+        {
+          "lv": 18,
+          "matk": 22,
+          "durationS": 270,
+          "mp": 23
+        },
+        {
+          "lv": 19,
+          "matk": 23,
+          "durationS": 280,
+          "mp": 23
+        },
+        {
+          "lv": 20,
+          "matk": 25,
+          "durationS": 300,
+          "mp": 25
+        }
+      ]
+    },
+    "heal": {
+      "src": "https://meowdb.com/msclassic/skills/cleric/heal",
+      "animMs": 600,
+      "element": null,
+      "levels": [
+        {
+          "lv": 1,
+          "healPct": 40,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 12,
+          "rangePct": 100
+        },
+        {
+          "lv": 2,
+          "healPct": 42,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 12,
+          "rangePct": 100
+        },
+        {
+          "lv": 3,
+          "healPct": 44,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 12,
+          "rangePct": 100
+        },
+        {
+          "lv": 4,
+          "healPct": 46,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 13,
+          "rangePct": 100
+        },
+        {
+          "lv": 5,
+          "healPct": 48,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 13,
+          "rangePct": 100
+        },
+        {
+          "lv": 6,
+          "healPct": 50,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 14,
+          "rangePct": 100
+        },
+        {
+          "lv": 7,
+          "healPct": 52,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 14,
+          "rangePct": 100
+        },
+        {
+          "lv": 8,
+          "healPct": 54,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 15,
+          "rangePct": 100
+        },
+        {
+          "lv": 9,
+          "healPct": 56,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 15,
+          "rangePct": 100
+        },
+        {
+          "lv": 10,
+          "healPct": 58,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 16,
+          "rangePct": 100
+        },
+        {
+          "lv": 11,
+          "healPct": 60,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 16,
+          "rangePct": 100
+        },
+        {
+          "lv": 12,
+          "healPct": 62,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 17,
+          "rangePct": 100
+        },
+        {
+          "lv": 13,
+          "healPct": 64,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 17,
+          "rangePct": 100
+        },
+        {
+          "lv": 14,
+          "healPct": 66,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 18,
+          "rangePct": 100
+        },
+        {
+          "lv": 15,
+          "healPct": 68,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 18,
+          "rangePct": 100
+        },
+        {
+          "lv": 16,
+          "healPct": 70,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 19,
+          "rangePct": 120
+        },
+        {
+          "lv": 17,
+          "healPct": 72,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 19,
+          "rangePct": 120
+        },
+        {
+          "lv": 18,
+          "healPct": 74,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 20,
+          "rangePct": 120
+        },
+        {
+          "lv": 19,
+          "healPct": 76,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 20,
+          "rangePct": 120
+        },
+        {
+          "lv": 20,
+          "healPct": 78,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 21,
+          "rangePct": 120
+        },
+        {
+          "lv": 21,
+          "healPct": 80,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 21,
+          "rangePct": 120
+        },
+        {
+          "lv": 22,
+          "healPct": 82,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 22,
+          "rangePct": 120
+        },
+        {
+          "lv": 23,
+          "healPct": 84,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 22,
+          "rangePct": 120
+        },
+        {
+          "lv": 24,
+          "healPct": 86,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 23,
+          "rangePct": 120
+        },
+        {
+          "lv": 25,
+          "healPct": 88,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 23,
+          "rangePct": 120
+        },
+        {
+          "lv": 26,
+          "healPct": 90,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 24,
+          "rangePct": 120
+        },
+        {
+          "lv": 27,
+          "healPct": 92,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 24,
+          "rangePct": 120
+        },
+        {
+          "lv": 28,
+          "healPct": 94,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 25,
+          "rangePct": 120
+        },
+        {
+          "lv": 29,
+          "healPct": 96,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 25,
+          "rangePct": 120
+        },
+        {
+          "lv": 30,
+          "healPct": 100,
+          "targets": 6,
+          "undeadTargets": 5,
+          "mp": 27,
+          "rangePct": 120
+        }
+      ]
+    }
+  }
+}

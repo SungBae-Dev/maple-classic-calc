@@ -92,7 +92,26 @@ for (const f of ['bowman', 'warrior', 'magician', 'thief']) {
     skillJobs[k] = { tier: j.tier, src: j.src, skills: (j.skills || []).map(({ slug, en, type, maxLv, dmgPct, hits, targets, element, atMax, src }) => ({ slug, en, type, maxLv, dmgPct, hits, targets, element, atMax, src })) };
   }
 }
-writeFileSync(join(ROOT, '.build/skills.json'), JSON.stringify({ jobs: skillJobs }));
+// per-level tables, animation times and timing rules
+let timing = {};
+const extra = {};
+for (const f of ['a', 'b']) {
+  const p = join(ROOT, `data/skill-levels-${f}.json`);
+  if (!existsSync(p)) continue;
+  const d = JSON.parse(readFileSync(p, 'utf8'));
+  if (d.timing) timing = { ...timing, ...d.timing };
+  Object.assign(extra, d.skills || {});
+}
+for (const j of Object.values(skillJobs)) {
+  j.skills = j.skills.map((sk) => {
+    const x = extra[sk.slug];
+    if (!x) return sk;
+    return { ...sk, element: x.element ?? sk.element, animMs: x.animMs ?? sk.animMs, anim: x.anim, src: x.src || sk.src,
+      levels: (x.levels || []).map(({ lv, dmg, hits, targets, ap, matk, mastery }) => ({ lv, dmg, hits, targets, ap, matk, mastery })) };
+  });
+}
+const { boosterStages, ordinaryAttackMs, weaponStageRange, magicFixedMs, healMs } = timing;
+writeFileSync(join(ROOT, '.build/skills.json'), JSON.stringify({ jobs: skillJobs, timing: { boosterStages, ordinaryAttackMs, weaponStageRange, magicFixedMs, healMs } }));
 
 const js = (await build({
   entryPoints: [join(ROOT, 'src/app.js')], bundle: true, minify: true, format: 'iife', target: 'es2019',

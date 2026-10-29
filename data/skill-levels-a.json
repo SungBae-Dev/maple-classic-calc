@@ -1,0 +1,2626 @@
+{
+  "source": "NiaDB (meowdb.com) skill pages",
+  "checked": "2026-10-29",
+  "timing": {
+    "src": "https://meowdb.com/msclassic/guides/attack-speed-and-animation-times",
+    "formula": "Attack time is looked up per skill by effective weapon speed stage (weapon stage, minus 2 with the matching Booster). The guide gives no closed-form frame scaling: frame durations and the attack-speed conversion are confirmed in-game, and displayed times are rounded up to 30 ms steps (that rounding is a model). Skills that reuse the weapon's normal attack motion follow ordinaryAttackMs; other skills have their own per-stage table (see skills.*.anim).",
+    "boosterStages": 2,
+    "stageNames": {
+      "0": "Super Fast",
+      "1": "Super Fast",
+      "2": "Very Fast",
+      "3": "Very Fast",
+      "4": "Fast",
+      "5": "Fast",
+      "6": "Average",
+      "7": "Slow",
+      "8": "Slow",
+      "9": "Very Slow",
+      "10": "Super Slow",
+      "11": "Super Slow",
+      "12": "Super Slow"
+    },
+    "ordinaryAttackMs": {
+      "0": 510,
+      "1": 570,
+      "2": 600,
+      "3": 660,
+      "4": 720,
+      "5": 750,
+      "6": 810,
+      "7": 870,
+      "8": 900,
+      "9": 960,
+      "10": 1020,
+      "11": 1020,
+      "12": 1020
+    },
+    "weaponStageRange": {
+      "dagger": [
+        3,
+        4
+      ],
+      "claw": [
+        3,
+        5
+      ],
+      "1h_sword": [
+        4,
+        5
+      ],
+      "1h_axe": [
+        4,
+        5
+      ],
+      "1h_mace": [
+        4,
+        5
+      ],
+      "2h_sword": [
+        5,
+        6
+      ],
+      "2h_axe": [
+        5,
+        6
+      ],
+      "bow": [
+        5,
+        6
+      ],
+      "2h_mace": [
+        6,
+        7
+      ],
+      "spear": [
+        6,
+        7
+      ],
+      "crossbow": [
+        6,
+        7
+      ],
+      "polearm": [
+        7,
+        8
+      ],
+      "wand": [
+        6,
+        7
+      ],
+      "staff": [
+        6,
+        7
+      ]
+    },
+    "magicFixedMs": 810,
+    "healMs": 600,
+    "spellBooster": {
+      "stagesLv1to10": 1,
+      "stagesLv11up": 2,
+      "msLv1to10": 750,
+      "msLv11up": 720
+    },
+    "notes": [
+      "The guide lists a speed range per weapon type, not one default stage, so weaponStageRange is given instead of weaponDefaultStage.",
+      "A matching weapon Booster shifts 2 stages at every skill level. Stage 1 is the fastest a player reaches; no weapon is slower than Slow (8).",
+      "Magic uses fixed timing: every Magician attack spell (Magic Claw, Energy Bolt, Fire Arrow, Cold Beam, Holy Arrow) runs at Average (6) = 810 ms whatever the wand or staff stage. Heal = 600 ms with any weapon.",
+      "Spell Booster (F/P and I/L only, not Cleric/Priest) shifts 1 stage at Lv 1-10 and 2 stages from Lv 11 (750 / 720 ms).",
+      "Guide examples: Rush 450 / 360 / 300 ms with Booster; Haste (Assassin) 570 (stage 5) / 510 (stage 3) / 420 ms with Booster; Savage Blow 840 (stage 4) / 780 (stage 3) / 660 ms with Booster.",
+      "Per-skill anim tables: ms = without Booster at the weapon's own stage, boosterMs = with the matching Booster. Spear/polearm rows are ranges (ms..msMax) on the Power Strike and Slash Blast pages."
+    ]
+  },
+  "skills": {
+    "power-strike": {
+      "src": "https://meowdb.com/msclassic/skills/warrior/power-strike",
+      "anim": [
+        {
+          "weapon": "1h_sword_axe_mace",
+          "stage": 4,
+          "ms": 720,
+          "boosterMs": 600
+        },
+        {
+          "weapon": "1h_sword_axe_mace",
+          "stage": 5,
+          "ms": 750,
+          "boosterMs": 660
+        },
+        {
+          "weapon": "2h_sword_axe_mace",
+          "stage": 5,
+          "ms": 750,
+          "boosterMs": 660
+        },
+        {
+          "weapon": "2h_sword_axe_mace",
+          "stage": 6,
+          "ms": 810,
+          "boosterMs": 720
+        },
+        {
+          "weapon": "2h_sword_axe_mace",
+          "stage": 7,
+          "ms": 870,
+          "boosterMs": 750
+        },
+        {
+          "weapon": "spear_polearm",
+          "stage": 6,
+          "ms": 750,
+          "boosterMs": 660,
+          "msMax": 810,
+          "boosterMsMax": 720
+        },
+        {
+          "weapon": "spear_polearm",
+          "stage": 7,
+          "ms": 810,
+          "boosterMs": 720,
+          "msMax": 870,
+          "boosterMsMax": 750
+        },
+        {
+          "weapon": "spear_polearm",
+          "stage": 8,
+          "ms": 870,
+          "boosterMs": 750,
+          "msMax": 900,
+          "boosterMsMax": 810
+        }
+      ],
+      "levels": [
+        {
+          "lv": 1,
+          "dmg": 160,
+          "mp": 4,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 2,
+          "dmg": 165,
+          "mp": 4,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 3,
+          "dmg": 170,
+          "mp": 4,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 4,
+          "dmg": 175,
+          "mp": 4,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 5,
+          "dmg": 180,
+          "mp": 5,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 6,
+          "dmg": 185,
+          "mp": 5,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 7,
+          "dmg": 190,
+          "mp": 5,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 8,
+          "dmg": 195,
+          "mp": 6,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 9,
+          "dmg": 200,
+          "mp": 6,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 10,
+          "dmg": 205,
+          "mp": 7,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 11,
+          "dmg": 210,
+          "mp": 7,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 12,
+          "dmg": 215,
+          "mp": 8,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 13,
+          "dmg": 220,
+          "mp": 8,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 14,
+          "dmg": 225,
+          "mp": 9,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 15,
+          "dmg": 230,
+          "mp": 9,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 16,
+          "dmg": 235,
+          "mp": 10,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 17,
+          "dmg": 240,
+          "mp": 10,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 18,
+          "dmg": 245,
+          "mp": 11,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 19,
+          "dmg": 250,
+          "mp": 11,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 20,
+          "dmg": 260,
+          "mp": 12,
+          "hits": 1,
+          "targets": 1
+        }
+      ]
+    },
+    "slash-blast": {
+      "src": "https://meowdb.com/msclassic/skills/warrior/slash-blast",
+      "anim": [
+        {
+          "weapon": "1h_sword_axe_mace",
+          "stage": 4,
+          "ms": 720,
+          "boosterMs": 600
+        },
+        {
+          "weapon": "1h_sword_axe_mace",
+          "stage": 5,
+          "ms": 750,
+          "boosterMs": 660
+        },
+        {
+          "weapon": "2h_sword_axe_mace",
+          "stage": 5,
+          "ms": 750,
+          "boosterMs": 660
+        },
+        {
+          "weapon": "2h_sword_axe_mace",
+          "stage": 6,
+          "ms": 810,
+          "boosterMs": 720
+        },
+        {
+          "weapon": "2h_sword_axe_mace",
+          "stage": 7,
+          "ms": 870,
+          "boosterMs": 750
+        },
+        {
+          "weapon": "spear_polearm",
+          "stage": 6,
+          "ms": 750,
+          "boosterMs": 660,
+          "msMax": 810,
+          "boosterMsMax": 720
+        },
+        {
+          "weapon": "spear_polearm",
+          "stage": 7,
+          "ms": 810,
+          "boosterMs": 720,
+          "msMax": 870,
+          "boosterMsMax": 750
+        },
+        {
+          "weapon": "spear_polearm",
+          "stage": 8,
+          "ms": 870,
+          "boosterMs": 750,
+          "msMax": 900,
+          "boosterMsMax": 810
+        }
+      ],
+      "levels": [
+        {
+          "lv": 1,
+          "dmg": 70,
+          "mp": 6,
+          "hp": 8,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 130
+        },
+        {
+          "lv": 2,
+          "dmg": 73,
+          "mp": 6,
+          "hp": 8,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 130
+        },
+        {
+          "lv": 3,
+          "dmg": 76,
+          "mp": 6,
+          "hp": 8,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 130
+        },
+        {
+          "lv": 4,
+          "dmg": 79,
+          "mp": 7,
+          "hp": 9,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 130
+        },
+        {
+          "lv": 5,
+          "dmg": 82,
+          "mp": 7,
+          "hp": 9,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 130
+        },
+        {
+          "lv": 6,
+          "dmg": 85,
+          "mp": 7,
+          "hp": 9,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 130
+        },
+        {
+          "lv": 7,
+          "dmg": 88,
+          "mp": 7,
+          "hp": 9,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 130
+        },
+        {
+          "lv": 8,
+          "dmg": 91,
+          "mp": 8,
+          "hp": 10,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 130
+        },
+        {
+          "lv": 9,
+          "dmg": 94,
+          "mp": 8,
+          "hp": 10,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 130
+        },
+        {
+          "lv": 10,
+          "dmg": 97,
+          "mp": 9,
+          "hp": 11,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 130
+        },
+        {
+          "lv": 11,
+          "dmg": 100,
+          "mp": 9,
+          "hp": 11,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 150
+        },
+        {
+          "lv": 12,
+          "dmg": 103,
+          "mp": 10,
+          "hp": 12,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 150
+        },
+        {
+          "lv": 13,
+          "dmg": 106,
+          "mp": 10,
+          "hp": 12,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 150
+        },
+        {
+          "lv": 14,
+          "dmg": 109,
+          "mp": 11,
+          "hp": 13,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 150
+        },
+        {
+          "lv": 15,
+          "dmg": 112,
+          "mp": 11,
+          "hp": 13,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 150
+        },
+        {
+          "lv": 16,
+          "dmg": 115,
+          "mp": 12,
+          "hp": 14,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 150
+        },
+        {
+          "lv": 17,
+          "dmg": 118,
+          "mp": 12,
+          "hp": 14,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 150
+        },
+        {
+          "lv": 18,
+          "dmg": 121,
+          "mp": 13,
+          "hp": 15,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 150
+        },
+        {
+          "lv": 19,
+          "dmg": 124,
+          "mp": 13,
+          "hp": 15,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 150
+        },
+        {
+          "lv": 20,
+          "dmg": 130,
+          "mp": 14,
+          "hp": 16,
+          "hits": 1,
+          "targets": 6,
+          "rangePx": 150
+        }
+      ]
+    },
+    "rage": {
+      "src": "https://meowdb.com/msclassic/skills/fighter/rage",
+      "anim": [
+        {
+          "weapon": "stage",
+          "stage": 4,
+          "ms": 540,
+          "boosterMs": 450
+        },
+        {
+          "weapon": "stage",
+          "stage": 5,
+          "ms": 570,
+          "boosterMs": 510
+        },
+        {
+          "weapon": "stage",
+          "stage": 6,
+          "ms": 600,
+          "boosterMs": 540
+        },
+        {
+          "weapon": "stage",
+          "stage": 7,
+          "ms": 660,
+          "boosterMs": 570
+        },
+        {
+          "weapon": "stage",
+          "stage": 8,
+          "ms": 690,
+          "boosterMs": 600
+        }
+      ],
+      "levels": [
+        {
+          "lv": 1,
+          "ap": 10,
+          "durationS": 150,
+          "mp": 10,
+          "wdef": -10
+        },
+        {
+          "lv": 2,
+          "ap": 11,
+          "durationS": 155,
+          "mp": 10,
+          "wdef": -11
+        },
+        {
+          "lv": 3,
+          "ap": 12,
+          "durationS": 160,
+          "mp": 10,
+          "wdef": -12
+        },
+        {
+          "lv": 4,
+          "ap": 13,
+          "durationS": 165,
+          "mp": 11,
+          "wdef": -13
+        },
+        {
+          "lv": 5,
+          "ap": 14,
+          "durationS": 170,
+          "mp": 11,
+          "wdef": -14
+        },
+        {
+          "lv": 6,
+          "ap": 15,
+          "durationS": 175,
+          "mp": 12,
+          "wdef": -15
+        },
+        {
+          "lv": 7,
+          "ap": 16,
+          "durationS": 180,
+          "mp": 12,
+          "wdef": -16
+        },
+        {
+          "lv": 8,
+          "ap": 17,
+          "durationS": 185,
+          "mp": 13,
+          "wdef": -17
+        },
+        {
+          "lv": 9,
+          "ap": 18,
+          "durationS": 190,
+          "mp": 13,
+          "wdef": -18
+        },
+        {
+          "lv": 10,
+          "ap": 19,
+          "durationS": 195,
+          "mp": 14,
+          "wdef": -19
+        },
+        {
+          "lv": 11,
+          "ap": 20,
+          "durationS": 200,
+          "mp": 14,
+          "wdef": -20
+        },
+        {
+          "lv": 12,
+          "ap": 21,
+          "durationS": 205,
+          "mp": 15,
+          "wdef": -21
+        },
+        {
+          "lv": 13,
+          "ap": 22,
+          "durationS": 210,
+          "mp": 15,
+          "wdef": -22
+        },
+        {
+          "lv": 14,
+          "ap": 23,
+          "durationS": 215,
+          "mp": 16,
+          "wdef": -23
+        },
+        {
+          "lv": 15,
+          "ap": 24,
+          "durationS": 220,
+          "mp": 16,
+          "wdef": -24
+        },
+        {
+          "lv": 16,
+          "ap": 25,
+          "durationS": 225,
+          "mp": 17,
+          "wdef": -25
+        },
+        {
+          "lv": 17,
+          "ap": 26,
+          "durationS": 230,
+          "mp": 17,
+          "wdef": -26
+        },
+        {
+          "lv": 18,
+          "ap": 27,
+          "durationS": 235,
+          "mp": 18,
+          "wdef": -27
+        },
+        {
+          "lv": 19,
+          "ap": 28,
+          "durationS": 240,
+          "mp": 18,
+          "wdef": -28
+        },
+        {
+          "lv": 20,
+          "ap": 29,
+          "durationS": 245,
+          "mp": 19,
+          "wdef": -29
+        },
+        {
+          "lv": 21,
+          "ap": 30,
+          "durationS": 250,
+          "mp": 19,
+          "wdef": -30
+        },
+        {
+          "lv": 22,
+          "ap": 31,
+          "durationS": 255,
+          "mp": 20,
+          "wdef": -31
+        },
+        {
+          "lv": 23,
+          "ap": 32,
+          "durationS": 260,
+          "mp": 20,
+          "wdef": -32
+        },
+        {
+          "lv": 24,
+          "ap": 33,
+          "durationS": 265,
+          "mp": 21,
+          "wdef": -33
+        },
+        {
+          "lv": 25,
+          "ap": 34,
+          "durationS": 270,
+          "mp": 21,
+          "wdef": -34
+        },
+        {
+          "lv": 26,
+          "ap": 35,
+          "durationS": 275,
+          "mp": 22,
+          "wdef": -35
+        },
+        {
+          "lv": 27,
+          "ap": 36,
+          "durationS": 280,
+          "mp": 22,
+          "wdef": -36
+        },
+        {
+          "lv": 28,
+          "ap": 37,
+          "durationS": 285,
+          "mp": 23,
+          "wdef": -37
+        },
+        {
+          "lv": 29,
+          "ap": 38,
+          "durationS": 290,
+          "mp": 23,
+          "wdef": -38
+        },
+        {
+          "lv": 30,
+          "ap": 40,
+          "durationS": 300,
+          "mp": 25,
+          "wdef": -40
+        }
+      ],
+      "notes": [
+        "Party buff; wdef is the Weapon Def reduction applied with the Attack Power gain. Anim table is by weapon speed stage (any weapon)."
+      ]
+    },
+    "arrow-blow": {
+      "src": "https://meowdb.com/msclassic/skills/bowman/arrow-blow",
+      "anim": [
+        {
+          "weapon": "bow",
+          "stage": 5,
+          "ms": 750,
+          "boosterMs": 660
+        },
+        {
+          "weapon": "bow",
+          "stage": 6,
+          "ms": 810,
+          "boosterMs": 720
+        },
+        {
+          "weapon": "crossbow",
+          "stage": 6,
+          "ms": 840,
+          "boosterMs": 720
+        },
+        {
+          "weapon": "crossbow",
+          "stage": 7,
+          "ms": 870,
+          "boosterMs": 780
+        }
+      ],
+      "levels": [
+        {
+          "lv": 1,
+          "dmg": 160,
+          "mp": 6,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 2,
+          "dmg": 164,
+          "mp": 6,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 3,
+          "dmg": 168,
+          "mp": 6,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 4,
+          "dmg": 172,
+          "mp": 6,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 5,
+          "dmg": 176,
+          "mp": 7,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 6,
+          "dmg": 180,
+          "mp": 7,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 7,
+          "dmg": 184,
+          "mp": 7,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 8,
+          "dmg": 188,
+          "mp": 8,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 9,
+          "dmg": 192,
+          "mp": 8,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 10,
+          "dmg": 196,
+          "mp": 9,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 11,
+          "dmg": 200,
+          "mp": 9,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 12,
+          "dmg": 204,
+          "mp": 10,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 13,
+          "dmg": 208,
+          "mp": 10,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 14,
+          "dmg": 212,
+          "mp": 11,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 15,
+          "dmg": 216,
+          "mp": 11,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 16,
+          "dmg": 220,
+          "mp": 12,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 17,
+          "dmg": 224,
+          "mp": 12,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 18,
+          "dmg": 228,
+          "mp": 13,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 19,
+          "dmg": 232,
+          "mp": 13,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        },
+        {
+          "lv": 20,
+          "dmg": 240,
+          "mp": 14,
+          "hits": 1,
+          "targets": 1,
+          "rangePx": 350
+        }
+      ],
+      "notes": [
+        "Range 470 px with The Eye of Amazon Lv 15."
+      ]
+    },
+    "double-shot": {
+      "src": "https://meowdb.com/msclassic/skills/bowman/double-shot",
+      "anim": [
+        {
+          "weapon": "bow",
+          "stage": 5,
+          "ms": 750,
+          "boosterMs": 660
+        },
+        {
+          "weapon": "bow",
+          "stage": 6,
+          "ms": 810,
+          "boosterMs": 720
+        },
+        {
+          "weapon": "crossbow",
+          "stage": 6,
+          "ms": 840,
+          "boosterMs": 720
+        },
+        {
+          "weapon": "crossbow",
+          "stage": 7,
+          "ms": 870,
+          "boosterMs": 780
+        }
+      ],
+      "levels": [
+        {
+          "lv": 1,
+          "dmg": 80,
+          "mp": 8,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 2,
+          "dmg": 82,
+          "mp": 8,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 3,
+          "dmg": 84,
+          "mp": 8,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 4,
+          "dmg": 86,
+          "mp": 8,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 5,
+          "dmg": 88,
+          "mp": 9,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 6,
+          "dmg": 90,
+          "mp": 9,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 7,
+          "dmg": 92,
+          "mp": 9,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 8,
+          "dmg": 94,
+          "mp": 10,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 9,
+          "dmg": 96,
+          "mp": 10,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 10,
+          "dmg": 98,
+          "mp": 11,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 11,
+          "dmg": 100,
+          "mp": 11,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 12,
+          "dmg": 102,
+          "mp": 12,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 13,
+          "dmg": 104,
+          "mp": 12,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 14,
+          "dmg": 106,
+          "mp": 13,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 15,
+          "dmg": 108,
+          "mp": 13,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 16,
+          "dmg": 110,
+          "mp": 14,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 17,
+          "dmg": 112,
+          "mp": 14,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 18,
+          "dmg": 114,
+          "mp": 15,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 19,
+          "dmg": 116,
+          "mp": 15,
+          "hits": 2,
+          "targets": 2
+        },
+        {
+          "lv": 20,
+          "dmg": 120,
+          "mp": 16,
+          "hits": 2,
+          "targets": 2
+        }
+      ],
+      "notes": [
+        "2 arrows: one monster takes both hits; with two monsters each takes 1. Range 300 px (Lv 1) to 420 px (Lv 20) per page header."
+      ]
+    },
+    "arrow-bomb-bow": {
+      "src": "https://meowdb.com/msclassic/skills/hunter/arrow-bomb-bow",
+      "anim": [
+        {
+          "weapon": "bow",
+          "stage": 5,
+          "ms": 750,
+          "boosterMs": 660
+        },
+        {
+          "weapon": "bow",
+          "stage": 6,
+          "ms": 810,
+          "boosterMs": 720
+        }
+      ],
+      "levels": [
+        {
+          "lv": 1,
+          "dmg": 80,
+          "targets": 4,
+          "mp": 14
+        },
+        {
+          "lv": 2,
+          "dmg": 82,
+          "targets": 4,
+          "mp": 14
+        },
+        {
+          "lv": 3,
+          "dmg": 84,
+          "targets": 4,
+          "mp": 14
+        },
+        {
+          "lv": 4,
+          "dmg": 86,
+          "targets": 4,
+          "mp": 15
+        },
+        {
+          "lv": 5,
+          "dmg": 88,
+          "targets": 4,
+          "mp": 15
+        },
+        {
+          "lv": 6,
+          "dmg": 90,
+          "targets": 4,
+          "mp": 16
+        },
+        {
+          "lv": 7,
+          "dmg": 92,
+          "targets": 4,
+          "mp": 16
+        },
+        {
+          "lv": 8,
+          "dmg": 94,
+          "targets": 4,
+          "mp": 17
+        },
+        {
+          "lv": 9,
+          "dmg": 96,
+          "targets": 4,
+          "mp": 17
+        },
+        {
+          "lv": 10,
+          "dmg": 98,
+          "targets": 4,
+          "mp": 18
+        },
+        {
+          "lv": 11,
+          "dmg": 100,
+          "targets": 4,
+          "mp": 18
+        },
+        {
+          "lv": 12,
+          "dmg": 102,
+          "targets": 4,
+          "mp": 19
+        },
+        {
+          "lv": 13,
+          "dmg": 104,
+          "targets": 4,
+          "mp": 19
+        },
+        {
+          "lv": 14,
+          "dmg": 106,
+          "targets": 4,
+          "mp": 20
+        },
+        {
+          "lv": 15,
+          "dmg": 108,
+          "targets": 4,
+          "mp": 20
+        },
+        {
+          "lv": 16,
+          "dmg": 110,
+          "targets": 4,
+          "mp": 21
+        },
+        {
+          "lv": 17,
+          "dmg": 112,
+          "targets": 4,
+          "mp": 21
+        },
+        {
+          "lv": 18,
+          "dmg": 114,
+          "targets": 4,
+          "mp": 22
+        },
+        {
+          "lv": 19,
+          "dmg": 116,
+          "targets": 4,
+          "mp": 22
+        },
+        {
+          "lv": 20,
+          "dmg": 118,
+          "targets": 4,
+          "mp": 23
+        },
+        {
+          "lv": 21,
+          "dmg": 120,
+          "targets": 4,
+          "mp": 23
+        },
+        {
+          "lv": 22,
+          "dmg": 122,
+          "targets": 4,
+          "mp": 24
+        },
+        {
+          "lv": 23,
+          "dmg": 125,
+          "targets": 4,
+          "mp": 24
+        },
+        {
+          "lv": 24,
+          "dmg": 127,
+          "targets": 4,
+          "mp": 25
+        },
+        {
+          "lv": 25,
+          "dmg": 129,
+          "targets": 4,
+          "mp": 25
+        },
+        {
+          "lv": 26,
+          "dmg": 131,
+          "targets": 4,
+          "mp": 26
+        },
+        {
+          "lv": 27,
+          "dmg": 133,
+          "targets": 4,
+          "mp": 26
+        },
+        {
+          "lv": 28,
+          "dmg": 136,
+          "targets": 4,
+          "mp": 27
+        },
+        {
+          "lv": 29,
+          "dmg": 138,
+          "targets": 4,
+          "mp": 27
+        },
+        {
+          "lv": 30,
+          "dmg": 140,
+          "targets": 4,
+          "mp": 28
+        }
+      ],
+      "notes": [
+        "Arrow hits one monster then explodes, hitting up to 6 in total including the first; hits per target not stated, so hits is omitted. Page says its animation is a visual recreation.",
+        "Conflicts with data/skills-bowman.json (taken from the /es/ page): that file has 140% / 4 targets / 60% stun for 3 s at max; this English page gave 130% / 6 targets / 2 s. Re-check before relying on max-level values.",
+        "Values re-checked against the /es/ page (Lv1 80%, Lv20 118%, Lv30 140%, up to 4 targets); in-between levels interpolated."
+      ]
+    },
+    "iron-arrow-crossbow": {
+      "src": "https://meowdb.com/msclassic/skills/crossbowman/iron-arrow-crossbow",
+      "anim": [
+        {
+          "weapon": "crossbow",
+          "stage": 6,
+          "ms": 840,
+          "boosterMs": 720
+        },
+        {
+          "weapon": "crossbow",
+          "stage": 7,
+          "ms": 870,
+          "boosterMs": 780
+        }
+      ],
+      "levels": [
+        {
+          "lv": 1,
+          "dmg": 120,
+          "mp": 14,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 2,
+          "dmg": 122,
+          "mp": 14,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 3,
+          "dmg": 124,
+          "mp": 14,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 4,
+          "dmg": 126,
+          "mp": 15,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 5,
+          "dmg": 128,
+          "mp": 15,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 6,
+          "dmg": 130,
+          "mp": 16,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 7,
+          "dmg": 132,
+          "mp": 16,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 8,
+          "dmg": 134,
+          "mp": 17,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 9,
+          "dmg": 136,
+          "mp": 17,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 10,
+          "dmg": 138,
+          "mp": 18,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 11,
+          "dmg": 140,
+          "mp": 18,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 12,
+          "dmg": 142,
+          "mp": 19,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 13,
+          "dmg": 144,
+          "mp": 19,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 14,
+          "dmg": 146,
+          "mp": 20,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 15,
+          "dmg": 148,
+          "mp": 20,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 16,
+          "dmg": 150,
+          "mp": 21,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 17,
+          "dmg": 152,
+          "mp": 21,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 18,
+          "dmg": 154,
+          "mp": 22,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 19,
+          "dmg": 156,
+          "mp": 22,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 20,
+          "dmg": 158,
+          "mp": 23,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 21,
+          "dmg": 160,
+          "mp": 23,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 22,
+          "dmg": 162,
+          "mp": 24,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 23,
+          "dmg": 164,
+          "mp": 24,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 24,
+          "dmg": 166,
+          "mp": 25,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 25,
+          "dmg": 168,
+          "mp": 25,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 26,
+          "dmg": 170,
+          "mp": 26,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 27,
+          "dmg": 172,
+          "mp": 26,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 28,
+          "dmg": 174,
+          "mp": 27,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 29,
+          "dmg": 176,
+          "mp": 27,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        },
+        {
+          "lv": 30,
+          "dmg": 180,
+          "mp": 28,
+          "hits": 1,
+          "targets": 6,
+          "falloffPct": 20
+        }
+      ],
+      "notes": [
+        "Pierces; each following monster takes 20% less than the previous one (falloffPct)."
+      ]
+    },
+    "lucky-seven": {
+      "src": "https://meowdb.com/msclassic/skills/thief/lucky-seven",
+      "anim": [
+        {
+          "weapon": "claw",
+          "stage": 3,
+          "ms": 660,
+          "boosterMs": 570
+        },
+        {
+          "weapon": "claw",
+          "stage": 4,
+          "ms": 720,
+          "boosterMs": 600
+        },
+        {
+          "weapon": "claw",
+          "stage": 5,
+          "ms": 750,
+          "boosterMs": 660
+        }
+      ],
+      "levels": [
+        {
+          "lv": 1,
+          "dmg": 60,
+          "mp": 8,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 2,
+          "dmg": 64,
+          "mp": 8,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 3,
+          "dmg": 68,
+          "mp": 8,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 4,
+          "dmg": 72,
+          "mp": 8,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 5,
+          "dmg": 76,
+          "mp": 9,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 6,
+          "dmg": 80,
+          "mp": 9,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 7,
+          "dmg": 84,
+          "mp": 9,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 8,
+          "dmg": 88,
+          "mp": 10,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 9,
+          "dmg": 92,
+          "mp": 10,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 10,
+          "dmg": 96,
+          "mp": 11,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 11,
+          "dmg": 100,
+          "mp": 11,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 12,
+          "dmg": 104,
+          "mp": 12,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 13,
+          "dmg": 108,
+          "mp": 12,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 14,
+          "dmg": 112,
+          "mp": 13,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 15,
+          "dmg": 116,
+          "mp": 13,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 16,
+          "dmg": 120,
+          "mp": 14,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 17,
+          "dmg": 124,
+          "mp": 14,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 18,
+          "dmg": 128,
+          "mp": 15,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 19,
+          "dmg": 132,
+          "mp": 15,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 20,
+          "dmg": 140,
+          "mp": 16,
+          "hits": 2,
+          "targets": 1
+        }
+      ],
+      "notes": [
+        "dmg is per star (2 stars). Range 200 px, 400 px with Keen Eyes."
+      ]
+    },
+    "double-stab": {
+      "src": "https://meowdb.com/msclassic/skills/thief/double-stab",
+      "anim": [
+        {
+          "weapon": "dagger",
+          "stage": 3,
+          "ms": 660,
+          "boosterMs": 570
+        },
+        {
+          "weapon": "dagger",
+          "stage": 4,
+          "ms": 720,
+          "boosterMs": 600
+        }
+      ],
+      "levels": [
+        {
+          "lv": 1,
+          "dmg": 80,
+          "mp": 8,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 2,
+          "dmg": 84,
+          "mp": 8,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 3,
+          "dmg": 88,
+          "mp": 8,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 4,
+          "dmg": 92,
+          "mp": 8,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 5,
+          "dmg": 96,
+          "mp": 9,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 6,
+          "dmg": 100,
+          "mp": 9,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 7,
+          "dmg": 104,
+          "mp": 9,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 8,
+          "dmg": 108,
+          "mp": 10,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 9,
+          "dmg": 112,
+          "mp": 10,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 10,
+          "dmg": 116,
+          "mp": 11,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 11,
+          "dmg": 120,
+          "mp": 11,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 12,
+          "dmg": 124,
+          "mp": 12,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 13,
+          "dmg": 128,
+          "mp": 12,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 14,
+          "dmg": 132,
+          "mp": 13,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 15,
+          "dmg": 136,
+          "mp": 13,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 16,
+          "dmg": 140,
+          "mp": 14,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 17,
+          "dmg": 144,
+          "mp": 14,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 18,
+          "dmg": 148,
+          "mp": 15,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 19,
+          "dmg": 152,
+          "mp": 15,
+          "hits": 2,
+          "targets": 1
+        },
+        {
+          "lv": 20,
+          "dmg": 160,
+          "mp": 16,
+          "hits": 2,
+          "targets": 1
+        }
+      ]
+    },
+    "drain": {
+      "src": "https://meowdb.com/msclassic/skills/assassin/drain",
+      "anim": [
+        {
+          "weapon": "claw",
+          "stage": 3,
+          "ms": 660,
+          "boosterMs": 570
+        },
+        {
+          "weapon": "claw",
+          "stage": 4,
+          "ms": 720,
+          "boosterMs": 600
+        },
+        {
+          "weapon": "claw",
+          "stage": 5,
+          "ms": 750,
+          "boosterMs": 660
+        }
+      ],
+      "levels": [
+        {
+          "lv": 1,
+          "dmg": 180,
+          "mp": 14,
+          "absorbChance": 2,
+          "absorbPct": 5,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 2,
+          "dmg": 182,
+          "mp": 14,
+          "absorbChance": 2,
+          "absorbPct": 5,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 3,
+          "dmg": 184,
+          "mp": 14,
+          "absorbChance": 3,
+          "absorbPct": 6,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 4,
+          "dmg": 186,
+          "mp": 15,
+          "absorbChance": 3,
+          "absorbPct": 6,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 5,
+          "dmg": 188,
+          "mp": 15,
+          "absorbChance": 3,
+          "absorbPct": 6,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 6,
+          "dmg": 190,
+          "mp": 16,
+          "absorbChance": 4,
+          "absorbPct": 7,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 7,
+          "dmg": 192,
+          "mp": 16,
+          "absorbChance": 4,
+          "absorbPct": 7,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 8,
+          "dmg": 194,
+          "mp": 17,
+          "absorbChance": 4,
+          "absorbPct": 7,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 9,
+          "dmg": 196,
+          "mp": 17,
+          "absorbChance": 5,
+          "absorbPct": 8,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 10,
+          "dmg": 198,
+          "mp": 18,
+          "absorbChance": 5,
+          "absorbPct": 8,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 11,
+          "dmg": 200,
+          "mp": 18,
+          "absorbChance": 5,
+          "absorbPct": 8,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 12,
+          "dmg": 202,
+          "mp": 19,
+          "absorbChance": 6,
+          "absorbPct": 9,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 13,
+          "dmg": 204,
+          "mp": 19,
+          "absorbChance": 6,
+          "absorbPct": 9,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 14,
+          "dmg": 206,
+          "mp": 20,
+          "absorbChance": 6,
+          "absorbPct": 9,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 15,
+          "dmg": 208,
+          "mp": 20,
+          "absorbChance": 7,
+          "absorbPct": 10,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 16,
+          "dmg": 210,
+          "mp": 21,
+          "absorbChance": 7,
+          "absorbPct": 10,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 17,
+          "dmg": 212,
+          "mp": 21,
+          "absorbChance": 7,
+          "absorbPct": 10,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 18,
+          "dmg": 214,
+          "mp": 22,
+          "absorbChance": 8,
+          "absorbPct": 11,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 19,
+          "dmg": 216,
+          "mp": 22,
+          "absorbChance": 8,
+          "absorbPct": 11,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 20,
+          "dmg": 218,
+          "mp": 23,
+          "absorbChance": 8,
+          "absorbPct": 11,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 21,
+          "dmg": 220,
+          "mp": 23,
+          "absorbChance": 9,
+          "absorbPct": 12,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 22,
+          "dmg": 222,
+          "mp": 24,
+          "absorbChance": 9,
+          "absorbPct": 12,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 23,
+          "dmg": 224,
+          "mp": 24,
+          "absorbChance": 9,
+          "absorbPct": 12,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 24,
+          "dmg": 226,
+          "mp": 25,
+          "absorbChance": 10,
+          "absorbPct": 13,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 25,
+          "dmg": 228,
+          "mp": 25,
+          "absorbChance": 10,
+          "absorbPct": 13,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 26,
+          "dmg": 230,
+          "mp": 26,
+          "absorbChance": 10,
+          "absorbPct": 13,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 27,
+          "dmg": 232,
+          "mp": 26,
+          "absorbChance": 11,
+          "absorbPct": 14,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 28,
+          "dmg": 234,
+          "mp": 27,
+          "absorbChance": 11,
+          "absorbPct": 14,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 29,
+          "dmg": 236,
+          "mp": 27,
+          "absorbChance": 11,
+          "absorbPct": 14,
+          "hits": 1,
+          "targets": 1
+        },
+        {
+          "lv": 30,
+          "dmg": 240,
+          "mp": 28,
+          "absorbChance": 12,
+          "absorbPct": 15,
+          "hits": 1,
+          "targets": 1
+        }
+      ],
+      "notes": [
+        "absorbChance = % chance per hit to absorb; absorbPct = % of damage dealt returned as HP. Capped at 25% of own Max HP per activation and never more than the monster's Max HP."
+      ]
+    },
+    "savage-blow": {
+      "src": "https://meowdb.com/msclassic/skills/bandit/savage-blow",
+      "anim": [
+        {
+          "weapon": "dagger",
+          "stage": 3,
+          "ms": 780,
+          "boosterMs": 660
+        },
+        {
+          "weapon": "dagger",
+          "stage": 4,
+          "ms": 840,
+          "boosterMs": 720
+        }
+      ],
+      "levels": [
+        {
+          "lv": 1,
+          "dmg": 65,
+          "hits": 4,
+          "mp": 14,
+          "targets": 1
+        },
+        {
+          "lv": 2,
+          "dmg": 66,
+          "hits": 4,
+          "mp": 14,
+          "targets": 1
+        },
+        {
+          "lv": 3,
+          "dmg": 67,
+          "hits": 4,
+          "mp": 14,
+          "targets": 1
+        },
+        {
+          "lv": 4,
+          "dmg": 68,
+          "hits": 4,
+          "mp": 14,
+          "targets": 1
+        },
+        {
+          "lv": 5,
+          "dmg": 69,
+          "hits": 4,
+          "mp": 15,
+          "targets": 1
+        },
+        {
+          "lv": 6,
+          "dmg": 70,
+          "hits": 4,
+          "mp": 15,
+          "targets": 1
+        },
+        {
+          "lv": 7,
+          "dmg": 71,
+          "hits": 4,
+          "mp": 15,
+          "targets": 1
+        },
+        {
+          "lv": 8,
+          "dmg": 72,
+          "hits": 4,
+          "mp": 16,
+          "targets": 1
+        },
+        {
+          "lv": 9,
+          "dmg": 73,
+          "hits": 4,
+          "mp": 16,
+          "targets": 1
+        },
+        {
+          "lv": 10,
+          "dmg": 75,
+          "hits": 4,
+          "mp": 16,
+          "targets": 1
+        },
+        {
+          "lv": 11,
+          "dmg": 65,
+          "hits": 5,
+          "mp": 19,
+          "targets": 1
+        },
+        {
+          "lv": 12,
+          "dmg": 66,
+          "hits": 5,
+          "mp": 19,
+          "targets": 1
+        },
+        {
+          "lv": 13,
+          "dmg": 67,
+          "hits": 5,
+          "mp": 19,
+          "targets": 1
+        },
+        {
+          "lv": 14,
+          "dmg": 68,
+          "hits": 5,
+          "mp": 19,
+          "targets": 1
+        },
+        {
+          "lv": 15,
+          "dmg": 69,
+          "hits": 5,
+          "mp": 20,
+          "targets": 1
+        },
+        {
+          "lv": 16,
+          "dmg": 70,
+          "hits": 5,
+          "mp": 20,
+          "targets": 1
+        },
+        {
+          "lv": 17,
+          "dmg": 71,
+          "hits": 5,
+          "mp": 20,
+          "targets": 1
+        },
+        {
+          "lv": 18,
+          "dmg": 72,
+          "hits": 5,
+          "mp": 21,
+          "targets": 1
+        },
+        {
+          "lv": 19,
+          "dmg": 73,
+          "hits": 5,
+          "mp": 21,
+          "targets": 1
+        },
+        {
+          "lv": 20,
+          "dmg": 75,
+          "hits": 5,
+          "mp": 21,
+          "targets": 1
+        },
+        {
+          "lv": 21,
+          "dmg": 65,
+          "hits": 6,
+          "mp": 24,
+          "targets": 1
+        },
+        {
+          "lv": 22,
+          "dmg": 66,
+          "hits": 6,
+          "mp": 24,
+          "targets": 1
+        },
+        {
+          "lv": 23,
+          "dmg": 67,
+          "hits": 6,
+          "mp": 24,
+          "targets": 1
+        },
+        {
+          "lv": 24,
+          "dmg": 68,
+          "hits": 6,
+          "mp": 25,
+          "targets": 1
+        },
+        {
+          "lv": 25,
+          "dmg": 69,
+          "hits": 6,
+          "mp": 25,
+          "targets": 1
+        },
+        {
+          "lv": 26,
+          "dmg": 70,
+          "hits": 6,
+          "mp": 25,
+          "targets": 1
+        },
+        {
+          "lv": 27,
+          "dmg": 71,
+          "hits": 6,
+          "mp": 26,
+          "targets": 1
+        },
+        {
+          "lv": 28,
+          "dmg": 72,
+          "hits": 6,
+          "mp": 26,
+          "targets": 1
+        },
+        {
+          "lv": 29,
+          "dmg": 73,
+          "hits": 6,
+          "mp": 26,
+          "targets": 1
+        },
+        {
+          "lv": 30,
+          "dmg": 75,
+          "hits": 6,
+          "mp": 28,
+          "targets": 1
+        }
+      ],
+      "notes": [
+        "Hit count steps 4/5/6 at Lv 1-10/11-20/21-30; per-hit dmg cycles 65-75 within each band."
+      ]
+    },
+    "claw-mastery": {
+      "src": "https://meowdb.com/msclassic/skills/assassin/claw-mastery",
+      "levels": [
+        {
+          "lv": 1,
+          "mastery": 1,
+          "ap": 1,
+          "starRetainChance": 5
+        },
+        {
+          "lv": 2,
+          "mastery": 1,
+          "ap": 2,
+          "starRetainChance": 6
+        },
+        {
+          "lv": 3,
+          "mastery": 1,
+          "ap": 3,
+          "starRetainChance": 7
+        },
+        {
+          "lv": 4,
+          "mastery": 2,
+          "ap": 4,
+          "starRetainChance": 8
+        },
+        {
+          "lv": 5,
+          "mastery": 2,
+          "ap": 5,
+          "starRetainChance": 9
+        },
+        {
+          "lv": 6,
+          "mastery": 3,
+          "ap": 6,
+          "starRetainChance": 10
+        },
+        {
+          "lv": 7,
+          "mastery": 3,
+          "ap": 7,
+          "starRetainChance": 11
+        },
+        {
+          "lv": 8,
+          "mastery": 4,
+          "ap": 8,
+          "starRetainChance": 12
+        },
+        {
+          "lv": 9,
+          "mastery": 4,
+          "ap": 9,
+          "starRetainChance": 13
+        },
+        {
+          "lv": 10,
+          "mastery": 5,
+          "ap": 10,
+          "starRetainChance": 14
+        },
+        {
+          "lv": 11,
+          "mastery": 5,
+          "ap": 11,
+          "starRetainChance": 15
+        },
+        {
+          "lv": 12,
+          "mastery": 6,
+          "ap": 12,
+          "starRetainChance": 16
+        },
+        {
+          "lv": 13,
+          "mastery": 6,
+          "ap": 13,
+          "starRetainChance": 17
+        },
+        {
+          "lv": 14,
+          "mastery": 7,
+          "ap": 14,
+          "starRetainChance": 18
+        },
+        {
+          "lv": 15,
+          "mastery": 7,
+          "ap": 15,
+          "starRetainChance": 19
+        },
+        {
+          "lv": 16,
+          "mastery": 8,
+          "ap": 16,
+          "starRetainChance": 20
+        },
+        {
+          "lv": 17,
+          "mastery": 8,
+          "ap": 17,
+          "starRetainChance": 21
+        },
+        {
+          "lv": 18,
+          "mastery": 9,
+          "ap": 18,
+          "starRetainChance": 22
+        },
+        {
+          "lv": 19,
+          "mastery": 9,
+          "ap": 19,
+          "starRetainChance": 23
+        },
+        {
+          "lv": 20,
+          "mastery": 10,
+          "ap": 20,
+          "starRetainChance": 25
+        }
+      ],
+      "notes": [
+        "mastery = Claw Mastery level granted (not a %). starRetainChance = % chance to get a used throwing star back. Does not apply to Lucky Seven (fixed 50% mastery per its page)."
+      ]
+    }
+  }
+}

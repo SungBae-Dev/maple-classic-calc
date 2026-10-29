@@ -51,9 +51,7 @@
             <div class="grid">
               <div class="field"><label for="subJob">{{f.subJob}}</label><select id="subJob"></select></div>
               <div class="field"><label for="level">{{f.level}}</label><input type="number" id="level" inputmode="numeric" min="1" max="200"></div>
-              <div class="field"><label for="weapon">{{f.weapon}}</label><select id="weapon"></select></div>
-              <div class="field" data-phys><label for="action">{{f.action}}</label><select id="action"></select><span class="hint" id="actionHint"></span></div>
-              <div class="field"><label for="masterySkillLv" id="masteryLabel">{{f.mastery}}</label><input type="number" id="masterySkillLv" inputmode="numeric" min="0" max="20"><span class="hint" id="masteryHint"></span></div>
+              <div class="field span2"><label for="weapon">{{f.weapon}}</label><select id="weapon"></select></div>
             </div>
 
             <div class="divider"></div>
@@ -68,8 +66,6 @@
               <div class="field" data-phys><label for="watk">{{f.watk}}</label><input type="number" id="watk" inputmode="numeric" min="0"><span class="hint" id="watkHint"></span></div>
               <div class="field" data-magic hidden><label for="matk">{{f.matk}}</label><input type="number" id="matk" inputmode="numeric" min="0"><span class="hint">{{f.matkHint}}</span></div>
               <div class="field"><label for="acc">{{f.acc}}</label><input type="number" id="acc" inputmode="numeric" min="0"><span class="hint">{{f.accHint}}</span></div>
-              <div class="field" data-phys><label for="apPassive">{{f.apPassive}}</label><input type="number" id="apPassive" inputmode="numeric" min="0"><span class="hint" id="apPassiveHint"></span></div>
-              <div class="field" data-phys><label for="apBuff">{{f.apBuff}}</label><input type="number" id="apBuff" inputmode="numeric" min="0"><span class="hint">{{f.apBuffHint}}</span></div>
             </div>
           </div>
         </section>
@@ -77,15 +73,38 @@
         <section class="win" aria-labelledby="h-skill">
           <div class="bar"><h2 id="h-skill">{{panel.skill}}</h2><span class="tag">SKILL</span></div>
           <div class="body">
-            <div class="grid g3">
-              <div class="field"><label for="skillPct">{{f.skillPct}}</label><input type="number" id="skillPct" inputmode="decimal" min="0" step="any"><span class="hint">{{f.skillPctHint}}</span></div>
-              <div class="field"><label for="hits">{{f.hits}}</label><input type="number" id="hits" inputmode="numeric" min="1"></div>
-              <div class="field"><label for="attackMs">{{f.attackMs}}</label><input type="number" id="attackMs" inputmode="numeric" min="50" step="10"><span class="hint">{{f.attackMsHint}}</span></div>
-              <div class="field"><label for="skillElement">{{f.skillEl}}</label><select id="skillElement"></select></div>
-              <div class="field"><label for="critRate">{{f.critRate}}</label><input type="number" id="critRate" inputmode="decimal" min="0" max="100" step="any"><span class="hint">{{f.default5}}</span></div>
-              <div class="field"><label for="critDmg">{{f.critDmg}}</label><input type="number" id="critDmg" inputmode="decimal" min="0" step="any"><span class="hint">{{f.default20}}</span></div>
-              <div class="field"><label for="defIgnorePct">{{f.defIgnore}}</label><input type="number" id="defIgnorePct" inputmode="decimal" min="0" max="100" step="any"></div>
+            <div class="grid">
+              <div class="field span2"><label for="skill">{{f.skill}}</label><select id="skill"></select></div>
             </div>
+            <div class="chips" id="skillInfo"></div>
+            <div class="tablewrap">
+              <table class="mobs compact fit skilltab">
+                <thead><tr><th scope="col">{{sk.col.skill}}</th><th scope="col" class="n">Lv</th><th scope="col" class="n">%</th><th scope="col" class="n">{{f.timeShort}}</th><th scope="col" class="n">DPS</th></tr></thead>
+                <tbody id="skillCompare"></tbody>
+              </table>
+            </div>
+            <p class="note">{{f.autoNote}}</p>
+            <details class="advanced" id="advanced">
+              <summary>{{f.advanced}}</summary>
+              <p class="note">{{f.advancedNote}}</p>
+              <div class="grid g3">
+                <div class="field"><label for="skillLv">{{f.skillLv}}</label><input type="number" id="skillLv" inputmode="numeric" min="1" max="30"></div>
+                <div class="field"><label for="skillPct">{{f.skillPct}}</label><input type="number" id="skillPct" inputmode="decimal" min="0" step="any"></div>
+                <div class="field"><label for="hits">{{f.hits}}</label><input type="number" id="hits" inputmode="numeric" min="1"></div>
+                <div class="field"><label for="attackMs">{{f.attackMs}}</label><input type="number" id="attackMs" inputmode="numeric" min="50" step="10"></div>
+                <div class="field"><label for="weaponStage">{{f.weaponStage}}</label><select id="weaponStage"></select></div>
+                <div class="field"><label for="masterySkillLv" id="masteryLabel">{{f.mastery}}</label><input type="number" id="masterySkillLv" inputmode="numeric" min="0" max="20"><span class="hint" id="masteryHint"></span></div>
+                <div class="field" data-phys><label for="apPassive">{{f.apPassive}}</label><input type="number" id="apPassive" inputmode="numeric" min="0"><span class="hint" id="apPassiveHint"></span></div>
+                <div class="field" data-phys><label for="apBuff">{{f.apBuff}}</label><input type="number" id="apBuff" inputmode="numeric" min="0"><span class="hint" id="apBuffHint"></span></div>
+                <div class="field" data-phys><label for="action">{{f.action}}</label><select id="action"></select><span class="hint" id="actionHint"></span></div>
+                <div class="field"><label for="skillElement">{{f.skillEl}}</label><select id="skillElement"></select></div>
+                <div class="field"><label for="critRate">{{f.critRate}}</label><input type="number" id="critRate" inputmode="decimal" min="0" max="100" step="any"></div>
+                <div class="field"><label for="critDmg">{{f.critDmg}}</label><input type="number" id="critDmg" inputmode="decimal" min="0" step="any"></div>
+                <div class="field"><label for="defIgnorePct">{{f.defIgnore}}</label><input type="number" id="defIgnorePct" inputmode="decimal" min="0" max="100" step="any"></div>
+              </div>
+              <label class="toggle"><input type="checkbox" id="buffs" checked> <span id="buffsLabel">{{f.buffs}}</span></label>
+              <button class="btn" type="button" id="resetAuto">{{f.resetAuto}}</button>
+            </details>
           </div>
         </section>
 

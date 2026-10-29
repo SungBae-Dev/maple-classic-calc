@@ -9,6 +9,9 @@ MapleStory Classic World (GMS) effective-main-stat calculator with a spec report
 
 스탯창 값을 **한 번만** 입력하면 탭마다 진단이 이어져요. 입력값은 브라우저에 저장돼요.
 
+**필수 입력은 9개뿐**: 직업 · 2차 전직 · 레벨 · 무기 · STR/DEX/INT/LUK · 총 공격력(마력) · 명중.
+나머지는 자동이에요: 스킬 가이드대로 찍었을 때의 스킬 레벨 → 클래식 스킬 데이터의 레벨별 %·타수·대상 수·속성, 숙련도, 분노·메디테이션·자벨린 숙련 AP, 부스터, 무기 속도 단계별 공격 시간. 가장 DPS가 높은 스킬을 자동 선택하고, "고급 설정"에서 어떤 값이든 덮어쓸 수 있어요.
+
 | 탭 | 내용 |
 |---|---|
 | **진단** | 환산 주스탯 · 1타 기대 데미지 · 예상 DPS · 타깃 처치 횟수/시간, 업그레이드 시뮬레이션 차트(공격력·주스탯·명중 +n 시 DPS와 "몇 방" 변곡점), 타깃 체크(현재 → 교체 후, 편차), 다음 스펙업 순위 + 목표 |
@@ -32,6 +35,8 @@ Community reverse-engineered formulas published by NiaDB — reproduced exactly 
 
 ## 데이터 (Data)
 
+`data/skill-levels-*.json` — per-level skill tables and per-weapon/per-speed attack times (NiaDB skill pages and the attack speed guide).
+
 `data/skills-*.json` — Classic skill lists per job (names, max level, key values at max) from NiaDB class pages, each skill linked to its source. Skill **order** in `src/guides.js` is this project's recommendation.
 
 `data/mobs.json` — 40 popular monsters (level, HP, EXP, avoidability, W.DEF, M.DEF, elements), each value taken from its individual [NiaDB](https://meowdb.com/msclassic/monsters) page and linked in the UI. This is a curated subset on purpose: NiaDB's [reuse policy](https://meowdb.com/reuse) allows individual facts with attribution but asks for permission before copying the database. To extend the list, email contact@meowdb.com (subject `Permission request: Maple Classic Calc`) or add values you measured yourself.
@@ -40,7 +45,7 @@ Community reverse-engineered formulas published by NiaDB — reproduced exactly 
 
 ```bash
 npm ci
-npm test          # engine, advisor, guide tests (NiaDB worked examples, SP budgets)
+npm test          # engine, advisor, guide, auto-fill tests (NiaDB worked examples, SP budgets)
 npm run build     # → dist/ (16 pages, 8 languages)
 npm run serve     # preview dist/
 ```
@@ -49,6 +54,7 @@ npm run serve     # preview dist/
 src/engine.ts     damage / conversion engine (no deps, language-neutral)
 src/advisor.ts    spec report: hunting spots, bosses, upgrades, goals, DPS, simulation, gear, scrolls
 src/guides.js     skill point orders per job/weapon, roadmap, Korean skill names
+src/auto.ts       auto-fill: skill levels from the guide, skill %/hits/element, mastery, buffs, attack time
 src/app.js        browser UI
 src/pages/*.html  page templates   src/i18n/*.json  strings (en is the fallback)
 scripts/build.mjs static build, hreflang, JSON-LD, sitemap, robots

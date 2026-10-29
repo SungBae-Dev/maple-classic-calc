@@ -53,6 +53,8 @@ export interface CharInput {
   apBuff: number;
   /** mastery skill level 0–20 */
   masterySkillLv: number;
+  /** direct mastery level 0–10 (magic skills carry their own); overrides masterySkillLv */
+  masteryLv?: number;
   /** magician: gear + scroll + buff magic attack (excluding INT/2) */
   matk: number;
   /** stat-window accuracy */
@@ -168,7 +170,7 @@ export function masteryFactor(masteryLv: number): number {
 
 function effectiveMastery(c: CharInput, masteryLvOverride?: number): number {
   if (!isMagic(c) && normalizeAction(c) === 'lucky7') return 0.5;
-  const ml = masteryLvOverride ?? masteryLevelFromSkill(c.masterySkillLv);
+  const ml = masteryLvOverride ?? (c.masteryLv != null ? c.masteryLv : masteryLevelFromSkill(c.masterySkillLv));
   return masteryFactor(ml);
 }
 

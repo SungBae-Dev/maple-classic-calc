@@ -384,3 +384,12 @@ table.mobs.compact.fit td, table.mobs.compact.fit th { padding-inline: 8px; }
 .tcbox > * { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
 .tcbox b { font-size: clamp(1.5rem, 8vw, 2.25rem); }
 .tcgrid { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
+details.advanced { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 12px; }
+details.advanced[open] { gap: 12px; }
+details.advanced > summary { cursor: pointer; font-weight: 600; color: var(--maple-ink); }
+details.advanced:not([open]) > :not(summary) { display: none; }
+table.skilltab tbody tr { cursor: pointer; }
+table.skilltab tbody tr.sel td { background: var(--maple-soft); }
+table.skilltab tbody tr.sel td:first-child { box-shadow: inset 3px 0 0 var(--maple); }
+table.skilltab td.name small { display: inline; margin-left: 4px; }
+input.auto::placeholder { color: var(--maple-ink); opacity: 0.85; }
