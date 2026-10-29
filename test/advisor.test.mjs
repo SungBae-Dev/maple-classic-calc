@@ -50,4 +50,35 @@ t('목표: 필요 공격력을 더하면 실제로 한 방 줄어듦', () => {
   assert.ok(A.huntRow({ ...fighter, watk: fighter.watk + g.atk - 1 }, m).castsIfHit > g.targetCasts);
 });
 
-console.log(`\n${pass} passed`);
+
+// v2: DPS, simulation, gear, scrolls
+const cold = mobs.find((m) => m.id === 37);
+const horny = mobs.find((m) => m.id === 19);
+t('DPS = 시전당 기대 데미지 ÷ 공격 간격', () => {
+  const c = { ...warrior30, attackMs: 900 };
+  const ev = E.evaluate(c, A.mobInput(horny));
+  assert.ok(Math.abs(A.dps(c, horny) - ev.perCast / 0.9) < 1e-9);
+  assert.ok(A.dps({ ...c, attackMs: 600 }, horny) > A.dps(c, horny));
+});
+t('타깃 체크: 최선 ≤ 평균 ≤ 최악 처치 횟수, 시간 = HP/DPS', () => {
+  const tc = A.targetCheck(fighter, cold);
+  assert.ok(tc.castsBest <= tc.casts && tc.casts <= tc.castsWorst);
+  assert.ok(Math.abs(tc.seconds - cold.hp / tc.dps) < 1e-9);
+});
+t('시뮬레이션: 공격력이 오르면 DPS 단조 증가, 처치 횟수 비증가', () => {
+  const pts = A.simulate(warrior30, horny, 'atk', [0, 5, 10, 15, 20]);
+  for (let i = 1; i < pts.length; i++) { assert.ok(pts[i].dps > pts[i - 1].dps); assert.ok(pts[i].casts <= pts[i - 1].casts); }
+});
+t('장비 비교: 공격 간격 단축은 DPS만 올리고 1타 평균은 그대로', () => {
+  const g = A.gearCompare(warrior30, { attackMs: -100 }, horny, 150);
+  assert.ok(g.dpsPct > 0);
+  assert.ok(Math.abs(g.avgPct) < 1e-12);
+  assert.ok(Math.abs(g.perMillion - (g.dpsPct * 100) / 1.5) < 1e-9);
+});
+t('주문서 기대값: 7슬롯 60% +2 = 8.4, 전부 성공 확률 = 0.6^7', () => {
+  const r = A.scrollExpectation(warrior30, horny, { slots: 7, successPct: 60, gain: 2, price10k: 10 });
+  assert.ok(Math.abs(r.expectedGain - 8.4) < 1e-9);
+  assert.ok(Math.abs(r.allSuccessPct - Math.pow(0.6, 7) * 100) < 1e-9);
+  assert.equal(r.costTotal10k, 70);
+});
+console.log(`${pass} passed (total)`);

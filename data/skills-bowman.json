@@ -1,0 +1,253 @@
+{
+  "source": "NiaDB (meowdb.com) class skill pages",
+  "checked": "2026-10-29",
+  "notes": [
+    "Values were checked only where a skill has a 'src' pointing to its own skill page (arrow-blow, double-shot, arrow-bomb-bow, iron-arrow-crossbow). Other skills come from class listing pages, which show only the max level, unlock level and a short description.",
+    "Only one prerequisite is stated on a skill page: double-shot needs arrow-blow Lv 1. The others are inferred from how the class listing nests skills and its 'Unlocks at Lv N' labels: focus, soul-arrow-bow and soul-arrow-crossbow. The parent mastery skill is a guess for amazon-s-judgement, final-attack-* and *-booster, because the listing shows an unlock level but not a clear parent.",
+    "Not confirmed (not shown on the pages fetched): dmgPct for power-knockback, final-attack-bow, final-attack-crossbow and three-snails; MP costs for buffs and passives; the stat values of focus, critical-shot, masteries, amazon-s-judgement, boosters and soul-arrow.",
+    "Final Attack targets: the Hunter listing says up to 3 enemies, but the Crossbowman listing describes a single-target hit. Neither was checked on its own skill page.",
+    "Classic change on iron-arrow-crossbow: max-level damage changed from 190% to 180% (2026-08-04), and the target cap changed from 4 to 6 (COT2 -> launch, 2026-10-06). Current values are used.",
+    "The Bowman listing was read from NiaDB's Spanish-locale class page, because the English URL was not reachable; skill slugs and numbers are the same across locales."
+  ],
+  "jobs": {
+    "beginner": {
+      "tier": 0,
+      "en": "Beginner",
+      "src": "https://meowdb.com/msclassic/classes/beginner",
+      "skills": [
+        {
+          "slug": "three-snails",
+          "en": "Three Snails",
+          "type": "attack",
+          "maxLv": 3,
+          "hits": 1,
+          "atMax": "Long-range thrown snail-shell attack; consumes a shell per throw",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/classes/beginner"
+        },
+        {
+          "slug": "nimble-feet",
+          "en": "Nimble Feet",
+          "type": "buff",
+          "maxLv": 3,
+          "atMax": "Short self movement-speed boost; 180 s cooldown",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/classes/beginner"
+        },
+        {
+          "slug": "recovery",
+          "en": "Recovery",
+          "type": "recovery",
+          "maxLv": 3,
+          "atMax": "Regenerates HP over 30 s; 120 s cooldown",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/classes/beginner"
+        }
+      ]
+    },
+    "bowman": {
+      "tier": 1,
+      "en": "Bowman",
+      "src": "https://meowdb.com/msclassic/es/classes/bowman",
+      "skills": [
+        {
+          "slug": "the-eye-of-amazon",
+          "en": "The Eye of Amazon",
+          "type": "passive",
+          "maxLv": 15,
+          "atMax": "+120 px bow/crossbow attack range at Lv 15",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/bowman/arrow-blow"
+        },
+        {
+          "slug": "focus",
+          "en": "Focus",
+          "type": "buff",
+          "maxLv": 20,
+          "atMax": "Temporary self buff raising Accuracy and Avoidability",
+          "prereq": "the-eye-of-amazon Lv 3",
+          "src": "https://meowdb.com/msclassic/es/classes/bowman"
+        },
+        {
+          "slug": "critical-shot",
+          "en": "Critical Shot",
+          "type": "passive",
+          "maxLv": 15,
+          "atMax": "Raises critical rate and critical damage",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/es/classes/bowman"
+        },
+        {
+          "slug": "arrow-blow",
+          "en": "Arrow Blow",
+          "type": "attack",
+          "maxLv": 20,
+          "dmgPct": 240,
+          "hits": 1,
+          "targets": 1,
+          "mp": 14,
+          "atMax": "Single strong arrow, 240% dmg, 350 px range (470 with Eye of Amazon)",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/bowman/arrow-blow"
+        },
+        {
+          "slug": "double-shot",
+          "en": "Double Shot",
+          "type": "attack",
+          "maxLv": 20,
+          "dmgPct": 120,
+          "hits": 2,
+          "targets": 2,
+          "mp": 16,
+          "atMax": "Two arrows at 120% each (2 arrows used), split over up to 2 foes",
+          "prereq": "arrow-blow Lv 1",
+          "src": "https://meowdb.com/msclassic/zh-cn/skills/bowman/double-shot"
+        },
+        {
+          "slug": "power-knockback",
+          "en": "Power Knockback",
+          "type": "aoe",
+          "maxLv": 15,
+          "hits": 1,
+          "atMax": "Melee bow swing that knocks back several foes; always crits",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/es/classes/bowman"
+        }
+      ]
+    },
+    "hunter": {
+      "tier": 2,
+      "en": "Hunter",
+      "src": "https://meowdb.com/msclassic/skills/hunter",
+      "skills": [
+        {
+          "slug": "bow-mastery",
+          "en": "Bow Mastery",
+          "type": "mastery",
+          "maxLv": 20,
+          "atMax": "Raises bow mastery and Avoidability (bow equipped only)",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/hunter"
+        },
+        {
+          "slug": "amazon-s-judgement",
+          "en": "Amazon's Judgement",
+          "type": "passive",
+          "maxLv": 20,
+          "atMax": "Critical hits slow the target (shared with Crossbowman)",
+          "prereq": "bow-mastery Lv 5",
+          "src": "https://meowdb.com/msclassic/skills/hunter"
+        },
+        {
+          "slug": "final-attack-bow",
+          "en": "Final Attack: Bow",
+          "type": "attack",
+          "maxLv": 30,
+          "hits": 1,
+          "targets": 3,
+          "atMax": "Toggle; attacks may proc an extra heavy hit (bow only)",
+          "prereq": "bow-mastery Lv 3",
+          "src": "https://meowdb.com/msclassic/skills/hunter"
+        },
+        {
+          "slug": "bow-booster",
+          "en": "Bow Booster",
+          "type": "booster",
+          "maxLv": 20,
+          "atMax": "Costs HP+MP to temporarily raise bow attack speed",
+          "prereq": "bow-mastery Lv 5",
+          "src": "https://meowdb.com/msclassic/skills/hunter"
+        },
+        {
+          "slug": "soul-arrow-bow",
+          "en": "Soul Arrow: Bow",
+          "type": "buff",
+          "maxLv": 20,
+          "atMax": "Temporarily shoot without using arrows (bow only)",
+          "prereq": "bow-booster Lv 5",
+          "src": "https://meowdb.com/msclassic/skills/hunter"
+        },
+        {
+          "slug": "arrow-bomb-bow",
+          "en": "Arrow Bomb: Bow",
+          "type": "aoe",
+          "maxLv": 30,
+          "dmgPct": 140,
+          "hits": 1,
+          "targets": 4,
+          "mp": 28,
+          "atMax": "Exploding arrow, 140% to up to 4; 60% chance to stun for 3 s",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/es/skills/hunter/arrow-bomb-bow"
+        }
+      ]
+    },
+    "crossbowman": {
+      "tier": 2,
+      "en": "Crossbowman",
+      "src": "https://meowdb.com/msclassic/skills/crossbowman",
+      "skills": [
+        {
+          "slug": "crossbow-mastery",
+          "en": "Crossbow Mastery",
+          "type": "mastery",
+          "maxLv": 20,
+          "atMax": "Raises crossbow mastery; chance to ignore weapon defense",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/crossbowman"
+        },
+        {
+          "slug": "amazon-s-judgement",
+          "en": "Amazon's Judgement",
+          "type": "passive",
+          "maxLv": 20,
+          "atMax": "Critical hits slow the target (shared with Hunter)",
+          "prereq": "crossbow-mastery Lv 5",
+          "src": "https://meowdb.com/msclassic/skills/crossbowman"
+        },
+        {
+          "slug": "final-attack-crossbow",
+          "en": "Final Attack: Crossbow",
+          "type": "attack",
+          "maxLv": 30,
+          "hits": 1,
+          "targets": 1,
+          "atMax": "Toggle; attacks may proc an extra heavy single hit (crossbow only)",
+          "prereq": "crossbow-mastery Lv 3",
+          "src": "https://meowdb.com/msclassic/skills/crossbowman"
+        },
+        {
+          "slug": "crossbow-booster",
+          "en": "Crossbow Booster",
+          "type": "booster",
+          "maxLv": 20,
+          "atMax": "Costs HP+MP to temporarily raise crossbow attack speed",
+          "prereq": "crossbow-mastery Lv 5",
+          "src": "https://meowdb.com/msclassic/skills/crossbowman"
+        },
+        {
+          "slug": "soul-arrow-crossbow",
+          "en": "Soul Arrow: Crossbow",
+          "type": "buff",
+          "maxLv": 20,
+          "atMax": "Temporarily shoot without using arrows (crossbow only)",
+          "prereq": "crossbow-booster Lv 5",
+          "src": "https://meowdb.com/msclassic/skills/crossbowman"
+        },
+        {
+          "slug": "iron-arrow-crossbow",
+          "en": "Iron Arrow: Crossbow",
+          "type": "aoe",
+          "maxLv": 30,
+          "dmgPct": 180,
+          "hits": 1,
+          "targets": 6,
+          "mp": 28,
+          "atMax": "Piercing bolt, 180% to up to 6; each next target takes 20% less",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/crossbowman/iron-arrow-crossbow"
+        }
+      ]
+    }
+  }
+}

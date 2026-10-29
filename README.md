@@ -7,18 +7,16 @@ MapleStory Classic World (GMS) effective-main-stat calculator with a spec report
 
 ## 기능 (Features)
 
-스탯창 값을 한 번 입력하면:
+스탯창 값을 **한 번만** 입력하면 탭마다 진단이 이어져요. 입력값은 브라우저에 저장돼요.
 
-| | |
+| 탭 | 내용 |
 |---|---|
-| **환산 주스탯 · 스공** | 부스탯·AP를 주스탯으로 합친 실질 주스탯, 평타 평균, 스탯창 범위(입력 검증용) |
-| **스킬 기대 데미지** | 스킬 %, 타수, 크리, 몹 방어(물방/마방), 속성 약점, 레벨 차, 명중 판정 반영 |
-| **지금 갈 수 있는 사냥터** | 몬스터 40종에 내 빌드를 대입 → 명중률·처치 횟수·공격당 경험치 순 추천 |
-| **보스** | 머쉬맘·주니어 발록 명중 가능 여부, 필요 명중, 예상 공격 횟수 |
-| **다음 스펙업 추천** | 레벨업(AP 5), 공격력 +1/+5, 숙련 스킬, 명중 보강 효과 순위 + "다음 몹 한 방 줄이려면 공격력 +n" 목표 |
-| **스탯 환산표 · 템 비교** | 공 1 = 주스탯 x, 템 교체 시 기대 데미지 % / 주스탯 상당치 |
-| **몬스터 명중표** | 몬스터별 100% 명중 필요치, 내 레벨·명중 기준 명중률 (`/mobs/`) |
-| **빌드 코드** | `MC2-…` 코드로 빌드 공유/불러오기 |
+| **진단** | 환산 주스탯 · 1타 기대 데미지 · 예상 DPS · 타깃 처치 횟수/시간, 업그레이드 시뮬레이션 차트(공격력·주스탯·명중 +n 시 DPS와 "몇 방" 변곡점), 타깃 체크(현재 → 교체 후, 편차), 다음 스펙업 순위 + 목표 |
+| **사냥·보스** | 현재 레벨 추천 사냥터(명중률·처치 횟수·시간·공격당 경험치), ±15레벨 전체 표, 보스 준비도(필요 명중·처치 시간) + **보스 빌드 공유 링크** |
+| **장비·주문서** | 장비 교체 비교표(공격력·스탯·공격 간격·평균 데미지·DPS·처치 횟수·시간), **100만 메소당 DPS 증가율**, 교체 세팅 적용, 주문서 100%/60%/10% 기대값·메소 효율 |
+| **스킬** | 2차 전직·무기별 **SP 투자 순서**(현재 레벨에서 찍을 수 있는 단계 체크), 스킬북(마스터 레벨·효과, 출처 링크), 성장 로드맵 |
+| **내 빌드** | 빌드 저장/불러오기/삭제, 현재 대비 DPS 비교, JSON 내보내기·가져오기, 공유 링크(`#b=MC3-…`) |
+| `/mobs/` | 몬스터 명중표: 몹별 100% 명중 필요치, 내 레벨·명중 기준 명중률 |
 
 8 languages, static HTML per language with `hreflang`, canonical, Open Graph, JSON-LD (WebApplication + FAQPage), sitemap with alternates.
 
@@ -34,20 +32,23 @@ Community reverse-engineered formulas published by NiaDB — reproduced exactly 
 
 ## 데이터 (Data)
 
+`data/skills-*.json` — Classic skill lists per job (names, max level, key values at max) from NiaDB class pages, each skill linked to its source. Skill **order** in `src/guides.js` is this project's recommendation.
+
 `data/mobs.json` — 40 popular monsters (level, HP, EXP, avoidability, W.DEF, M.DEF, elements), each value taken from its individual [NiaDB](https://meowdb.com/msclassic/monsters) page and linked in the UI. This is a curated subset on purpose: NiaDB's [reuse policy](https://meowdb.com/reuse) allows individual facts with attribution but asks for permission before copying the database. To extend the list, email contact@meowdb.com (subject `Permission request: Maple Classic Calc`) or add values you measured yourself.
 
 ## 개발 (Development)
 
 ```bash
 npm ci
-npm test          # engine + advisor tests (NiaDB worked examples)
+npm test          # engine, advisor, guide tests (NiaDB worked examples, SP budgets)
 npm run build     # → dist/ (16 pages, 8 languages)
 npm run serve     # preview dist/
 ```
 
 ```
 src/engine.ts     damage / conversion engine (no deps, language-neutral)
-src/advisor.ts    spec report: hunting spots, bosses, upgrades, goals
+src/advisor.ts    spec report: hunting spots, bosses, upgrades, goals, DPS, simulation, gear, scrolls
+src/guides.js     skill point orders per job/weapon, roadmap, Korean skill names
 src/app.js        browser UI
 src/pages/*.html  page templates   src/i18n/*.json  strings (en is the fallback)
 scripts/build.mjs static build, hreflang, JSON-LD, sitemap, robots

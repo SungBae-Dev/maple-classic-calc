@@ -1,0 +1,343 @@
+{
+  "source": "NiaDB (meowdb.com) class skill pages",
+  "checked": "2026-10-29",
+  "notes": [
+    "Values were checked on 4 individual skill pages: warrior/power-strike, warrior/slash-blast, fighter/rage, fighter/sword-mastery. Every other skill comes from its class listing page, which shows only the max level, unlock gate, tags and a short description.",
+    "Prerequisites come from the listing's nesting (a child skill indented under a parent and marked 'Unlocks at Lv N'), so they are inferred. Only slash-blast <- power-strike Lv 1 is stated on a skill page.",
+    "Not confirmed (not shown on the pages fetched): dmgPct for the six Final Attack skills and for Rush; MP costs for every skill except power-strike, slash-blast and rage; stat values and durations for iron-body, iron-will, threaten, the boosters, the masteries other than fighter/sword-mastery, max-hp-increase, improved-hp-recovery and precise-strikes.",
+    "Rush differs between listings: Fighter and Spearman say up to 6 monsters with a 2 s cooldown, but the Page listing says up to 4 monsters with a 1 s cooldown. Each job records its own listing.",
+    "Final Attack targets: the Fighter listing says up to 3 enemies in front, and the Spearman listing says a single enemy. The Page listing describes a single-target hit for the shared Final Attack: Sword, which conflicts with Fighter's, so targets are omitted for Page's Final Attack entries.",
+    "Sword Mastery: the fighter skill page shows that at launch (2026-10-06) the side bonus changed from Weapon Def (+90 at max) to Accuracy (+20 at max). The Page listing still describes Sword Mastery as raising Weapon Def; the Page copy was not checked on its own page.",
+    "Classic changes kept as current values: Slash Blast targets 4 -> 6, MP at max 12 -> 14, HP cost at max 8 -> 16 (COT2 -> launch, 2026-10-06); Rage Attack Power +35 -> +40 and Weapon Def -35 -> -40 (COT1 -> COT2).",
+    "The Warrior 1st-job listing was read from the English class page (/msclassic/classes/warrior), because the /msclassic/skills/warrior URL was not reachable."
+  ],
+  "jobs": {
+    "warrior": {
+      "tier": 1,
+      "en": "Warrior",
+      "src": "https://meowdb.com/msclassic/classes/warrior",
+      "skills": [
+        {
+          "slug": "improved-hp-recovery",
+          "en": "Improved HP Recovery",
+          "type": "recovery",
+          "maxLv": 15,
+          "atMax": "Passive: HP regenerates while moving too; more HP from potions",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/classes/warrior"
+        },
+        {
+          "slug": "max-hp-increase",
+          "en": "Max HP Increase",
+          "type": "passive",
+          "maxLv": 15,
+          "atMax": "Passive: raises max HP (value not shown on listing)",
+          "prereq": "improved-hp-recovery Lv 3",
+          "src": "https://meowdb.com/msclassic/classes/warrior"
+        },
+        {
+          "slug": "iron-body",
+          "en": "Iron Body",
+          "type": "buff",
+          "maxLv": 20,
+          "atMax": "Self buff: temporarily raises Weapon Def (value/duration not shown)",
+          "prereq": "max-hp-increase Lv 3",
+          "src": "https://meowdb.com/msclassic/classes/warrior"
+        },
+        {
+          "slug": "power-strike",
+          "en": "Power Strike",
+          "type": "attack",
+          "maxLv": 20,
+          "dmgPct": 260,
+          "hits": 1,
+          "targets": 1,
+          "mp": 12,
+          "atMax": "260% damage to 1 enemy, 12 MP",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/warrior/power-strike"
+        },
+        {
+          "slug": "slash-blast",
+          "en": "Slash Blast",
+          "type": "aoe",
+          "maxLv": 20,
+          "dmgPct": 130,
+          "hits": 1,
+          "targets": 6,
+          "mp": 14,
+          "atMax": "130% damage to up to 6 enemies, 150 px reach; costs 14 MP + 16 HP",
+          "prereq": "power-strike Lv 1",
+          "change": "COT2 -> launch: targets 4 -> 6, MP 12 -> 14, HP cost 8 -> 16 (at max)",
+          "src": "https://meowdb.com/msclassic/skills/warrior/slash-blast"
+        },
+        {
+          "slug": "precise-strikes",
+          "en": "Precise Strikes",
+          "type": "passive",
+          "maxLv": 15,
+          "atMax": "Passive: raises Accuracy and Critical Rate (values not shown)",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/classes/warrior"
+        }
+      ]
+    },
+    "fighter": {
+      "tier": 2,
+      "en": "Fighter",
+      "src": "https://meowdb.com/msclassic/skills/fighter",
+      "skills": [
+        {
+          "slug": "sword-mastery",
+          "en": "Sword Mastery",
+          "type": "mastery",
+          "maxLv": 20,
+          "atMax": "Sword mastery Lv 10 (min roll uses 77% of main stat), Accuracy +20",
+          "prereq": null,
+          "change": "Launch (2026-10-06): side bonus changed from Weapon Def +90 to Accuracy +20 at max",
+          "src": "https://meowdb.com/msclassic/skills/fighter/sword-mastery"
+        },
+        {
+          "slug": "final-attack-sword",
+          "en": "Final Attack: Sword",
+          "type": "attack",
+          "maxLv": 30,
+          "hits": 1,
+          "targets": 3,
+          "atMax": "After an attack skill, may add a heavy hit on up to 3 foes (sword only)",
+          "prereq": "sword-mastery Lv 3",
+          "src": "https://meowdb.com/msclassic/skills/fighter"
+        },
+        {
+          "slug": "sword-booster",
+          "en": "Sword Booster",
+          "type": "booster",
+          "maxLv": 20,
+          "atMax": "Costs HP+MP to temporarily raise sword attack speed",
+          "prereq": "sword-mastery Lv 5",
+          "src": "https://meowdb.com/msclassic/skills/fighter"
+        },
+        {
+          "slug": "axe-mastery",
+          "en": "Axe Mastery",
+          "type": "mastery",
+          "maxLv": 20,
+          "atMax": "Raises axe mastery; hits may make the target bleed (axe only)",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/fighter"
+        },
+        {
+          "slug": "final-attack-axe",
+          "en": "Final Attack: Axe",
+          "type": "attack",
+          "maxLv": 30,
+          "hits": 1,
+          "targets": 3,
+          "atMax": "After an attack skill, may add a heavy hit on up to 3 foes (axe only)",
+          "prereq": "axe-mastery Lv 3",
+          "src": "https://meowdb.com/msclassic/skills/fighter"
+        },
+        {
+          "slug": "axe-booster",
+          "en": "Axe Booster",
+          "type": "booster",
+          "maxLv": 20,
+          "atMax": "Costs HP+MP to temporarily raise axe attack speed",
+          "prereq": "axe-mastery Lv 5",
+          "src": "https://meowdb.com/msclassic/skills/fighter"
+        },
+        {
+          "slug": "rage",
+          "en": "Rage",
+          "type": "buff",
+          "maxLv": 30,
+          "mp": 25,
+          "atMax": "Party Attack Power +40, Weapon Def -40 for 300 s",
+          "prereq": null,
+          "change": "COT1 -> COT2: Attack Power +35 -> +40, Weapon Def -35 -> -40",
+          "src": "https://meowdb.com/msclassic/skills/fighter/rage"
+        },
+        {
+          "slug": "rush",
+          "en": "Rush",
+          "type": "aoe",
+          "maxLv": 20,
+          "hits": 1,
+          "targets": 6,
+          "atMax": "Dash that hits and knocks back up to 6 foes; 2 s cooldown, ground only",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/fighter"
+        }
+      ]
+    },
+    "page": {
+      "tier": 2,
+      "en": "Page",
+      "src": "https://meowdb.com/msclassic/skills/page",
+      "skills": [
+        {
+          "slug": "sword-mastery",
+          "en": "Sword Mastery",
+          "type": "mastery",
+          "maxLv": 20,
+          "atMax": "Raises sword mastery; listing also says Weapon Def (sword only)",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/page"
+        },
+        {
+          "slug": "final-attack-sword",
+          "en": "Final Attack: Sword",
+          "type": "attack",
+          "maxLv": 30,
+          "hits": 1,
+          "atMax": "Toggle; attack skills may proc an extra heavy hit (sword only)",
+          "prereq": "sword-mastery Lv 3",
+          "src": "https://meowdb.com/msclassic/skills/page"
+        },
+        {
+          "slug": "sword-booster",
+          "en": "Sword Booster",
+          "type": "booster",
+          "maxLv": 20,
+          "atMax": "Costs HP+MP to temporarily raise sword attack speed",
+          "prereq": "sword-mastery Lv 5",
+          "src": "https://meowdb.com/msclassic/skills/page"
+        },
+        {
+          "slug": "blunt-weapon-mastery",
+          "en": "Blunt Weapon Mastery",
+          "type": "mastery",
+          "maxLv": 20,
+          "atMax": "Raises blunt weapon mastery; chance to ignore Weapon Def (blunt only)",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/page"
+        },
+        {
+          "slug": "final-attack-blunt-weapon",
+          "en": "Final Attack: Blunt Weapon",
+          "type": "attack",
+          "maxLv": 30,
+          "hits": 1,
+          "atMax": "Toggle; attack skills may proc an extra heavy hit (blunt only)",
+          "prereq": "blunt-weapon-mastery Lv 3",
+          "src": "https://meowdb.com/msclassic/skills/page"
+        },
+        {
+          "slug": "blunt-weapon-booster",
+          "en": "Blunt Weapon Booster",
+          "type": "booster",
+          "maxLv": 20,
+          "atMax": "Costs HP+MP to temporarily raise blunt weapon attack speed",
+          "prereq": "blunt-weapon-mastery Lv 5",
+          "src": "https://meowdb.com/msclassic/skills/page"
+        },
+        {
+          "slug": "threaten",
+          "en": "Threaten",
+          "type": "utility",
+          "maxLv": 30,
+          "targets": 4,
+          "atMax": "Uses MP to lower Speed and Weapon Def of up to 4 nearby foes",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/page"
+        },
+        {
+          "slug": "rush",
+          "en": "Rush",
+          "type": "aoe",
+          "maxLv": 20,
+          "hits": 1,
+          "targets": 4,
+          "atMax": "Dash that hits and knocks back up to 4 foes; 1 s cooldown, ground only",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/page"
+        }
+      ]
+    },
+    "spearman": {
+      "tier": 2,
+      "en": "Spearman",
+      "src": "https://meowdb.com/msclassic/skills/spearman",
+      "skills": [
+        {
+          "slug": "spear-mastery",
+          "en": "Spear Mastery",
+          "type": "mastery",
+          "maxLv": 20,
+          "atMax": "Raises spear mastery; chance to ignore Weapon Def (spear only)",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/spearman"
+        },
+        {
+          "slug": "final-attack-spear",
+          "en": "Final Attack: Spear",
+          "type": "attack",
+          "maxLv": 30,
+          "hits": 1,
+          "targets": 1,
+          "atMax": "Heavy extra hit on 1 foe; drains HP (cap 25% of Max HP), spear only",
+          "prereq": "spear-mastery Lv 3",
+          "src": "https://meowdb.com/msclassic/skills/spearman"
+        },
+        {
+          "slug": "spear-booster",
+          "en": "Spear Booster",
+          "type": "booster",
+          "maxLv": 20,
+          "atMax": "Costs HP+MP to raise spear attack speed by 2 stages",
+          "prereq": "spear-mastery Lv 5",
+          "src": "https://meowdb.com/msclassic/skills/spearman"
+        },
+        {
+          "slug": "polearm-mastery",
+          "en": "Polearm Mastery",
+          "type": "mastery",
+          "maxLv": 20,
+          "atMax": "Raises polearm mastery and movement speed (polearm only)",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/spearman"
+        },
+        {
+          "slug": "final-attack-polearm",
+          "en": "Final Attack: Polearm",
+          "type": "attack",
+          "maxLv": 30,
+          "hits": 1,
+          "targets": 1,
+          "atMax": "Heavy extra hit on 1 foe; drains HP (cap 25% of Max HP), polearm only",
+          "prereq": "polearm-mastery Lv 3",
+          "src": "https://meowdb.com/msclassic/skills/spearman"
+        },
+        {
+          "slug": "polearm-booster",
+          "en": "Polearm Booster",
+          "type": "booster",
+          "maxLv": 20,
+          "atMax": "Costs HP+MP to temporarily raise polearm attack speed",
+          "prereq": "polearm-mastery Lv 5",
+          "src": "https://meowdb.com/msclassic/skills/spearman"
+        },
+        {
+          "slug": "iron-will",
+          "en": "Iron Will",
+          "type": "buff",
+          "maxLv": 30,
+          "atMax": "Self buff: raises Weapon Def, chance to ignore knockback",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/spearman"
+        },
+        {
+          "slug": "rush",
+          "en": "Rush",
+          "type": "aoe",
+          "maxLv": 20,
+          "hits": 1,
+          "targets": 6,
+          "atMax": "Dash that hits and knocks back up to 6 foes; 2 s cooldown, ground only",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/spearman"
+        }
+      ]
+    }
+  }
+}

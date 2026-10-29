@@ -1,0 +1,220 @@
+{
+  "source": "NiaDB (meowdb.com) class skill pages",
+  "checked": "2026-10-29",
+  "notes": [
+    "Values were checked on the skill's own page only where 'src' points to it (lucky-seven, double-stab, drain, savage-blow, steal). Other skills come from the class listing pages, which show only the max level, an 'Unlocks at Lv N' label and a short description.",
+    "Prerequisites: two are stated on skill pages (drain needs critical-recovery Lv 3; steal needs haste Lv 5), and both match the 'Unlocks at Lv N' label on the listing. The other prereqs (keen-eyes, dark-sight, critical-throw, claw-booster, dagger-booster) are inferred from that label plus the pre-Big Bang skill tree; the listing does not name the parent skill.",
+    "Not confirmed (not shown on the pages fetched): MP costs for buffs/boosters/dark-sight/disorder; the stat values of nimble-body, keen-eyes (other than its +200 range, from the Lucky Seven page), disorder, masteries, boosters, critical-throw, critical-recovery and nimble-recovery; Bandit Haste values (Assassin Haste listing gives Speed +30, Jump +10, 300 s).",
+    "Lucky Seven page: uses a fixed 3.0 weapon multiplier and a fixed 50% mastery (Claw Mastery does not apply), damage scales with LUK. Classic change: max-level damage 120% -> 140% (2026-08-04).",
+    "Drain Classic change: COT1 absorbed 15% of damage on every hit; COT2 onward it procs at 12% chance (2026-08-04). Current value used.",
+    "Steal Classic changes: damage 200% -> 180% and targets 1 -> 2 (2026-08-04); Attack Power buff 30 s -> 60 s (COT2 -> launch, 2026-10-06). dmgPct 180 comes from the change log, not the max-level table.",
+    "Savage Blow hits step up with level: 4 hits (Lv 1-10), 5 (Lv 11-20), 6 (Lv 21-30); per-hit damage cycles 65% -> 75% within each band.",
+    "Steal was read from NiaDB's Spanish-locale skill page because the English URL was not reachable; numbers are the same across locales."
+  ],
+  "jobs": {
+    "thief": {
+      "tier": 1,
+      "en": "Thief",
+      "src": "https://meowdb.com/msclassic/classes/thief",
+      "skills": [
+        {
+          "slug": "nimble-body",
+          "en": "Nimble Body",
+          "type": "passive",
+          "maxLv": 15,
+          "atMax": "Permanent Accuracy and Avoidability bonus",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/classes/thief"
+        },
+        {
+          "slug": "keen-eyes",
+          "en": "Keen Eyes",
+          "type": "passive",
+          "maxLv": 15,
+          "atMax": "Extends throwing-star range by +200 (200 -> 400 px for Lucky Seven)",
+          "prereq": "nimble-body Lv 3",
+          "src": "https://meowdb.com/msclassic/classes/thief"
+        },
+        {
+          "slug": "double-stab",
+          "en": "Double Stab",
+          "type": "attack",
+          "maxLv": 20,
+          "dmgPct": 160,
+          "hits": 2,
+          "targets": 1,
+          "mp": 16,
+          "atMax": "Two quick dagger stabs at 160% each on one foe",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/thief/double-stab"
+        },
+        {
+          "slug": "disorder",
+          "en": "Disorder",
+          "type": "utility",
+          "maxLv": 20,
+          "hits": 1,
+          "atMax": "Debuff hit that cuts a foe's attack and weapon defense; no re-stack",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/classes/thief"
+        },
+        {
+          "slug": "dark-sight",
+          "en": "Dark Sight",
+          "type": "buff",
+          "maxLv": 20,
+          "atMax": "Toggle stealth: monsters can't hit you while hidden",
+          "prereq": "disorder Lv 3",
+          "src": "https://meowdb.com/msclassic/classes/thief"
+        },
+        {
+          "slug": "lucky-seven",
+          "en": "Lucky Seven",
+          "type": "attack",
+          "maxLv": 20,
+          "dmgPct": 140,
+          "hits": 2,
+          "targets": 1,
+          "mp": 16,
+          "atMax": "Throws 2 stars at 140% each, 1 foe, 200 px range; LUK-based damage",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/thief/lucky-seven"
+        }
+      ]
+    },
+    "assassin": {
+      "tier": 2,
+      "en": "Assassin",
+      "src": "https://meowdb.com/msclassic/classes/assassin",
+      "skills": [
+        {
+          "slug": "claw-mastery",
+          "en": "Claw Mastery",
+          "type": "mastery",
+          "maxLv": 20,
+          "atMax": "Raises claw mastery and attack; chance to keep thrown stars",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/classes/assassin"
+        },
+        {
+          "slug": "critical-throw",
+          "en": "Critical Throw",
+          "type": "passive",
+          "maxLv": 30,
+          "atMax": "Adds critical rate and critical damage to claw attacks",
+          "prereq": "claw-mastery Lv 3",
+          "src": "https://meowdb.com/msclassic/classes/assassin"
+        },
+        {
+          "slug": "claw-booster",
+          "en": "Claw Booster",
+          "type": "booster",
+          "maxLv": 20,
+          "atMax": "Costs HP/MP; temporarily speeds up claw attacks",
+          "prereq": "claw-mastery Lv 5",
+          "src": "https://meowdb.com/msclassic/classes/assassin"
+        },
+        {
+          "slug": "critical-recovery",
+          "en": "Critical Recovery",
+          "type": "recovery",
+          "maxLv": 20,
+          "atMax": "Critical hits may restore HP and MP; 30 s cooldown",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/classes/assassin"
+        },
+        {
+          "slug": "drain",
+          "en": "Drain",
+          "type": "attack",
+          "maxLv": 30,
+          "dmgPct": 240,
+          "hits": 1,
+          "targets": 1,
+          "mp": 28,
+          "atMax": "240% star hit; 12% chance to heal 15% of dmg (cap 25% max HP)",
+          "prereq": "critical-recovery Lv 3",
+          "src": "https://meowdb.com/msclassic/skills/assassin/drain"
+        },
+        {
+          "slug": "haste",
+          "en": "Haste",
+          "type": "buff",
+          "maxLv": 20,
+          "atMax": "Party buff: Speed +30, Jump +10 for 300 s",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/classes/assassin"
+        }
+      ]
+    },
+    "bandit": {
+      "tier": 2,
+      "en": "Bandit",
+      "src": "https://meowdb.com/msclassic/classes/bandit",
+      "skills": [
+        {
+          "slug": "dagger-mastery",
+          "en": "Dagger Mastery",
+          "type": "mastery",
+          "maxLv": 20,
+          "atMax": "Raises dagger mastery and crit rate; chance to ignore knockback",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/classes/bandit"
+        },
+        {
+          "slug": "dagger-booster",
+          "en": "Dagger Booster",
+          "type": "booster",
+          "maxLv": 20,
+          "atMax": "Costs HP/MP; temporarily speeds up dagger attacks",
+          "prereq": "dagger-mastery Lv 5",
+          "src": "https://meowdb.com/msclassic/classes/bandit"
+        },
+        {
+          "slug": "nimble-recovery",
+          "en": "Nimble Recovery",
+          "type": "recovery",
+          "maxLv": 20,
+          "atMax": "Evading an attack may restore HP and MP; 30 s cooldown",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/classes/bandit"
+        },
+        {
+          "slug": "haste",
+          "en": "Haste",
+          "type": "buff",
+          "maxLv": 20,
+          "atMax": "Party Speed/Jump buff (values unconfirmed for Bandit page)",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/classes/bandit"
+        },
+        {
+          "slug": "steal",
+          "en": "Steal",
+          "type": "utility",
+          "maxLv": 30,
+          "dmgPct": 180,
+          "hits": 1,
+          "targets": 2,
+          "mp": 24,
+          "atMax": "Hits 2 foes; 90% steal, 1.5 s stun, +35 Attack for 60 s on success",
+          "prereq": "haste Lv 5",
+          "src": "https://meowdb.com/msclassic/es/skills/bandit/steal"
+        },
+        {
+          "slug": "savage-blow",
+          "en": "Savage Blow",
+          "type": "attack",
+          "maxLv": 30,
+          "dmgPct": 75,
+          "hits": 6,
+          "targets": 1,
+          "mp": 28,
+          "atMax": "Six rapid dagger hits at 75% each (450% total) on one foe",
+          "prereq": null,
+          "src": "https://meowdb.com/msclassic/skills/bandit/savage-blow"
+        }
+      ]
+    }
+  }
+}

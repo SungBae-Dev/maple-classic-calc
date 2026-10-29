@@ -65,6 +65,10 @@ export interface CharInput {
   defIgnorePct: number;
   /** attack element of the skill */
   skillElement?: SkillElement;
+  /** time between attacks in ms (skill animation after boosters) */
+  attackMs?: number;
+  /** 2nd-job key (fighter, page, spearman, fp, il, cleric, hunter, crossbowman, assassin, bandit) or '' */
+  subJob?: string;
 }
 
 export interface MobInput {
@@ -102,6 +106,14 @@ export const WEAPONS: Record<WeaponType, WeaponSpec> = {
   'dagger':   W('thief', 'luk', ['str', 'dex'], { swing: 1.0, stab: 2.0 }, MELEE, 'dagger'),
   'wand':     W('magician', 'int', ['luk'], {}, [], 'spell', true),
   'staff':    W('magician', 'int', ['luk'], {}, [], 'spell', true),
+};
+
+/** 2nd jobs per job group (third job is not in the launch) */
+export const SUBJOBS: Record<JobGroup, string[]> = {
+  warrior: ['fighter', 'page', 'spearman'],
+  bowman: ['hunter', 'crossbowman'],
+  thief: ['assassin', 'bandit'],
+  magician: ['fp', 'il', 'cleric'],
 };
 
 export const JOBS: Record<JobGroup, WeaponType[]> = {
@@ -484,7 +496,7 @@ export const DEFAULT_CHAR: CharInput = {
   str: 337, dex: 70, int: 4, luk: 4,
   watk: 105, apPassive: 0, apBuff: 40, masterySkillLv: 20,
   matk: 0, acc: 100, critRate: 5, critDmg: 20,
-  skillPct: 260, hits: 1, defIgnorePct: 0, skillElement: 'none',
+  skillPct: 260, hits: 1, defIgnorePct: 0, skillElement: 'none', attackMs: 900, subJob: 'fighter',
 };
 
 export const DEFAULT_MOB: MobInput = { enabled: false, level: 70, eva: 41, wdef: 25, mdef: 5, element: 'neutral' };

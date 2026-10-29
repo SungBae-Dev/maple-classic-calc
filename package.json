@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node scripts/build.mjs >/dev/null && node test/engine.test.mjs && node test/advisor.test.mjs",
+    "test": "node scripts/build.mjs >/dev/null && node test/engine.test.mjs && node test/advisor.test.mjs && node test/guides.test.mjs",
     "serve": "npx --yes serve dist"
   },
   "license": "MIT",

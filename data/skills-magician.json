@@ -1,0 +1,335 @@
+{
+  "source": "NiaDB (meowdb.com) class skill pages",
+  "checked": "2026-10-29",
+  "notes": [
+    "Class listing pages give max level, type, targets and 'unlocks at Lv N' only; skill power and MP were confirmed on 4 individual skill pages (magic-claw, fire-arrow, thunder-bolt, holy-arrow).",
+    "'prereqNote' records a class-page 'unlocks at Lv N' gate where the required skill is not named.",
+    "'unconfirmed' lists fields NiaDB pages fetched did not state; values are omitted rather than guessed.",
+    "Magician class data was read from the Spanish-locale class page (English class URL did not surface in search); skill names/slugs are identical."
+  ],
+  "jobs": {
+    "magician": {
+      "tier": 1,
+      "en": "Magician",
+      "src": "https://meowdb.com/msclassic/es/classes/magician",
+      "skills": [
+        {
+          "slug": "improved-mp-recovery",
+          "en": "Improved MP Recovery",
+          "type": "passive",
+          "element": null,
+          "maxLv": 15,
+          "atMax": "Faster natural MP regen and stronger MP potion recovery (amount not listed)",
+          "prereq": null,
+          "unconfirmed": ["regen amount"],
+          "src": "https://meowdb.com/msclassic/es/classes/magician"
+        },
+        {
+          "slug": "max-mp-increase",
+          "en": "Max MP Increase",
+          "type": "passive",
+          "element": null,
+          "maxLv": 15,
+          "atMax": "Raises max MP (amount not listed)",
+          "prereq": null,
+          "prereqNote": "unlocks at Lv 3 of a prior skill (not named on class page)",
+          "unconfirmed": ["MP amount", "prereq skill"],
+          "src": "https://meowdb.com/msclassic/es/classes/magician"
+        },
+        {
+          "slug": "energy-bolt",
+          "en": "Energy Bolt",
+          "type": "attack",
+          "element": null,
+          "maxLv": 20,
+          "targets": 1,
+          "atMax": "Single-target magic projectile, 350 range; ~20% less MP per dmg than Claw",
+          "prereq": null,
+          "unconfirmed": ["dmgPct", "mp", "hits (single target stated, hit count not)"],
+          "src": "https://meowdb.com/msclassic/es/classes/magician"
+        },
+        {
+          "slug": "magic-claw",
+          "en": "Magic Claw",
+          "type": "attack",
+          "element": null,
+          "maxLv": 20,
+          "dmgPct": 65,
+          "hits": 2,
+          "targets": 1,
+          "mp": 20,
+          "atMax": "Two direct hits of 65 skill power on one mob, 300px range, mastery 10",
+          "prereq": "energy-bolt Lv 1",
+          "change": "Skill power raised 30 -> 65 (NiaDB log, 2026-08-04); current value kept",
+          "src": "https://meowdb.com/msclassic/skills/magician/magic-claw"
+        },
+        {
+          "slug": "magic-guard",
+          "en": "Magic Guard",
+          "type": "buff",
+          "element": null,
+          "maxLv": 15,
+          "atMax": "Toggle: part of damage taken drains MP instead of HP (% not listed)",
+          "prereq": null,
+          "unconfirmed": ["MP absorb %", "mp"],
+          "src": "https://meowdb.com/msclassic/es/classes/magician"
+        },
+        {
+          "slug": "magic-armor",
+          "en": "Magic Armor",
+          "type": "buff",
+          "element": null,
+          "maxLv": 20,
+          "atMax": "Self buff raising Weapon DEF and Magic DEF for a duration",
+          "prereq": null,
+          "prereqNote": "unlocks at Lv 3 of a prior skill (not named on class page)",
+          "unconfirmed": ["DEF amount", "mp", "prereq skill"],
+          "src": "https://meowdb.com/msclassic/es/classes/magician"
+        }
+      ]
+    },
+    "fp": {
+      "tier": 2,
+      "en": "Wizard (Fire, Poison)",
+      "src": "https://meowdb.com/msclassic/classes/f-p-wizard",
+      "skills": [
+        {
+          "slug": "mp-eater",
+          "en": "MP Eater",
+          "type": "passive",
+          "element": null,
+          "maxLv": 20,
+          "atMax": "Magic hits absorb mob MP, once per 5 sec (absorb % not listed)",
+          "prereq": null,
+          "unconfirmed": ["absorb %"],
+          "src": "https://meowdb.com/msclassic/classes/f-p-wizard"
+        },
+        {
+          "slug": "meditation",
+          "en": "Meditation",
+          "type": "buff",
+          "element": null,
+          "maxLv": 20,
+          "atMax": "Party buff: +25 Magic Attack (per class page summary)",
+          "prereq": null,
+          "prereqNote": "unlocks at Lv 3 of a prior skill (not named on class page)",
+          "unconfirmed": ["mp", "duration", "prereq skill"],
+          "src": "https://meowdb.com/msclassic/classes/f-p-wizard"
+        },
+        {
+          "slug": "teleport",
+          "en": "Teleport",
+          "type": "utility",
+          "element": null,
+          "maxLv": 20,
+          "atMax": "Blink a fixed distance in the pressed direction, ground only",
+          "prereq": null,
+          "unconfirmed": ["distance", "mp"],
+          "src": "https://meowdb.com/msclassic/classes/f-p-wizard"
+        },
+        {
+          "slug": "slow",
+          "en": "Slow",
+          "type": "utility",
+          "element": null,
+          "maxLv": 20,
+          "targets": 6,
+          "atMax": "Debuff up to 6 mobs: lower move speed and avoid; no restack",
+          "prereq": null,
+          "prereqNote": "unlocks at Lv 5 of a prior skill (not named on class page)",
+          "unconfirmed": ["slow amount", "mp", "prereq skill"],
+          "src": "https://meowdb.com/msclassic/classes/f-p-wizard"
+        },
+        {
+          "slug": "fire-arrow",
+          "en": "Fire Arrow",
+          "type": "attack",
+          "element": "fire",
+          "maxLv": 30,
+          "dmgPct": 180,
+          "hits": 1,
+          "targets": 1,
+          "mp": 28,
+          "atMax": "180 power fire bolt + burn (50 power over 3s), 300px, mastery 10",
+          "prereq": null,
+          "change": "COT1 -> COT2: power 130 -> 180, burn 30 -> 50; current values kept",
+          "src": "https://meowdb.com/msclassic/skills/f-p-wizard/fire-arrow"
+        },
+        {
+          "slug": "poison-breath",
+          "en": "Poison Breath",
+          "type": "aoe",
+          "element": "poison",
+          "maxLv": 30,
+          "targets": 6,
+          "mp": 40,
+          "atMax": "Projectile bursts on hit, up to 6 mobs, chance to poison (DoT)",
+          "prereq": null,
+          "unconfirmed": ["dmgPct", "hits", "poison tick dmg"],
+          "src": "https://meowdb.com/msclassic/classes/f-p-wizard"
+        }
+      ]
+    },
+    "il": {
+      "tier": 2,
+      "en": "Wizard (Ice, Lightning)",
+      "src": "https://meowdb.com/msclassic/classes/i-l-wizard",
+      "skills": [
+        {
+          "slug": "mp-eater",
+          "en": "MP Eater",
+          "type": "passive",
+          "element": null,
+          "maxLv": 20,
+          "atMax": "Magic hits absorb mob MP, once per 5 sec (absorb % not listed)",
+          "prereq": null,
+          "unconfirmed": ["absorb %"],
+          "src": "https://meowdb.com/msclassic/classes/i-l-wizard"
+        },
+        {
+          "slug": "meditation",
+          "en": "Meditation",
+          "type": "buff",
+          "element": null,
+          "maxLv": 20,
+          "atMax": "Party buff: +25 Magic Attack (per class page summary)",
+          "prereq": null,
+          "prereqNote": "unlocks at Lv 3 of a prior skill (not named on class page)",
+          "unconfirmed": ["mp", "duration", "prereq skill"],
+          "src": "https://meowdb.com/msclassic/classes/i-l-wizard"
+        },
+        {
+          "slug": "teleport",
+          "en": "Teleport",
+          "type": "utility",
+          "element": null,
+          "maxLv": 20,
+          "atMax": "Blink a fixed distance in the pressed direction, ground only",
+          "prereq": null,
+          "unconfirmed": ["distance", "mp"],
+          "src": "https://meowdb.com/msclassic/classes/i-l-wizard"
+        },
+        {
+          "slug": "slow",
+          "en": "Slow",
+          "type": "utility",
+          "element": null,
+          "maxLv": 20,
+          "targets": 6,
+          "atMax": "Debuff up to 6 mobs: lower move speed and avoid; no restack",
+          "prereq": null,
+          "prereqNote": "unlocks at Lv 5 of a prior skill (not named on class page)",
+          "unconfirmed": ["slow amount", "mp", "prereq skill"],
+          "src": "https://meowdb.com/msclassic/classes/i-l-wizard"
+        },
+        {
+          "slug": "cold-beam",
+          "en": "Cold Beam",
+          "type": "attack",
+          "element": "ice",
+          "maxLv": 30,
+          "hits": 1,
+          "targets": 1,
+          "atMax": "Direct ice hit on one mob, briefly freezes it; +25% vs ice-weak",
+          "prereq": null,
+          "unconfirmed": ["dmgPct", "mp", "freeze duration"],
+          "src": "https://meowdb.com/msclassic/classes/i-l-wizard"
+        },
+        {
+          "slug": "thunder-bolt",
+          "en": "Thunder Bolt",
+          "type": "aoe",
+          "element": "lightning",
+          "maxLv": 30,
+          "dmgPct": 70,
+          "hits": 1,
+          "targets": 6,
+          "mp": 40,
+          "atMax": "70 power hit on up to 6 nearby mobs, 25% stun chance, 340x140 area",
+          "prereq": null,
+          "change": "COT1 -> COT2: power 45 -> 70, stun 20% -> 25%; current values kept",
+          "src": "https://meowdb.com/msclassic/skills/i-l-wizard/thunder-bolt"
+        }
+      ]
+    },
+    "cleric": {
+      "tier": 2,
+      "en": "Cleric",
+      "src": "https://meowdb.com/msclassic/classes/cleric",
+      "skills": [
+        {
+          "slug": "mp-eater",
+          "en": "MP Eater",
+          "type": "passive",
+          "element": null,
+          "maxLv": 20,
+          "atMax": "Magic hits absorb mob MP, once per 5 sec (absorb % not listed)",
+          "prereq": null,
+          "unconfirmed": ["absorb %"],
+          "src": "https://meowdb.com/msclassic/classes/cleric"
+        },
+        {
+          "slug": "teleport",
+          "en": "Teleport",
+          "type": "utility",
+          "element": null,
+          "maxLv": 20,
+          "atMax": "Blink a fixed distance in the pressed direction, ground only",
+          "prereq": null,
+          "unconfirmed": ["distance", "mp"],
+          "src": "https://meowdb.com/msclassic/classes/cleric"
+        },
+        {
+          "slug": "heal",
+          "en": "Heal",
+          "type": "recovery",
+          "element": null,
+          "maxLv": 30,
+          "atMax": "Heals nearby party (split by count) and damages undead in range",
+          "prereq": null,
+          "unconfirmed": ["heal power", "mp", "element (holy vs undead not stated)"],
+          "src": "https://meowdb.com/msclassic/classes/cleric"
+        },
+        {
+          "slug": "invincible",
+          "en": "Invincible",
+          "type": "buff",
+          "element": null,
+          "maxLv": 20,
+          "atMax": "Self buff cutting physical damage taken (% not listed)",
+          "prereq": null,
+          "prereqNote": "unlocks at Lv 5 of a prior skill (not named on class page)",
+          "unconfirmed": ["reduction %", "mp", "prereq skill"],
+          "src": "https://meowdb.com/msclassic/classes/cleric"
+        },
+        {
+          "slug": "bless",
+          "en": "Bless",
+          "type": "buff",
+          "element": null,
+          "maxLv": 20,
+          "atMax": "Party takes 15% less damage; also boosts Heal recovery",
+          "prereq": null,
+          "prereqNote": "unlocks at Lv 5 of a prior skill (not named on class page)",
+          "unconfirmed": ["mp", "duration", "heal bonus amount", "prereq skill"],
+          "src": "https://meowdb.com/msclassic/classes/cleric"
+        },
+        {
+          "slug": "holy-arrow",
+          "en": "Holy Arrow",
+          "type": "attack",
+          "element": "holy",
+          "maxLv": 30,
+          "dmgPct": 160,
+          "hits": 1,
+          "targets": 1,
+          "mp": 28,
+          "atMax": "One 160 power holy arrow on one mob, 300px; strong vs undead",
+          "prereq": null,
+          "change": "Launch (2026-10-06): 3 arrows/3 mobs at 60 -> 1 arrow/1 mob at 160; current kept",
+          "src": "https://meowdb.com/msclassic/skills/cleric/holy-arrow"
+        }
+      ]
+    }
+  }
+}

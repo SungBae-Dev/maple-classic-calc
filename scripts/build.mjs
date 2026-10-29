@@ -43,7 +43,7 @@ const PAGES = [
   { id: 'mobs', path: 'mobs/', tpl: 'mobs.html', title: 'meta.mobs.title', desc: 'meta.mobs.desc', priority: '0.8' },
 ];
 // keys the browser script needs
-const JS_PREFIXES = ['js.', 'weapon.', 'action.', 'elem.', 'skillEl.', 'aff.', 'mastery.', 'mobTag.', 'mob.', 'rep.', 'res.', 'cmp.'];
+const JS_PREFIXES = ['js.', 'weapon.', 'action.', 'elem.', 'skillEl.', 'aff.', 'mastery.', 'mobTag.', 'mob.', 'rep.', 'res.', 'cmp.', 'kpi.', 'sim.', 'tc.', 'boss.', 'scroll.', 'sk.', 'sktype.', 'reason.', 'path.', 'bld.', 'share.', 'sub.', 'job.', 'f.', 'tab.'];
 
 // ── helpers ──
 const read = (p) => readFileSync(join(ROOT, p), 'utf8');
@@ -81,6 +81,18 @@ mkdirSync(join(ROOT, '.build'), { recursive: true });
 await build({ entryPoints: [join(ROOT, 'src/engine.ts')], format: 'esm', outfile: join(ROOT, '.build/engine.mjs'), logLevel: 'warning' });
 await build({ entryPoints: [join(ROOT, 'src/advisor.ts')], bundle: true, format: 'esm', outfile: join(ROOT, '.build/advisor.mjs'), logLevel: 'warning' });
 const E = await import(pathToFileURL(join(ROOT, '.build/engine.mjs')).href + '?t=' + Date.now());
+
+// merge skill data files for the browser bundle
+const skillJobs = {};
+for (const f of ['bowman', 'warrior', 'magician', 'thief']) {
+  const p = join(ROOT, `data/skills-${f}.json`);
+  if (!existsSync(p)) continue;
+  const d = JSON.parse(readFileSync(p, 'utf8'));
+  for (const [k, j] of Object.entries(d.jobs || {})) {
+    skillJobs[k] = { tier: j.tier, src: j.src, skills: (j.skills || []).map(({ slug, en, type, maxLv, dmgPct, hits, targets, element, atMax, src }) => ({ slug, en, type, maxLv, dmgPct, hits, targets, element, atMax, src })) };
+  }
+}
+writeFileSync(join(ROOT, '.build/skills.json'), JSON.stringify({ jobs: skillJobs }));
 
 const js = (await build({
   entryPoints: [join(ROOT, 'src/app.js')], bundle: true, minify: true, format: 'iife', target: 'es2019',

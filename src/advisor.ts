@@ -190,3 +190,100 @@ export function goalFor(c: E.CharInput, m: MobData): Goal {
   const need = row.needAcc;
   return { mob: m, casts, targetCasts, atk, main, acc: need == null ? 0 : Math.max(0, need - c.acc) };
 }
+
+// ───────────── time, DPS, simulation, gear, scrolls ─────────────
+
+export const DEFAULT_ATTACK_MS = 900;
+const attackSec = (c: E.CharInput) => Math.max(0.05, (c.attackMs && c.attackMs > 0 ? c.attackMs : DEFAULT_ATTACK_MS) / 1000);
+
+/** expected damage per second vs a monster (or raw), misses included */
+export function dps(c: E.CharInput, ref: MobData | null): number {
+  const ev = ref ? E.evaluate(c, mobInput(ref)) : E.evaluate(c);
+  return ev.perCast / attackSec(c);
+}
+
+export interface TargetCheck {
+  hit: number;
+  avgPerCast: number;
+  /** casts to kill: average, best case (max roll + crit), worst case (min roll) — all hits landing */
+  casts: number; castsBest: number; castsWorst: number;
+  dps: number;
+  /** seconds to kill: HP ÷ DPS */
+  seconds: number;
+}
+
+export function targetCheck(c: E.CharInput, m: MobData): TargetCheck {
+  const mob = mobInput(m);
+  const ev = E.evaluate(c, mob);
+  const hits = Math.max(1, Math.floor(c.hits || 1));
+  const mult = ev.defMult * ev.elemMult * ev.lvMult;
+  const cap = (v: number) => Math.min(E.DAMAGE_CAP, Math.max(1, v));
+  const avg = cap(ev.raw.avg * mult * ev.critMult) * hits;
+  const critTop = c.critRate > 0 ? 1 + Math.max(0, c.critDmg) / 100 : 1;
+  const best = cap(ev.raw.max * mult * critTop) * hits;
+  const worst = cap(ev.raw.min * mult) * hits;
+  const d = ev.perCast / attackSec(c);
+  return {
+    hit: ev.hit, avgPerCast: avg,
+    casts: Math.max(1, Math.ceil(m.hp / avg)), castsBest: Math.max(1, Math.ceil(m.hp / best)), castsWorst: Math.max(1, Math.ceil(m.hp / worst)),
+    dps: d, seconds: d > 0 ? m.hp / d : Infinity,
+  };
+}
+
+export type SimKind = 'atk' | 'main' | 'acc';
+export interface SimPoint { d: number; dps: number; casts: number | null; hit: number }
+
+/** DPS (and casts to kill `ref`) as one stat grows; d = amount added */
+export function simulate(c: E.CharInput, ref: MobData | null, kind: SimKind, steps: number[]): SimPoint[] {
+  const magic = E.isMagic(c);
+  const p = E.WEAPONS[c.weapon].primary;
+  const apply = (d: number): E.CharInput => kind === 'atk' ? (magic ? { ...c, matk: c.matk + d } : { ...c, watk: c.watk + d })
+    : kind === 'main' ? E.withStat(c, p, d) : { ...c, acc: c.acc + d };
+  return steps.map((d) => {
+    const cc = apply(d);
+    const tc = ref ? targetCheck(cc, ref) : null;
+    return { d, dps: dps(cc, ref), casts: tc ? tc.casts : null, hit: tc ? tc.hit : 1 };
+  });
+}
+
+export interface GearDelta extends E.ItemDelta { attackMs?: number }
+export interface GearSide { watk: number; matk: number; main: number; sec: number; attackMs: number; avgHit: number; dps: number; casts: number | null; seconds: number | null; hit: number }
+export interface GearResult { before: GearSide; after: GearSide; dpsPct: number; avgPct: number; perMillion: number | null; afterChar: E.CharInput }
+
+function side(c: E.CharInput, ref: MobData | null): GearSide {
+  const tc = ref ? targetCheck(c, ref) : null;
+  const ev = ref ? E.evaluate(c, mobInput(ref)) : E.evaluate(c);
+  return {
+    watk: c.watk, matk: c.matk, main: E.primaryStat(c), sec: E.secondaryStat(c), attackMs: (c.attackMs || DEFAULT_ATTACK_MS),
+    avgHit: tc ? tc.avgPerCast / Math.max(1, Math.floor(c.hits || 1)) : ev.raw.avg * ev.critMult,
+    dps: dps(c, ref), casts: tc ? tc.casts : null, seconds: tc ? tc.seconds : null, hit: ev.hit,
+  };
+}
+
+/** compare current gear with a swap; cost in 10k mesos (만 메소) → DPS % per 1M mesos */
+export function gearCompare(c: E.CharInput, d: GearDelta, ref: MobData | null, cost10k = 0): GearResult {
+  const after = { ...E.applyDelta(c, d), attackMs: Math.max(50, (c.attackMs || DEFAULT_ATTACK_MS) + (d.attackMs || 0)) };
+  const b = side(c, ref), a = side(after, ref);
+  const dpsPct = b.dps > 0 ? a.dps / b.dps - 1 : 0;
+  return {
+    before: b, after: a, dpsPct, avgPct: b.avgHit > 0 ? a.avgHit / b.avgHit - 1 : 0,
+    perMillion: cost10k > 0 ? (dpsPct * 100) / (cost10k / 100) : null,
+    afterChar: after,
+  };
+}
+
+export interface ScrollPlan { slots: number; successPct: number; gain: number; price10k: number }
+export interface ScrollResult { expectedGain: number; dpsPct: number; costTotal10k: number; perMillion: number | null; allSuccessPct: number }
+
+/** expected value of scrolling every slot with one scroll type (W.ATK or Magic ATT) */
+export function scrollExpectation(c: E.CharInput, ref: MobData | null, plan: ScrollPlan): ScrollResult {
+  const slots = Math.max(0, Math.floor(plan.slots));
+  const p = Math.min(1, Math.max(0, plan.successPct / 100));
+  const expectedGain = slots * p * plan.gain;
+  const magic = E.isMagic(c);
+  const cc = magic ? { ...c, matk: c.matk + expectedGain } : { ...c, watk: c.watk + expectedGain };
+  const d0 = dps(c, ref), d1 = dps(cc, ref);
+  const dpsPct = d0 > 0 ? d1 / d0 - 1 : 0;
+  const costTotal10k = slots * Math.max(0, plan.price10k);
+  return { expectedGain, dpsPct, costTotal10k, perMillion: costTotal10k > 0 ? (dpsPct * 100) / (costTotal10k / 100) : null, allSuccessPct: Math.pow(p, slots) * 100 };
+}
