@@ -437,3 +437,7 @@ table.mobs td.n.good { color: var(--good); }
 table.mobs td.n.muted { color: var(--muted); font-weight: 400; }
 table.mobs.shots td { white-space: nowrap; }
 table.mobs.shots th { white-space: normal; word-break: keep-all; vertical-align: bottom; }
+table.mobs.sv td.n { white-space: nowrap; }
+table.mobs.sv th { white-space: normal; word-break: keep-all; vertical-align: bottom; }
+table.mobs.compact.fit.sv td, table.mobs.compact.fit.sv th { padding-inline: 6px; }
+table.mobs.sv td.name small { display: block; }
