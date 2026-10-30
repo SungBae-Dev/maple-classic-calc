@@ -20,7 +20,8 @@ MapleStory Classic World (GMS) effective-main-stat calculator with a spec report
 | **스킬** | 2차 전직·무기별 **SP 투자 순서**(현재 레벨에서 찍을 수 있는 단계 체크), 스킬북(마스터 레벨·효과, 출처 링크), 성장 로드맵 |
 | **내 빌드** | 빌드 저장/불러오기/삭제, 현재 대비 DPS 비교, JSON 내보내기·가져오기, 공유 링크(`#b=MC3-…`) |
 | `/maps/` | 사냥터 효율: 맵별 몬스터 × 스폰 수, 솔로 동시 최대 몹 수, 시간당 리젠 한도, 저장된 캐릭터 기준 시간당 처치·경험치·레벨업 시간 |
-| `/mobs/` | 몬스터 명중표: 몹별 100% 명중 필요치, 내 레벨·명중 기준 명중률 |
+| `/log/` | 사냥 기록기: 타이머 + 사냥 전후 레벨·경험치 %·메소 → 실측 시간당 경험치·메소, 맵별 평균, 추정치 대비, CSV |
+| `/mobs/` | 몬스터: 100% 명중 필요치·내 명중률·몸박 피격, 약점 속성·분류·레벨대 필터, 드랍 목록과 아이템 이름 역검색 |
 
 8 languages, static HTML per language with `hreflang`, canonical, Open Graph, JSON-LD (WebApplication + FAQPage), sitemap with alternates.
 
@@ -46,6 +47,8 @@ Community reverse-engineered formulas published by NiaDB — reproduced exactly 
 `data/maps.json` — 29 popular training maps: spawn points per monster, timed spawns, mob rate, each linked to its [NiaDB map page](https://meowdb.com/msclassic/maps). `data/exp.json` — EXP table (levels 1–99).
 
 `data/images.json` — game images: monster sprites, map minimaps, skill icons and item icons (weapons, attack scrolls), mapped to GMS v83 in-game IDs by name from the v83 `String.wz` tables ([Cosmic](https://github.com/P0nk/Cosmic)). `scripts/fetch-images.mjs` downloads them once from the [maplestory.io](https://maplestory.io) asset API in CI (cached), and the site serves them itself; anything that fails to download is simply not shown. Game images © Nexon.
+
+`data/drops.json` — drop lists for those monsters from each NiaDB monster page (NiaDB's pre-Big Bang reference list + OSMLib reference rates; the page notes Classic rates may differ).
 
 `data/mobs.json` — 48 popular monsters (level, HP, EXP, avoidability, W.DEF, M.DEF, elements), each value taken from its individual [NiaDB](https://meowdb.com/msclassic/monsters) page and linked in the UI. This is a curated subset on purpose: NiaDB's [reuse policy](https://meowdb.com/reuse) allows individual facts with attribution but asks for permission before copying the database. To extend the list, email contact@meowdb.com (subject `Permission request: Maple Classic Calc`) or add values you measured yourself.
 

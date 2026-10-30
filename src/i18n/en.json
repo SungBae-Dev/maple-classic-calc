@@ -106,7 +106,7 @@
   "footer.notNexon": "Fan-made tool. Not affiliated with or endorsed by Nexon. Game images © Nexon.",
   "mobs.h1": "Monster accuracy table",
   "mobs.lede": "The accuracy you need for a guaranteed hit on popular Classic World monsters. Enter your level and accuracy to see your hit chance on each one.",
-  "mobs.search": "Search monsters",
+  "mobs.search": "Search monsters or drop items",
   "mobs.myLevel": "My level",
   "mobs.myLevelHint": "Empty = same as monster",
   "mobs.myAcc": "My accuracy",
@@ -588,5 +588,8 @@
   "mobs.type": "Type",
   "mobs.all": "All",
   "mobs.near": "Within 10 levels of me",
-  "mobs.colDmg": "Touch damage"
+  "mobs.colDmg": "Touch damage",
+  "mobs.drops": "Drops ({n})",
+  "rep.drops": "Drops",
+  "mobs.dropNote_html": "Drop lists come from each monster's NiaDB page: the pre-Big Bang reference list and OSMLib reference rates. The page notes Classic World rates may differ, so treat the % as a guide. Search an item name to find who drops it."
 }

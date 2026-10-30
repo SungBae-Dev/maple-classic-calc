@@ -106,7 +106,7 @@
   "footer.notNexon": "Fan-Tool. Nicht mit Nexon verbunden und nicht von Nexon unterstützt. Spielgrafiken © Nexon.",
   "mobs.h1": "Monster-Genauigkeitstabelle",
   "mobs.lede": "Die Genauigkeit, die du für sichere Treffer auf beliebte Monster in Classic World brauchst. Gib dein Level und deine Genauigkeit ein, um deine Trefferchance bei jedem Monster zu sehen.",
-  "mobs.search": "Monster suchen",
+  "mobs.search": "Monster oder Drops suchen",
   "mobs.myLevel": "Mein Level",
   "mobs.myLevelHint": "Leer = wie Monster",
   "mobs.myAcc": "Meine Genauigkeit",
@@ -588,5 +588,8 @@
   "mobs.type": "Typ",
   "mobs.all": "Alle",
   "mobs.near": "±10 Level um mich",
-  "mobs.colDmg": "Berührungsschaden"
+  "mobs.colDmg": "Berührungsschaden",
+  "mobs.drops": "Drops ({n})",
+  "rep.drops": "Drops",
+  "mobs.dropNote_html": "Die Drop-Listen stammen von der NiaDB-Seite jedes Monsters: die Referenzliste aus der Zeit vor Big Bang und Referenzraten von OSMLib. Laut Seite können die Raten in Classic World abweichen, nimm die % also als Richtwert. Suche nach einem Item, um zu sehen, wer es droppt."
 }

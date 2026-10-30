@@ -106,7 +106,7 @@
   "footer.notNexon": "Herramienta hecha por fans. No está afiliada ni respaldada por Nexon. Imágenes del juego © Nexon.",
   "mobs.h1": "Tabla de precisión de monstruos",
   "mobs.lede": "La precisión que necesitas para acertar siempre a los monstruos populares de Classic World. Ingresa tu nivel y tu precisión para ver tu probabilidad de acierto contra cada uno.",
-  "mobs.search": "Buscar monstruos",
+  "mobs.search": "Buscar monstruos u objetos",
   "mobs.myLevel": "Mi nivel",
   "mobs.myLevelHint": "Vacío = igual al monstruo",
   "mobs.myAcc": "Mi precisión",
@@ -588,5 +588,8 @@
   "mobs.type": "Tipo",
   "mobs.all": "Todos",
   "mobs.near": "A 10 niveles de mí",
-  "mobs.colDmg": "Daño por contacto"
+  "mobs.colDmg": "Daño por contacto",
+  "mobs.drops": "Botín ({n})",
+  "rep.drops": "Botín",
+  "mobs.dropNote_html": "Las listas de botín vienen de la página de cada monstruo en NiaDB: la lista de referencia anterior al Big Bang y las tasas de referencia de OSMLib. La página advierte que las tasas de Classic World pueden diferir, así que toma el % como guía. Busca un objeto para ver quién lo suelta."
 }

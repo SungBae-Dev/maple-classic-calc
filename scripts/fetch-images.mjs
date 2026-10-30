@@ -51,7 +51,7 @@ for (const [key, id] of Object.entries(MAP.maps)) jobs.push({ key: `map/${key}`,
 for (const [key, id] of Object.entries(MAP.skills)) {
   jobs.push({ key: `skill/${key.replace('/', '.')}`, url: `${API}/wz/img/${R}/${version}/Skill/${jobImg(id)}.img/skill/${String(id).padStart(7, '0')}/icon` });
 }
-const itemIds = new Set([...Object.values(MAP.items.weapons), ...Object.values(MAP.items.scrolls).flatMap((s) => Object.values(s))]);
+const itemIds = new Set([...Object.values(MAP.items.weapons), ...Object.values(MAP.items.scrolls).flatMap((s) => Object.values(s)), ...Object.values(MAP.items.drops || {})]);
 for (const id of itemIds) jobs.push({ key: `item/${id}`, url: `${API}/${R}/${version}/item/${id}/icon` });
 
 let ok = 0, cached = 0, failed = [];

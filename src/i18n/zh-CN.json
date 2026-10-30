@@ -106,7 +106,7 @@
   "footer.notNexon": "粉丝自制工具，与 Nexon 无关，也未获其认可。游戏图片 © Nexon。",
   "mobs.h1": "怪物命中表",
   "mobs.lede": "经典世界热门怪物的100%命中所需命中值。输入你的等级和命中，即可看到对每只怪物的命中率。",
-  "mobs.search": "搜索怪物",
+  "mobs.search": "搜索怪物或掉落物品",
   "mobs.myLevel": "我的等级",
   "mobs.myLevelHint": "留空 = 与怪物相同",
   "mobs.myAcc": "我的命中",
@@ -588,5 +588,8 @@
   "mobs.type": "类型",
   "mobs.all": "全部",
   "mobs.near": "只看我等级±10",
-  "mobs.colDmg": "碰撞伤害"
+  "mobs.colDmg": "碰撞伤害",
+  "mobs.drops": "掉落 {n} 种",
+  "rep.drops": "掉落",
+  "mobs.dropNote_html": "掉落列表来自各怪物的 NiaDB 页面：大巨变之前的参考列表和 OSMLib 参考概率。页面注明经典世界的实际概率可能不同，% 仅供参考。用物品名（英文）搜索即可找到掉落它的怪物。"
 }

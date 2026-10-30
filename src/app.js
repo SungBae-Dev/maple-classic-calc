@@ -649,7 +649,7 @@ function calcPage() {
     if (last && last.D) chips.push(threatChip(SV.threat(m, last.D)));
     chips.push(affinityChips({ ...m, tags: m.tags.filter((x) => x !== 'boss') }, false));
     return '<li class="card"><span class="nm withimg">' + mobImg(m) + '<span>' + esc(mobName(m)) + '<small>Lv ' + m.lv + '</small></span></span><span class="big">' + extra + '</span>' +
-      '<div class="chips">' + chips.join('') + '</div><div class="acts">' + (acts || '') + '<a class="chip" href="#mob-' + m.id + '">' + esc(t('rep.calc')) + '</a></div></li>';
+      '<div class="chips">' + chips.join('') + '</div><div class="acts">' + (acts || '') + '<a class="chip" href="#mob-' + m.id + '">' + esc(t('rep.calc')) + '</a><a class="chip" href="mobs/#m' + m.id + '">' + esc(t('rep.drops')) + '</a></div></li>';
   }
   function renderHunt() {
     const { c, rep } = last;
@@ -1062,7 +1062,20 @@ function calcPage() {
 
 // ═════════════════════════ monster table page ═════════════════════════
 function mobsPage() {
-  const rows = Array.from(document.querySelectorAll('#mobRows tr'));
+  const rows = Array.from(document.querySelectorAll('#mobRows tr:not(.droprow)'));
+  const dropRow = (tr) => document.getElementById('d' + tr.dataset.id);
+  const setDrop = (tr, open) => {
+    const r = dropRow(tr), btn = tr.querySelector('.dropbtn');
+    if (!r || !btn) return;
+    r.hidden = !open || tr.hidden;
+    btn.setAttribute('aria-expanded', String(open));
+  };
+  $('mobRows').addEventListener('click', (e) => {
+    const b = e.target.closest('.dropbtn');
+    if (!b) return;
+    const tr = b.closest('tr');
+    setDrop(tr, b.getAttribute('aria-expanded') !== 'true');
+  });
   const hitCols = Array.from(document.querySelectorAll('[data-hitcol]'));
   const dmgCols = Array.from(document.querySelectorAll('[data-dmgcol]'));
   const saved = store.get('msc-mobs-v1') || {};
@@ -1083,7 +1096,10 @@ function mobsPage() {
     dmgCols.forEach((el) => { el.hidden = !showDmg; });
     rows.forEach((tr) => {
       const lv = +tr.dataset.lv, eva = +tr.dataset.eva;
-      tr.hidden = (!!q && !tr.dataset.q.includes(q)) || (!!weak && !tr.dataset.weak.split(' ').includes(weak))
+      const byName = !!q && tr.dataset.q.includes(q), byDrop = !!q && !byName && tr.dataset.dq.includes(q);
+      const dr = dropRow(tr);
+      if (dr) dr.querySelectorAll('.chip').forEach((c) => c.classList.toggle('hit', byDrop && c.textContent.toLowerCase().includes(q)));
+      tr.hidden = (!!q && !byName && !byDrop) || (!!weak && !tr.dataset.weak.split(' ').includes(weak))
         || (!!type && !tr.dataset.tags.split(' ').includes(type)) || (near && Math.abs(lv - myLv) > 10);
       const pl = Number.isFinite(myLv) && myLv > 0 ? myLv : lv;
       const need = E.accForFullHit(pl, { level: lv, eva });
@@ -1095,6 +1111,7 @@ function mobsPage() {
         hc.textContent = (h * 100).toFixed(h >= 1 || h <= 0 ? 0 : 1) + '%';
         hc.className = 'n hitcell ' + (h >= 1 ? 'good' : h > 0 ? 'warn' : 'bad');
       }
+      if (dr) setDrop(tr, q ? byDrop : tr.querySelector('.dropbtn').getAttribute('aria-expanded') === 'true');
       const dc = tr.querySelector('.dmgcell');
       dc.hidden = !showDmg;
       if (showDmg) {
@@ -1110,6 +1127,17 @@ function mobsPage() {
   ['mobSearch', ...IDS].forEach((id) => $(id).addEventListener('input', update));
   ['mobWeak', 'mobType', 'mobNear'].forEach((id) => $(id).addEventListener('change', update));
   update();
+  // #m<id>: jump to a monster and open its drops
+  const jump = () => {
+    const tr = /^#m\d+$/.test(location.hash) && document.querySelector(location.hash);
+    if (!tr) return;
+    tr.hidden = false;
+    setDrop(tr, true);
+    tr.classList.add('flash');
+    tr.scrollIntoView({ block: 'center' });
+  };
+  window.addEventListener('hashchange', jump);
+  jump();
 }
 
 // ═════════════════════════ training maps page ═════════════════════════

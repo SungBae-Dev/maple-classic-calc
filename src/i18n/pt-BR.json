@@ -106,7 +106,7 @@
   "footer.notNexon": "Ferramenta feita por fã. Sem afiliação ou endosso da Nexon. Imagens do jogo © Nexon.",
   "mobs.h1": "Tabela de precisão por monstro",
   "mobs.lede": "A precisão necessária para acerto garantido nos monstros populares do Classic World. Informe seu nível e sua precisão para ver a chance de acerto em cada um.",
-  "mobs.search": "Buscar monstros",
+  "mobs.search": "Buscar monstros ou itens",
   "mobs.myLevel": "Meu nível",
   "mobs.myLevelHint": "Vazio = igual ao do monstro",
   "mobs.myAcc": "Minha precisão",
@@ -588,5 +588,8 @@
   "mobs.type": "Tipo",
   "mobs.all": "Todos",
   "mobs.near": "Até 10 níveis do meu",
-  "mobs.colDmg": "Dano de toque"
+  "mobs.colDmg": "Dano de toque",
+  "mobs.drops": "Drops ({n})",
+  "rep.drops": "Drops",
+  "mobs.dropNote_html": "As listas de drops vêm da página de cada monstro no NiaDB: a lista de referência de antes do Big Bang e as taxas de referência do OSMLib. A página avisa que as taxas do Classic World podem ser diferentes, então use a % como guia. Busque um item para ver quem o dropa."
 }

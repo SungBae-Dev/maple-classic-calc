@@ -106,7 +106,7 @@
   "footer.notNexon": "Outil créé par un fan. Non affilié à Nexon ni approuvé par Nexon. Images du jeu © Nexon.",
   "mobs.h1": "Tableau de précision des monstres",
   "mobs.lede": "La précision nécessaire pour toucher à coup sûr les monstres populaires de Classic World. Saisissez votre niveau et votre précision pour voir vos chances de toucher chacun d'eux.",
-  "mobs.search": "Rechercher un monstre",
+  "mobs.search": "Rechercher un monstre ou un objet",
   "mobs.myLevel": "Mon niveau",
   "mobs.myLevelHint": "Vide = même niveau que le monstre",
   "mobs.myAcc": "Ma précision",
@@ -588,5 +588,8 @@
   "mobs.type": "Type",
   "mobs.all": "Tous",
   "mobs.near": "À 10 niveaux de moi",
-  "mobs.colDmg": "Dégâts de contact"
+  "mobs.colDmg": "Dégâts de contact",
+  "mobs.drops": "Butin ({n})",
+  "rep.drops": "Butin",
+  "mobs.dropNote_html": "Les listes de butin viennent de la page NiaDB de chaque monstre : la liste de référence d'avant Big Bang et les taux de référence d'OSMLib. La page précise que les taux de Classic World peuvent différer : prenez le % comme repère. Cherchez un objet pour voir qui le lâche."
 }

@@ -454,3 +454,14 @@ table.mobs.lg td.name small { display: block; }
 .filters.wide { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .filters.wide .field.search { grid-column: 1 / -1; }
 @media (min-width: 720px) { .filters.wide { grid-template-columns: repeat(4, minmax(0, 1fr)); } .filters.wide .field.search { grid-column: span 2; } }
+table.mobs tr.flash td { background: var(--good-soft); }
+
+.dropbtn { margin-top: 4px; padding: 0; border: 0; background: none; color: var(--maple-ink); font: inherit; font-size: var(--t-xs); font-weight: 500; cursor: pointer; }
+.dropbtn::before { content: '▸ '; }
+.dropbtn[aria-expanded="true"]::before { content: '▾ '; }
+tr.droprow td { background: var(--field); }
+tr.droprow .chips { position: sticky; left: 12px; width: min(860px, calc(100vw - 80px)); }
+tr.droprow .chip { white-space: normal; font-family: var(--f-body); }
+tr.droprow .chip b { font-family: var(--f-num); font-weight: 600; color: var(--muted); }
+tr.droprow .chip.quest { border-style: dashed; }
+tr.droprow .chip.hit { border-color: var(--maple); background: var(--warn-soft); }

@@ -136,6 +136,10 @@ writeFileSync(join(DIST, cssPath), css);
 
 const MOBS = JSON.parse(read('data/mobs.json')).mobs.slice().sort((a, b) => a.lv - b.lv || a.id - b.id);
 const MOB_BY_ID = new Map(MOBS.map((m) => [m.id, m]));
+const DROPS = existsSync(join(ROOT, 'data/drops.json')) ? JSON.parse(read('data/drops.json')).drops : {};
+const IMGMAP = JSON.parse(read('data/images.json'));
+const TYPE_ORDER = { etc: 0, quest: 1, use: 2, equip: 3 };
+const chanceNum = (c) => { const v = parseFloat(String(c || '').replace('%', '')); return Number.isFinite(v) ? v : -1; };
 const MAPS = JSON.parse(read('data/maps.json')).maps;
 const Mx = await import(pathToFileURL(join(ROOT, '.build/maps.mjs')).href + '?t=' + Date.now());
 const HEAD = read('src/pages/head.html');
@@ -160,14 +164,20 @@ function mobRows(d, l, base) {
     const q = [m.en, m.ko].join(' ').toLowerCase();
     const src = `https://meowdb.com/msclassic/${l.meow}monsters/${m.id}`;
     const sub = l.code === 'ko' ? `<small>${esc(m.en)}</small>` : '';
+    const drops = ((DROPS[m.id] || {}).items || []).slice().sort((a, b) => (TYPE_ORDER[a.type] ?? 9) - (TYPE_ORDER[b.type] ?? 9) || chanceNum(b.chance) - chanceNum(a.chance));
+    const dropBtn = drops.length ? `<button class="dropbtn" type="button" aria-expanded="false" aria-controls="d${m.id}">${esc(d['mobs.drops'].replace('{n}', drops.length))}</button>` : '';
+    const dropRow = drops.length ? `\n<tr class="droprow" id="d${m.id}" hidden><td colspan="10"><div class="chips">` +
+      drops.map((it) => { const v = IMGMAP.items.drops[it.db]; return `<span class="chip${it.type === 'quest' ? ' quest' : ''}">${v ? imgTag(base, 'item/' + v, 'ico') : ''}${esc(it.en)}${it.chance ? ` <b>${esc(it.chance)}</b>` : ''}</span>`; }).join('') +
+      `</div></td></tr>` : '';
+    const dropQ = drops.map((it) => it.en).join(' ').toLowerCase();
     const weak = Object.entries(m.el).filter(([, a]) => a === 'weak').map(([el]) => el).join(' ');
-    return `<tr data-lv="${m.lv}" data-eva="${m.eva}" data-q="${esc(q)}" data-weak="${weak}" data-tags="${m.tags.join(' ')}" data-id="${m.id}">` +
-      `<td class="name"><div class="withimg">${imgTag(base, 'mob/' + m.id, 'sprite')}<div><a href="${src}" target="_blank" rel="noopener">${esc(name(m))}</a>${sub}</div></div></td>` +
+    return `<tr data-lv="${m.lv}" data-eva="${m.eva}" data-q="${esc(q)}" data-dq="${esc(dropQ)}" data-weak="${weak}" data-tags="${m.tags.join(' ')}" data-id="${m.id}" id="m${m.id}">` +
+      `<td class="name"><div class="withimg">${imgTag(base, 'mob/' + m.id, 'sprite')}<div><a href="${src}" target="_blank" rel="noopener">${esc(name(m))}</a>${sub}${dropBtn}</div></div></td>` +
       `<td class="n">${m.lv}</td><td class="n need">${need ?? '–'}</td><td class="n hitcell" data-hitcol hidden></td>` +
       `<td class="n">${m.eva}</td><td class="n">${m.wdef}</td><td class="n">${m.mdef}</td>` +
       `<td class="n dmgcell" data-dmgcol hidden></td>` +
       `<td><div class="chips">${chips}</div></td>` +
-      `<td><a class="btn sm" href="${base}${l.path}#mob-${m.id}">${esc(d['mobs.open'])}</a></td></tr>`;
+      `<td><a class="btn sm" href="${base}${l.path}#mob-${m.id}">${esc(d['mobs.open'])}</a></td></tr>` + dropRow;
   }).join('\n');
 }
 
