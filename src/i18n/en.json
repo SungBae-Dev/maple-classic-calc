@@ -7,7 +7,7 @@
   "meta.ogAlt": "Maple Classic Calc, a stat calculator for MapleStory Classic World",
   "meta.ogTagline": "Effective main stat · DPS · build diagnosis",
   "nav.calc": "Calculator",
-  "nav.mobs": "Monster accuracy",
+  "nav.mobs": "Monsters",
   "nav.lang": "Language",
   "langSuggest": "View this page in English",
   "calc.h1": "Maple Classic Stat Calculator",
@@ -576,5 +576,17 @@
   "log.min": "{v} min",
   "log.empty": "No records yet.",
   "log.sessions": "{n} sessions · {h} h",
-  "log.vsShort": "{pct}% of estimate"
+  "log.vsShort": "{pct}% of estimate",
+  "map.goal.title": "Level goal",
+  "map.goal.pct": "Current EXP %",
+  "map.goal.target": "Target level",
+  "map.goal.daily": "Hours per day",
+  "map.goal.need": "Lv {from} ({pct}%) → Lv {to}: {exp} EXP to go.",
+  "map.goal.time": "At {map}, about {time} — {days} days at {daily} h a day, if your EXP per hour stays the same.",
+  "mobs.myDef": "My weapon DEF",
+  "mobs.weak": "Weak to",
+  "mobs.type": "Type",
+  "mobs.all": "All",
+  "mobs.near": "Within 10 levels of me",
+  "mobs.colDmg": "Touch damage"
 }

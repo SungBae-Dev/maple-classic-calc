@@ -695,6 +695,34 @@ function calcPage() {
       '<span class="big">' + fc(e.eph) + '<small>' + esc(t('map.ephUnit')) + ' · ' + esc(t('map.lvup', { v: hrs(MP.hoursToLevel(c.level, e.eph, EXP)) })) + '</small></span>' +
       '<div class="chips">' + chips.join('') + '</div><div class="chips mix">' + mix + '</div></li>';
   }
+  // ── level goal: EXP left to a target level and time at the best map ──
+  const GOAL_KEY = 'msc-goal-v1';
+  function renderGoal() {
+    const { c, topMap } = last;
+    const g = store.get(GOAL_KEY) || {};
+    const pctIn = parseFloat($('glPct').value), tgtIn = parseInt($('glTarget').value, 10), dIn = parseFloat($('glDaily').value);
+    const pctNow = Number.isFinite(pctIn) ? Math.min(99.99, Math.max(0, pctIn)) : 0;
+    const target = Number.isFinite(tgtIn) && tgtIn > c.level ? Math.min(EXP.length + 1, tgtIn) : Math.min(EXP.length + 1, c.level + 5);
+    const daily = Number.isFinite(dIn) && dIn > 0 ? dIn : 2;
+    $('glTarget').placeholder = String(Math.min(EXP.length + 1, c.level + 5));
+    store.set(GOAL_KEY, { pct: $('glPct').value, target: $('glTarget').value, daily: $('glDaily').value });
+    const need = expGain(c.level, pctNow, target, 0);
+    if (need == null || need <= 0) { $('glOut').textContent = ''; return; }
+    let txt = t('map.goal.need', { from: c.level, pct: f2(pctNow), to: target, exp: f0(need) });
+    if (topMap && topMap.eph > 0) {
+      const h = need / topMap.eph;
+      txt += ' ' + t('map.goal.time', { map: mapName(topMap.map), time: hrs(h), days: f1(h / daily), daily: f1(daily).replace(/[.,]0$/, '') });
+    }
+    $('glOut').textContent = txt;
+  }
+  {
+    const g = store.get(GOAL_KEY) || {};
+    if (g.pct) $('glPct').value = g.pct;
+    if (g.target) $('glTarget').value = g.target;
+    if (g.daily) $('glDaily').value = g.daily;
+    ['glPct', 'glTarget', 'glDaily'].forEach((id) => $(id).addEventListener('input', () => last && renderGoal()));
+  }
+
   function renderMaps() {
     const { c, R, raw } = last;
     const effs = rankMapsFor(R, { ...raw, skill: $('skill').value || 'auto' });
@@ -703,6 +731,8 @@ function calcPage() {
     const top = rec[0];
     $('bestMap').hidden = !top;
     if (top) $('bestMapText').textContent = t('map.bestLine', { map: mapName(top.map), eph: fc(top.eph), time: hrs(MP.hoursToLevel(c.level, top.eph, EXP)) });
+    last.topMap = top || null;
+    renderGoal();
     $('mapAll').innerHTML = effs.filter((e) => suits(e, c.level)).map((e) =>
       '<tr' + (MP.isRecommendable(e) ? '' : ' class="dim"') + '><td class="name"><a href="' + mapSrc(e.map) + '" target="_blank" rel="noopener">' + esc(mapName(e.map)) + '</a></td>' +
       '<td class="n">' + lvSpan(e) + '</td><td class="n">' + fc(e.kph) + '</td><td class="n">' + fc(e.eph) + '</td>' +
@@ -907,7 +937,7 @@ function calcPage() {
   // ── events ──
   const onEdit = (e) => {
     const id = e.target.id || '';
-    if (id === 'codeIn' || id === 'bldName' || id === 'shareOut' || id === 'codeOut' || id === 'mapPack' || id === 'mapActive') return;
+    if (id === 'codeIn' || id === 'bldName' || id === 'shareOut' || id === 'codeOut' || id === 'mapPack' || id === 'mapActive' || id === 'glPct' || id === 'glTarget' || id === 'glDaily') return;
     if (MOB_EDIT.includes(id)) $('mobPreset').value = '';
     if (e.type === 'change') {
       if (e.target.name === 'job') { fillSubJobs(e.target.value, null); fillWeapons(e.target.value, null); fillActions($('weapon').value, null); }
@@ -1034,18 +1064,27 @@ function calcPage() {
 function mobsPage() {
   const rows = Array.from(document.querySelectorAll('#mobRows tr'));
   const hitCols = Array.from(document.querySelectorAll('[data-hitcol]'));
+  const dmgCols = Array.from(document.querySelectorAll('[data-dmgcol]'));
   const saved = store.get('msc-mobs-v1') || {};
-  if (saved.lv) $('myLevel').value = saved.lv;
-  if (saved.acc) $('myAcc').value = saved.acc;
+  const IDS = ['myLevel', 'myAcc', 'myDef', 'mobWeak', 'mobType'];
+  IDS.forEach((id) => { if (saved[id] != null) $(id).value = saved[id]; });
+  if (saved.lv && !saved.myLevel) $('myLevel').value = saved.lv;
+  if (saved.acc && !saved.myAcc) $('myAcc').value = saved.acc;
+  $('mobNear').checked = !!saved.near;
   function update() {
     const q = $('mobSearch').value.trim().toLowerCase();
     const myLv = parseFloat($('myLevel').value);
     const myAcc = parseFloat($('myAcc').value);
+    const myDef = parseFloat($('myDef').value);
+    const weak = $('mobWeak').value, type = $('mobType').value, near = $('mobNear').checked && Number.isFinite(myLv);
     const showHit = Number.isFinite(myAcc);
+    const showDmg = Number.isFinite(myLv) && myLv > 0;
     hitCols.forEach((el) => { el.hidden = !showHit; });
+    dmgCols.forEach((el) => { el.hidden = !showDmg; });
     rows.forEach((tr) => {
       const lv = +tr.dataset.lv, eva = +tr.dataset.eva;
-      tr.hidden = !!q && !tr.dataset.q.includes(q);
+      tr.hidden = (!!q && !tr.dataset.q.includes(q)) || (!!weak && !tr.dataset.weak.split(' ').includes(weak))
+        || (!!type && !tr.dataset.tags.split(' ').includes(type)) || (near && Math.abs(lv - myLv) > 10);
       const pl = Number.isFinite(myLv) && myLv > 0 ? myLv : lv;
       const need = E.accForFullHit(pl, { level: lv, eva });
       tr.querySelector('.need').textContent = need == null ? '–' : f0(need);
@@ -1056,10 +1095,20 @@ function mobsPage() {
         hc.textContent = (h * 100).toFixed(h >= 1 || h <= 0 ? 0 : 1) + '%';
         hc.className = 'n hitcell ' + (h >= 1 ? 'good' : h > 0 ? 'warn' : 'bad');
       }
+      const dc = tr.querySelector('.dmgcell');
+      dc.hidden = !showDmg;
+      if (showDmg) {
+        const m = MOB_BY_ID.get(tr.dataset.id);
+        const d = m && m.patk ? SV.damageTaken({ atk: m.patk }, { level: myLv, wdef: Number.isFinite(myDef) ? myDef : 0, mdef: 0 }) : null;
+        dc.textContent = d ? f0(d.min) + '–' + f0(d.max) : '–';
+      }
     });
-    store.set('msc-mobs-v1', { lv: $('myLevel').value, acc: $('myAcc').value });
+    const st = { near: $('mobNear').checked };
+    IDS.forEach((id) => { st[id] = $(id).value; });
+    store.set('msc-mobs-v1', st);
   }
-  ['mobSearch', 'myLevel', 'myAcc'].forEach((id) => $(id).addEventListener('input', update));
+  ['mobSearch', ...IDS].forEach((id) => $(id).addEventListener('input', update));
+  ['mobWeak', 'mobType', 'mobNear'].forEach((id) => $(id).addEventListener('change', update));
   update();
 }
 

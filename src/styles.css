@@ -450,3 +450,7 @@ table.mobs.sv td.name small { display: block; }
 table.mobs.lg { min-width: 560px; }
 table.mobs.lg td.name small { display: block; }
 .empty-row { color: var(--muted); }
+.goalcalc { display: grid; gap: 8px; } .goalcalc .skhead { margin: 0; } .goalcalc .callout:empty { display: none; }
+.filters.wide { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.filters.wide .field.search { grid-column: 1 / -1; }
+@media (min-width: 720px) { .filters.wide { grid-template-columns: repeat(4, minmax(0, 1fr)); } .filters.wide .field.search { grid-column: span 2; } }

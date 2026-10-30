@@ -7,7 +7,7 @@
   "meta.ogAlt": "Maple Classic Calc, un calculateur de stats pour MapleStory Classic World",
   "meta.ogTagline": "Stat effective · dégâts · précision",
   "nav.calc": "Calculateur",
-  "nav.mobs": "Précision des monstres",
+  "nav.mobs": "Monstres",
   "nav.lang": "Langue",
   "langSuggest": "Voir cette page en français",
   "calc.h1": "Calculateur de stats Maple Classic",
@@ -576,5 +576,17 @@
   "log.min": "{v} min",
   "log.empty": "Aucune donnée pour l'instant.",
   "log.sessions": "{n} sessions · {h} h",
-  "log.vsShort": "{pct} % de l'estimation"
+  "log.vsShort": "{pct} % de l'estimation",
+  "map.goal.title": "Objectif de niveau",
+  "map.goal.pct": "% d'EXP actuel",
+  "map.goal.target": "Niveau visé",
+  "map.goal.daily": "Heures par jour",
+  "map.goal.need": "Nv {from} ({pct} %) → Nv {to} : il reste {exp} d'EXP.",
+  "map.goal.time": "À {map}, environ {time}, soit {days} jours à {daily} h par jour, si votre EXP par heure reste la même.",
+  "mobs.myDef": "Ma défense physique",
+  "mobs.weak": "Faible à",
+  "mobs.type": "Type",
+  "mobs.all": "Tous",
+  "mobs.near": "À 10 niveaux de moi",
+  "mobs.colDmg": "Dégâts de contact"
 }

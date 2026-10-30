@@ -160,10 +160,12 @@ function mobRows(d, l, base) {
     const q = [m.en, m.ko].join(' ').toLowerCase();
     const src = `https://meowdb.com/msclassic/${l.meow}monsters/${m.id}`;
     const sub = l.code === 'ko' ? `<small>${esc(m.en)}</small>` : '';
-    return `<tr data-lv="${m.lv}" data-eva="${m.eva}" data-q="${esc(q)}">` +
+    const weak = Object.entries(m.el).filter(([, a]) => a === 'weak').map(([el]) => el).join(' ');
+    return `<tr data-lv="${m.lv}" data-eva="${m.eva}" data-q="${esc(q)}" data-weak="${weak}" data-tags="${m.tags.join(' ')}" data-id="${m.id}">` +
       `<td class="name"><div class="withimg">${imgTag(base, 'mob/' + m.id, 'sprite')}<div><a href="${src}" target="_blank" rel="noopener">${esc(name(m))}</a>${sub}</div></div></td>` +
       `<td class="n">${m.lv}</td><td class="n need">${need ?? '–'}</td><td class="n hitcell" data-hitcol hidden></td>` +
       `<td class="n">${m.eva}</td><td class="n">${m.wdef}</td><td class="n">${m.mdef}</td>` +
+      `<td class="n dmgcell" data-dmgcol hidden></td>` +
       `<td><div class="chips">${chips}</div></td>` +
       `<td><a class="btn sm" href="${base}${l.path}#mob-${m.id}">${esc(d['mobs.open'])}</a></td></tr>`;
   }).join('\n');

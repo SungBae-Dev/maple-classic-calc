@@ -7,7 +7,7 @@
   "meta.ogAlt": "메이플 클래식 환산, 메이플스토리 클래식 월드 환산 주스탯 계산기",
   "meta.ogTagline": "환산 주스탯 · DPS · 스펙 진단",
   "nav.calc": "계산기",
-  "nav.mobs": "몬스터 명중표",
+  "nav.mobs": "몬스터",
   "nav.lang": "언어",
   "langSuggest": "한국어로 보기",
   "calc.h1": "메이플 클래식 환산",
@@ -576,5 +576,17 @@
   "log.min": "{v}분",
   "log.empty": "아직 기록이 없어요.",
   "log.sessions": "{n}회 · {h}시간",
-  "log.vsShort": "추정의 {pct}%"
+  "log.vsShort": "추정의 {pct}%",
+  "map.goal.title": "목표 레벨 계산",
+  "map.goal.pct": "현재 경험치 %",
+  "map.goal.target": "목표 레벨",
+  "map.goal.daily": "하루 사냥 시간",
+  "map.goal.need": "Lv {from} ({pct}%) → Lv {to}: 남은 경험치 {exp}.",
+  "map.goal.time": "{map}에서 약 {time}, 하루 {daily}시간씩이면 {days}일이에요. 지금 시간당 경험치가 유지된다고 본 값이에요.",
+  "mobs.myDef": "내 물리 방어력",
+  "mobs.weak": "약점 속성",
+  "mobs.type": "분류",
+  "mobs.all": "전체",
+  "mobs.near": "내 레벨 ±10만",
+  "mobs.colDmg": "몸박 피격"
 }

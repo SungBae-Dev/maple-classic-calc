@@ -7,7 +7,7 @@
   "meta.ogAlt": "Maple Classic Calc，冒险岛经典世界属性计算器",
   "meta.ogTagline": "等效主属性 · 伤害 · 命中",
   "nav.calc": "计算器",
-  "nav.mobs": "怪物命中表",
+  "nav.mobs": "怪物",
   "nav.lang": "语言",
   "langSuggest": "查看中文版",
   "calc.h1": "冒险岛经典属性计算器",
@@ -576,5 +576,17 @@
   "log.min": "{v} 分钟",
   "log.empty": "暂无记录。",
   "log.sessions": "{n} 次 · {h} 小时",
-  "log.vsShort": "估算的 {pct}%"
+  "log.vsShort": "估算的 {pct}%",
+  "map.goal.title": "目标等级计算",
+  "map.goal.pct": "当前经验 %",
+  "map.goal.target": "目标等级",
+  "map.goal.daily": "每天练级小时",
+  "map.goal.need": "Lv {from}（{pct}%）→ Lv {to}：还需 {exp} 经验。",
+  "map.goal.time": "在{map}约需 {time}，每天 {daily} 小时则为 {days} 天。假设每小时经验保持不变。",
+  "mobs.myDef": "我的物理防御",
+  "mobs.weak": "弱点属性",
+  "mobs.type": "类型",
+  "mobs.all": "全部",
+  "mobs.near": "只看我等级±10",
+  "mobs.colDmg": "碰撞伤害"
 }

@@ -7,7 +7,7 @@
   "meta.ogAlt": "Maple Classic Calc, uma calculadora de atributos para MapleStory Classic World",
   "meta.ogTagline": "Atributo principal efetivo · dano · precisão",
   "nav.calc": "Calculadora",
-  "nav.mobs": "Precisão por monstro",
+  "nav.mobs": "Monstros",
   "nav.lang": "Idioma",
   "langSuggest": "Ver esta página em português",
   "calc.h1": "Calculadora de Atributos Maple Classic",
@@ -576,5 +576,17 @@
   "log.min": "{v} min",
   "log.empty": "Ainda não há registros.",
   "log.sessions": "{n} sessões · {h} h",
-  "log.vsShort": "{pct}% da estimativa"
+  "log.vsShort": "{pct}% da estimativa",
+  "map.goal.title": "Meta de nível",
+  "map.goal.pct": "% de EXP atual",
+  "map.goal.target": "Nível alvo",
+  "map.goal.daily": "Horas por dia",
+  "map.goal.need": "Nv {from} ({pct}%) → Nv {to}: faltam {exp} de EXP.",
+  "map.goal.time": "Em {map}, cerca de {time}: {days} dias com {daily} h por dia, se sua EXP por hora se mantiver.",
+  "mobs.myDef": "Minha defesa física",
+  "mobs.weak": "Fraco a",
+  "mobs.type": "Tipo",
+  "mobs.all": "Todos",
+  "mobs.near": "Até 10 níveis do meu",
+  "mobs.colDmg": "Dano de toque"
 }

@@ -258,6 +258,15 @@
             <div class="field"><label for="mapActive">{{map.active}}</label><select id="mapActive"><option value="0.4">40%</option><option value="0.6">60%</option><option value="0.8">80%</option><option value="1">100%</option></select><span class="hint">{{map.activeHint}}</span></div>
           </div>
           <ol class="cards" id="mapList"></ol>
+          <div class="goalcalc">
+            <h3 class="skhead">{{map.goal.title}}</h3>
+            <div class="grid g3">
+              <div class="field"><label for="glPct">{{map.goal.pct}}</label><input type="number" id="glPct" inputmode="decimal" min="0" max="100" step="any" placeholder="0"></div>
+              <div class="field"><label for="glTarget">{{map.goal.target}}</label><input type="number" id="glTarget" inputmode="numeric" min="2" max="100"></div>
+              <div class="field"><label for="glDaily">{{map.goal.daily}}</label><input type="number" id="glDaily" inputmode="decimal" min="0" step="any" placeholder="2"></div>
+            </div>
+            <p class="callout" id="glOut"></p>
+          </div>
           <details class="explain">
             <summary>{{map.all}}</summary>
             <div class="tablewrap" style="margin-top:10px">

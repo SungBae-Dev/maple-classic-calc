@@ -7,7 +7,7 @@
   "meta.ogAlt": "Maple Classic Calc - メイプルストーリー クラシック ワールドのステータス計算機",
   "meta.ogTagline": "換算主ステータス · ダメージ · 命中",
   "nav.calc": "計算機",
-  "nav.mobs": "モンスター命中表",
+  "nav.mobs": "モンスター",
   "nav.lang": "言語",
   "langSuggest": "日本語で見る",
   "calc.h1": "メイプル クラシック ステータス計算機",
@@ -576,5 +576,17 @@
   "log.min": "{v}分",
   "log.empty": "まだ記録がありません。",
   "log.sessions": "{n}回 · {h}時間",
-  "log.vsShort": "推定の{pct}%"
+  "log.vsShort": "推定の{pct}%",
+  "map.goal.title": "目標レベル計算",
+  "map.goal.pct": "現在のEXP %",
+  "map.goal.target": "目標レベル",
+  "map.goal.daily": "1日の狩り時間",
+  "map.goal.need": "Lv {from}（{pct}%）→ Lv {to}：残りEXP {exp}。",
+  "map.goal.time": "{map}で約{time}、1日{daily}時間なら{days}日です。今の時給EXPが続く前提の値です。",
+  "mobs.myDef": "自分の物理防御力",
+  "mobs.weak": "弱点属性",
+  "mobs.type": "分類",
+  "mobs.all": "すべて",
+  "mobs.near": "自分のレベル±10のみ",
+  "mobs.colDmg": "接触被ダメ"
 }

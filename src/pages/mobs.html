@@ -10,10 +10,14 @@
     <p class="lede">{{mobs.lede}}</p>
   </header>
 
-  <form class="filters" autocomplete="off" onsubmit="return false">
-    <div class="field"><label for="mobSearch">{{mobs.search}}</label><input type="search" id="mobSearch" inputmode="search"></div>
+  <form class="filters wide" autocomplete="off" onsubmit="return false">
+    <div class="field search"><label for="mobSearch">{{mobs.search}}</label><input type="search" id="mobSearch" inputmode="search"></div>
     <div class="field"><label for="myLevel">{{mobs.myLevel}}</label><input type="number" id="myLevel" inputmode="numeric" min="1" max="200" placeholder="{{mobs.myLevelHint}}"></div>
     <div class="field"><label for="myAcc">{{mobs.myAcc}}</label><input type="number" id="myAcc" inputmode="numeric" min="0"></div>
+    <div class="field"><label for="myDef">{{mobs.myDef}}</label><input type="number" id="myDef" inputmode="numeric" min="0" placeholder="0"></div>
+    <div class="field"><label for="mobWeak">{{mobs.weak}}</label><select id="mobWeak"><option value="">{{mobs.all}}</option><option value="fire">{{skillEl.fire}}</option><option value="ice">{{skillEl.ice}}</option><option value="lightning">{{skillEl.lightning}}</option><option value="poison">{{skillEl.poison}}</option><option value="holy">{{skillEl.holy}}</option></select></div>
+    <div class="field"><label for="mobType">{{mobs.type}}</label><select id="mobType"><option value="">{{mobs.all}}</option><option value="boss">{{mobTag.boss}}</option><option value="undead">{{mobTag.undead}}</option></select></div>
+    <label class="toggle near"><input type="checkbox" id="mobNear"> <span>{{mobs.near}}</span></label>
   </form>
 
   <div class="tablewrap">
@@ -26,6 +30,7 @@
         <th scope="col" class="n">{{col.eva}}</th>
         <th scope="col" class="n">{{col.wdef}}</th>
         <th scope="col" class="n">{{col.mdef}}</th>
+        <th scope="col" class="n" data-dmgcol hidden>{{mobs.colDmg}}</th>
         <th scope="col">{{col.el}}</th>
         <th scope="col"><span class="visually-hidden">{{mobs.open}}</span></th>
       </tr></thead>
