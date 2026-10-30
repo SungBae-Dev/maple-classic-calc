@@ -108,8 +108,10 @@ function rankMapsFor(R, raw) {
   const vs = mapVariants(R, raw);
   const o = mapOpts();
   const maxT = Math.max(1, ...vs.map((v) => v.targets));
-  $('mapPack').options[0].textContent = t('map.packAuto', { n: MP.mobsPerCast({ targets: maxT, pack: null }) });
-  $('mapPackHint').textContent = maxT > 1 ? t('map.packHint', { max: maxT, n: MP.mobsPerCast({ targets: maxT, pack: o.pack }) }) : t('map.packSingle');
+  if ($('mapPack')) {
+    $('mapPack').options[0].textContent = t('map.packAuto', { n: MP.mobsPerCast({ targets: maxT, pack: null }) });
+    $('mapPackHint').textContent = maxT > 1 ? t('map.packHint', { max: maxT, n: MP.mobsPerCast({ targets: maxT, pack: o.pack }) }) : t('map.packSingle');
+  }
   return MP.rankMapsBest(vs, MAPS, MOB_BY_NUM, { pack: o.pack, active: o.active }).map((e) => ({ ...e, skill: vs[e.variant].skill }));
 }
 const mapSkill = (e) => (e.skill ? skName(e.skill) + (e.perCast > 1 ? ' ×' + e.perCast : '') : '');
@@ -1113,6 +1115,175 @@ function mapsPage() {
   update();
 }
 
+// ═════════════════════════ hunting session log ═════════════════════════
+/** the character saved by the calculator, resolved, or null */
+function savedChar() {
+  const saved = store.get(CALC_KEY);
+  if (!saved || !saved.raw || !E.WEAPONS[saved.raw.weapon]) return null;
+  try {
+    const raw = { ...saved.raw };
+    raw.action = E.normalizeAction(raw);
+    return { raw, R: AU.resolve(raw, SKILLDATA, E.NO_MOB) };
+  } catch (e) { return null; }
+}
+/** EXP gained between (level, %) points, from the EXP table */
+function expGain(l1, p1, l2, p2) {
+  const need = (l) => EXP[Math.max(1, Math.min(EXP.length, l)) - 1];
+  if (l2 < l1 || (l2 === l1 && p2 < p1)) return null;
+  if (l1 === l2) return ((p2 - p1) / 100) * need(l1);
+  let g = ((100 - p1) / 100) * need(l1);
+  for (let l = l1 + 1; l < l2; l++) g += need(l);
+  return g + (p2 / 100) * need(l2);
+}
+const mapLvSpan = (m) => {
+  const lvs = m.mobs.map((x) => (MOB_BY_NUM.get(x.id) || x).lv).filter(Boolean);
+  return [Math.min(...lvs), Math.max(...lvs)];
+};
+const hms = (ms) => { const s = Math.max(0, Math.floor(ms / 1000)); return [Math.floor(s / 3600), Math.floor(s / 60) % 60, s % 60].map((v) => String(v).padStart(2, '0')).join(':'); };
+
+function logPage() {
+  const LIVE = 'msc-hunt-live-v1', LOG = 'msc-hunt-log-v1';
+  const ch = savedChar();
+  const effById = new Map();
+  if (ch) rankMapsFor(ch.R, ch.raw).forEach((e) => effById.set(e.map.id, e));
+  const sel = $('lgMap');
+  const sorted = MAPS.slice().sort((a, b) => mapLvSpan(a)[0] - mapLvSpan(b)[0] || mapLvSpan(a)[1] - mapLvSpan(b)[1]);
+  sel.innerHTML = '<option value="">' + esc(t('log.mapOther')) + '</option>' + sorted.map((m) => {
+    const [a, b] = mapLvSpan(m);
+    return '<option value="' + m.id + '">' + esc(mapName(m)) + ' (Lv ' + (a === b ? a : a + '–' + b) + ')</option>';
+  }).join('');
+  const best = ch ? [...effById.values()].find(MP.isRecommendable) : null;
+  let live = store.get(LIVE);
+  const list = () => store.get(LOG) || [];
+  sel.value = live ? live.map : (store.get('msc-hunt-map-v1') || (best ? best.map.id : ''));
+  if (ch && !live) { $('lgStartLv').value = ch.R.c.level; }
+
+  function showEst() {
+    const e = effById.get(sel.value);
+    $('lgEst').textContent = !ch ? t('log.noEst') : e && e.eph > 0 ? t('log.est', { v: fc(e.eph), skill: mapSkill(e) }) : t('log.noMapEst');
+  }
+  function setState() {
+    const on = !!live;
+    $('lgStart').textContent = on ? t('log.running') : t('log.start');
+    $('lgStart').disabled = on;
+    $('lgCancel').hidden = !on;
+    ['lgStartLv', 'lgStartPct', 'lgStartMeso'].forEach((id) => { $(id).disabled = on; });
+    if (on) {
+      $('lgStartLv').value = live.startLv; $('lgStartPct').value = live.startPct; $('lgStartMeso').value = live.startMeso ?? '';
+      if (!$('lgEndLv').value) $('lgEndLv').value = live.startLv;
+    }
+    tick();
+  }
+  function tick() {
+    $('lgClock').textContent = live ? hms(Date.now() - live.startTs) : '00:00:00';
+    $('lgClockNote').textContent = live ? t('log.since', { time: new Date(live.startTs).toLocaleTimeString(L.code, { hour: '2-digit', minute: '2-digit' }) }) : t('log.idle');
+  }
+  const val = (id) => { const v = parseFloat($(id).value); return Number.isFinite(v) ? v : null; };
+
+  $('lgStart').addEventListener('click', () => {
+    const lv = val('lgStartLv'), pc = val('lgStartPct');
+    if (!(lv >= 1) || pc == null) { $('lgMsg').textContent = t('log.needStart'); return; }
+    live = { map: sel.value, startTs: Date.now(), startLv: lv, startPct: pc, startMeso: val('lgStartMeso') };
+    store.set(LIVE, live);
+    $('lgMsg').textContent = '';
+    $('lgResult').hidden = true;
+    setState();
+  });
+  $('lgCancel').addEventListener('click', () => { live = null; store.set(LIVE, null); setState(); });
+  sel.addEventListener('change', () => { store.set('msc-hunt-map-v1', sel.value); if (live) { live.map = sel.value; store.set(LIVE, live); } showEst(); });
+
+  $('lgSave').addEventListener('click', () => {
+    const sLv = live ? live.startLv : val('lgStartLv'), sPc = live ? live.startPct : val('lgStartPct');
+    const eLv = val('lgEndLv'), ePc = val('lgEndPct');
+    const manual = val('lgMinutes');
+    const minutes = manual != null && manual > 0 ? manual : live ? (Date.now() - live.startTs) / 60000 : null;
+    if (!(sLv >= 1) || sPc == null || !(eLv >= 1) || ePc == null) { $('lgMsg').textContent = t('log.needBoth'); return; }
+    if (!(minutes > 0)) { $('lgMsg').textContent = t('log.needTime'); return; }
+    const gain = expGain(sLv, sPc, eLv, ePc);
+    if (gain == null) { $('lgMsg').textContent = t('log.errOrder'); return; }
+    const sM = live ? live.startMeso : val('lgStartMeso'), eM = val('lgEndMeso');
+    const e = effById.get(sel.value);
+    const rec = {
+      ts: Date.now(), map: sel.value, minutes: Math.round(minutes * 10) / 10, lv: sLv, exp: Math.round(gain),
+      meso: sM != null && eM != null ? eM - sM : null, est: e && e.eph > 0 ? Math.round(e.eph) : null, active: mapOpts().active,
+    };
+    store.set(LOG, [rec, ...list()].slice(0, 300));
+    live = null; store.set(LIVE, null);
+    ['lgEndPct', 'lgEndMeso', 'lgMinutes'].forEach((id) => { $(id).value = ''; });
+    $('lgStartLv').value = eLv; $('lgStartPct').value = ePc; $('lgStartMeso').value = eM ?? '';
+    $('lgMsg').textContent = '';
+    showResult(rec);
+    setState();
+    renderHistory();
+  });
+
+  const ephOf = (r) => (r.exp * 60) / r.minutes;
+  const mphOf = (r) => (r.meso == null ? null : (r.meso * 60) / r.minutes);
+  const vsOf = (r) => (r.est ? ephOf(r) / r.est : null);
+  const mapLabel = (id) => { const m = MAPS.find((x) => x.id === id); return m ? mapName(m) : t('log.mapOther'); };
+  function showResult(r) {
+    const vs = vsOf(r);
+    let html = '<span class="k">' + esc(t('log.result')) + '</span><p>' + esc(t('log.resultLine', { eph: fc(ephOf(r)), exp: f0(r.exp), min: f1(r.minutes) })) +
+      (r.meso != null ? ' ' + esc(t('log.resultMeso', { v: fc(mphOf(r)) })) : '') + '</p>';
+    if (vs != null) {
+      const act = Math.min(1, Math.max(0.05, r.active * vs));
+      html += '<p>' + esc(t('log.resultVs', { est: fc(r.est), pct: f0(vs * 100), act: f0(act * 100) })) + '</p>';
+    }
+    $('lgResult').innerHTML = html;
+    $('lgResult').hidden = false;
+  }
+
+  let confirmClear = false;
+  function renderHistory() {
+    const rows = list();
+    $('lgRows').innerHTML = rows.length ? rows.map((r, i) => {
+      const vs = vsOf(r);
+      return '<tr><td>' + esc(new Date(r.ts).toLocaleDateString(L.code, { month: 'short', day: 'numeric' })) + '</td><td class="name">' + esc(mapLabel(r.map)) + '<small>Lv ' + r.lv + '</small></td>' +
+        '<td class="n">' + esc(t('log.min', { v: f0(r.minutes) })) + '</td><td class="n">' + fc(ephOf(r)) + '</td><td class="n">' + (r.meso == null ? '–' : fc(mphOf(r))) + '</td>' +
+        '<td class="n">' + (vs == null ? '–' : f0(vs * 100) + '%') + '</td><td><button class="chip" type="button" data-del="' + i + '" aria-label="' + esc(t('log.delete')) + '">×</button></td></tr>';
+    }).join('') : '<tr><td colspan="7" class="empty-row">' + esc(t('log.empty')) + '</td></tr>';
+    // per-map summary: time-weighted EXP/h
+    const by = new Map();
+    rows.forEach((r) => { const a = by.get(r.map) || { exp: 0, min: 0, n: 0, est: 0, estMin: 0 }; a.exp += r.exp; a.min += r.minutes; a.n++; if (r.est) { a.est += r.est * r.minutes; a.estMin += r.minutes; } by.set(r.map, a); });
+    const sum = [...by.entries()].sort((a, b) => b[1].exp / b[1].min - a[1].exp / a[1].min);
+    $('lgSummary').innerHTML = sum.length ? '<ol class="cards">' + sum.slice(0, 5).map(([id, a]) => {
+      const eph = (a.exp * 60) / a.min;
+      const vs = a.estMin ? eph / (a.est / a.estMin) : null;
+      return '<li class="card"><span class="nm">' + esc(mapLabel(id)) + '<small>' + esc(t('log.sessions', { n: a.n, h: f1(a.min / 60) })) + '</small></span><span class="big">' + fc(eph) +
+        '<small>' + esc(t('map.ephUnit')) + (vs != null ? ' · ' + esc(t('log.vsShort', { pct: f0(vs * 100) })) : '') + '</small></span></li>';
+    }).join('') + '</ol>' : '';
+    $('lgClear').textContent = t('log.clear');
+    confirmClear = false;
+  }
+  $('lgRows').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-del]');
+    if (!b) return;
+    const rows = list(); rows.splice(+b.dataset.del, 1); store.set(LOG, rows); renderHistory();
+  });
+  $('lgClear').addEventListener('click', () => {
+    if (!list().length) return;
+    if (!confirmClear) { confirmClear = true; $('lgClear').textContent = t('log.clearConfirm'); return; }
+    store.set(LOG, []); renderHistory();
+  });
+  $('lgCsv').addEventListener('click', () => {
+    const rows = list();
+    if (!rows.length) return;
+    const head = ['date', 'map', 'level', 'minutes', 'exp', 'exp_per_hour', 'meso', 'meso_per_hour', 'estimate_exp_per_hour'];
+    const q = (v) => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+    const csv = [head.join(',')].concat(rows.map((r) => [new Date(r.ts).toISOString(), mapLabel(r.map), r.lv, r.minutes, r.exp, Math.round(ephOf(r)), r.meso ?? '', r.meso == null ? '' : Math.round(mphOf(r)), r.est ?? ''].map(q).join(','))).join('\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv' }));
+    a.download = 'maple-classic-hunts.csv';
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+
+  showEst();
+  setState();
+  renderHistory();
+  setInterval(tick, 1000);
+}
+
 if (document.body.dataset.page === 'calc') calcPage();
 else if (document.body.dataset.page === 'mobs') mobsPage();
 else if (document.body.dataset.page === 'maps') mapsPage();
+else if (document.body.dataset.page === 'log') logPage();

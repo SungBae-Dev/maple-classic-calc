@@ -1,0 +1,75 @@
+{{{head}}}
+<body data-page="log" data-lang="{{lang}}">
+<div class="wrap">
+  {{{topnav}}}
+  <div class="langtip" id="langTip" hidden></div>
+
+  <header class="top">
+    <div class="eyebrow">MAPLESTORY CLASSIC WORLD · GMS</div>
+    <h1>{{log.h1}}</h1>
+    <p class="lede">{{log.lede}}</p>
+  </header>
+
+  <div class="report">
+    <section class="win" id="live" aria-labelledby="h-live">
+      <div class="bar"><h2 id="h-live">{{log.live}}</h2><span class="tag">HUNT TIMER</span></div>
+      <div class="body">
+        <div class="field"><label for="lgMap">{{log.map}}</label><select id="lgMap"></select><span class="hint" id="lgEst"></span></div>
+
+        <div class="lgphase">
+          <h3 class="skhead">{{log.before}}</h3>
+          <div class="grid g3">
+            <div class="field"><label for="lgStartLv">{{log.level}}</label><input type="number" id="lgStartLv" inputmode="numeric" min="1" max="200"></div>
+            <div class="field"><label for="lgStartPct">{{log.expPct}}</label><input type="number" id="lgStartPct" inputmode="decimal" min="0" max="100" step="any" placeholder="0.00"></div>
+            <div class="field"><label for="lgStartMeso">{{log.meso}}</label><input type="number" id="lgStartMeso" inputmode="numeric" min="0" placeholder="{{log.optional}}"></div>
+          </div>
+        </div>
+
+        <div class="timer" aria-live="polite">
+          <b id="lgClock">00:00:00</b>
+          <span class="note" id="lgClockNote">{{log.idle}}</span>
+        </div>
+        <div class="btnrow">
+          <button class="btn primary wide" type="button" id="lgStart">{{log.start}}</button>
+          <button class="btn" type="button" id="lgCancel" hidden>{{log.cancel}}</button>
+        </div>
+
+        <div class="lgphase">
+          <h3 class="skhead">{{log.after}}</h3>
+          <div class="grid g3">
+            <div class="field"><label for="lgEndLv">{{log.level}}</label><input type="number" id="lgEndLv" inputmode="numeric" min="1" max="200"></div>
+            <div class="field"><label for="lgEndPct">{{log.expPct}}</label><input type="number" id="lgEndPct" inputmode="decimal" min="0" max="100" step="any" placeholder="0.00"></div>
+            <div class="field"><label for="lgEndMeso">{{log.meso}}</label><input type="number" id="lgEndMeso" inputmode="numeric" min="0" placeholder="{{log.optional}}"></div>
+            <div class="field"><label for="lgMinutes">{{log.minutes}}</label><input type="number" id="lgMinutes" inputmode="decimal" min="0" step="any"><span class="hint">{{log.minutesHint}}</span></div>
+          </div>
+        </div>
+        <button class="btn primary wide" type="button" id="lgSave">{{log.save}}</button>
+        <p class="note warnline" id="lgMsg" aria-live="polite"></p>
+        <div class="goal" id="lgResult" hidden></div>
+      </div>
+    </section>
+
+    <section class="win" id="history" aria-labelledby="h-hist">
+      <div class="bar"><h2 id="h-hist">{{log.history}}</h2><span class="tag">RECORDS</span></div>
+      <div class="body">
+        <div id="lgSummary"></div>
+        <div class="tablewrap">
+          <table class="mobs compact lg">
+            <thead><tr><th scope="col">{{log.colDate}}</th><th scope="col">{{log.colMap}}</th><th scope="col" class="n">{{log.colTime}}</th><th scope="col" class="n">{{log.colEph}}</th><th scope="col" class="n">{{log.colMph}}</th><th scope="col" class="n">{{log.colVs}}</th><th scope="col"><span class="visually-hidden">{{log.delete}}</span></th></tr></thead>
+            <tbody id="lgRows"></tbody>
+          </table>
+        </div>
+        <div class="btnrow">
+          <button class="btn" type="button" id="lgCsv">{{log.csv}}</button>
+          <button class="btn" type="button" id="lgClear">{{log.clear}}</button>
+        </div>
+        <p class="note">{{log.note}}</p>
+      </div>
+    </section>
+  </div>
+
+  {{{footer}}}
+</div>
+{{{scripts}}}
+</body>
+</html>

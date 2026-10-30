@@ -441,3 +441,12 @@ table.mobs.sv td.n { white-space: nowrap; }
 table.mobs.sv th { white-space: normal; word-break: keep-all; vertical-align: bottom; }
 table.mobs.compact.fit.sv td, table.mobs.compact.fit.sv th { padding-inline: 6px; }
 table.mobs.sv td.name small { display: block; }
+
+/* hunt log */
+.timer { display: grid; justify-items: center; gap: 2px; padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--field); }
+.timer b { font-family: var(--f-num); font-size: clamp(2rem, 9vw, 2.6rem); font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+.lgphase { display: grid; gap: 8px; }
+.lgphase .skhead { margin: 0; }
+table.mobs.lg { min-width: 560px; }
+table.mobs.lg td.name small { display: block; }
+.empty-row { color: var(--muted); }

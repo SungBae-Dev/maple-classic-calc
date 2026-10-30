@@ -1,0 +1,1126 @@
+{
+  "source": "NiaDB monster pages (drop tables)",
+  "checked": "2026-10-30",
+  "legend": {
+    "id": "in-game item id (from the item icon URL in the OSMLib table); absent when the item appears only in the MSEA list",
+    "db": "NiaDB item-db id: https://meowdb.com/msclassic/item-db/<db>",
+    "ref": "msea = in NiaDB's MSEA reference list only; osmlib = in the OSMLib rate table only; both = in both",
+    "chance": "OSMLib reference rate as shown on the page (not verified for Classic World)"
+  },
+  "drops": {
+    "2": {
+      "src": "https://meowdb.com/msclassic/monsters/2",
+      "note": "Community-sourced 'Drops (MS Classic)' list did not load (client-side). Items are NiaDB's MSEA pre-Big-Bang reference list (historical, no rates) plus OSMLib reference rates, which the page says may not represent Classic World rates.",
+      "items": [
+        {
+          "id": 4000001,
+          "en": "Snail Shell",
+          "type": "etc",
+          "chance": "40%",
+          "db": 348,
+          "ref": "both"
+        },
+        {
+          "id": 2000000,
+          "en": "Red Potion",
+          "type": "use",
+          "chance": "1%",
+          "db": 270,
+          "ref": "both"
+        },
+        {
+          "id": 2041005,
+          "en": "Cape Magic Def. Scroll: Intermediate",
+          "type": "use",
+          "chance": "0.003%",
+          "db": 59,
+          "ref": "both"
+        },
+        {
+          "en": "Cape Weapon Def. Scroll: Intermediate",
+          "type": "use",
+          "db": 61,
+          "ref": "msea"
+        },
+        {
+          "en": "Ice Jeans",
+          "type": "equip",
+          "db": 1195,
+          "ref": "msea"
+        },
+        {
+          "en": "Red Miniskirt",
+          "type": "equip",
+          "db": 1160,
+          "ref": "msea"
+        },
+        {
+          "id": 1002005,
+          "en": "Green Headband",
+          "type": "equip",
+          "chance": "0.08%",
+          "db": 713,
+          "ref": "both"
+        },
+        {
+          "en": "Sword",
+          "type": "equip",
+          "db": 541,
+          "ref": "msea"
+        },
+        {
+          "en": "White Undershirt",
+          "type": "equip",
+          "db": 933,
+          "ref": "msea"
+        },
+        {
+          "id": 2010007,
+          "en": "Green Apple",
+          "type": "use",
+          "chance": "0.7%",
+          "db": 242,
+          "ref": "osmlib"
+        },
+        {
+          "id": 4010000,
+          "en": "Bronze Ore",
+          "type": "etc",
+          "chance": "0.2%",
+          "db": 413,
+          "ref": "osmlib"
+        },
+        {
+          "id": 4020000,
+          "en": "Garnet Ore",
+          "type": "etc",
+          "chance": "0.15%",
+          "db": 320,
+          "ref": "osmlib"
+        }
+      ]
+    },
+    "3": {
+      "src": "https://meowdb.com/msclassic/monsters/3",
+      "note": "Community-sourced 'Drops (MS Classic)' list did not load (client-side). Items are NiaDB's MSEA pre-Big-Bang reference list (historical, no rates) plus OSMLib reference rates, which the page says may not represent Classic World rates.",
+      "items": [
+        {
+          "id": 4000002,
+          "en": "Blue Snail Shell",
+          "type": "etc",
+          "chance": "40%",
+          "db": 349,
+          "ref": "both"
+        },
+        {
+          "en": "Monster Card",
+          "type": "quest",
+          "db": 483,
+          "ref": "msea"
+        },
+        {
+          "id": 2000000,
+          "en": "Red Potion",
+          "type": "use",
+          "chance": "1%",
+          "db": 270,
+          "ref": "both"
+        },
+        {
+          "en": "Cape Magic Def. Scroll: Intermediate",
+          "type": "use",
+          "db": 59,
+          "ref": "msea"
+        },
+        {
+          "id": 1060011,
+          "en": "Grey Thick Sweat Pants",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 1181,
+          "ref": "both"
+        },
+        {
+          "en": "Iron Mace",
+          "type": "equip",
+          "db": 595,
+          "ref": "msea"
+        },
+        {
+          "id": 1040013,
+          "en": "Blue One-lined T-Shirt",
+          "type": "equip",
+          "chance": "0.08%",
+          "db": 960,
+          "ref": "both"
+        },
+        {
+          "id": 1041015,
+          "en": "Red Striped T-Shirt",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 963,
+          "ref": "both"
+        },
+        {
+          "en": "Undershirt",
+          "type": "equip",
+          "db": 935,
+          "ref": "msea"
+        },
+        {
+          "id": 2010007,
+          "en": "Green Apple",
+          "type": "use",
+          "chance": "0.7%",
+          "db": 242,
+          "ref": "osmlib"
+        },
+        {
+          "id": 4010001,
+          "en": "Iron Ore",
+          "type": "etc",
+          "chance": "0.3%",
+          "db": 414,
+          "ref": "osmlib"
+        },
+        {
+          "id": 4020001,
+          "en": "Amethyst Ore",
+          "type": "etc",
+          "chance": "0.2%",
+          "db": 321,
+          "ref": "osmlib"
+        }
+      ]
+    },
+    "4": {
+      "src": "https://meowdb.com/msclassic/monsters/4",
+      "note": "Community-sourced 'Drops (MS Classic)' list did not load (client-side). Items are NiaDB's MSEA pre-Big-Bang reference list (historical, no rates) plus OSMLib reference rates, which the page says may not represent Classic World rates.",
+      "items": [
+        {
+          "id": 4000003,
+          "en": "Mushroom Spore",
+          "type": "etc",
+          "chance": "40%",
+          "db": 350,
+          "ref": "both"
+        },
+        {
+          "id": 2000000,
+          "en": "Red Potion",
+          "type": "use",
+          "chance": "1%",
+          "db": 270,
+          "ref": "both"
+        },
+        {
+          "id": 1061007,
+          "en": "Green Avelin Skirt",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 1175,
+          "ref": "both"
+        },
+        {
+          "id": 1062001,
+          "en": "Ice Jeans",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 1195,
+          "ref": "both"
+        },
+        {
+          "id": 1332003,
+          "en": "Field Dagger",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 562,
+          "ref": "both"
+        },
+        {
+          "en": "Hand Axe",
+          "type": "equip",
+          "db": 576,
+          "ref": "msea"
+        },
+        {
+          "id": 2010007,
+          "en": "Green Apple",
+          "type": "use",
+          "chance": "0.7%",
+          "db": 242,
+          "ref": "osmlib"
+        },
+        {
+          "id": 4010002,
+          "en": "Mithril Ore",
+          "type": "etc",
+          "chance": "0.3%",
+          "db": 415,
+          "ref": "osmlib"
+        },
+        {
+          "id": 4020002,
+          "en": "Aquamarine Ore",
+          "type": "etc",
+          "chance": "0.2%",
+          "db": 322,
+          "ref": "osmlib"
+        }
+      ]
+    },
+    "5": {
+      "src": "https://meowdb.com/msclassic/monsters/5",
+      "note": "Community-sourced 'Drops (MS Classic)' list did not load (client-side). Items are NiaDB's MSEA pre-Big-Bang reference list (historical, no rates) plus OSMLib reference rates, which the page says may not represent Classic World rates.",
+      "items": [
+        {
+          "id": 4000004,
+          "en": "Red Snail Shell",
+          "type": "etc",
+          "chance": "40%",
+          "db": 351,
+          "ref": "both"
+        },
+        {
+          "id": 2000000,
+          "en": "Red Potion",
+          "type": "use",
+          "chance": "1%",
+          "db": 270,
+          "ref": "both"
+        },
+        {
+          "id": 2040510,
+          "en": "Overall Armor DEX Scroll: Greater",
+          "type": "use",
+          "chance": "0.003%",
+          "db": 139,
+          "ref": "both"
+        },
+        {
+          "en": "Red Cloth Pants",
+          "type": "equip",
+          "db": 1177,
+          "ref": "msea"
+        },
+        {
+          "id": 1032001,
+          "en": "Amethyst Earrings",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 900,
+          "ref": "both"
+        },
+        {
+          "id": 1082005,
+          "en": "Brown Duo",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 1440,
+          "ref": "both"
+        },
+        {
+          "id": 1322002,
+          "en": "Leather Purse",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 589,
+          "ref": "both"
+        },
+        {
+          "en": "Sword",
+          "type": "equip",
+          "db": 541,
+          "ref": "msea"
+        },
+        {
+          "id": 1072019,
+          "en": "Brown Woodsman Boots",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 1325,
+          "ref": "both"
+        },
+        {
+          "en": "Leather Sandals",
+          "type": "equip",
+          "db": 1305,
+          "ref": "msea"
+        },
+        {
+          "id": 1402000,
+          "en": "Wooden Sword",
+          "type": "equip",
+          "chance": "0.08%",
+          "db": 608,
+          "ref": "both"
+        },
+        {
+          "id": 1372002,
+          "en": "Metal Wand",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 651,
+          "ref": "both"
+        },
+        {
+          "id": 2010007,
+          "en": "Green Apple",
+          "type": "use",
+          "chance": "0.7%",
+          "db": 242,
+          "ref": "osmlib"
+        },
+        {
+          "id": 4020004,
+          "en": "Opal Ore",
+          "type": "etc",
+          "chance": "0.3%",
+          "db": 324,
+          "ref": "osmlib"
+        },
+        {
+          "id": 4010004,
+          "en": "Silver Ore",
+          "type": "etc",
+          "chance": "0.2%",
+          "db": 417,
+          "ref": "osmlib"
+        }
+      ]
+    },
+    "6": {
+      "src": "https://meowdb.com/msclassic/monsters/6",
+      "note": "Community-sourced 'Drops (MS Classic)' list did not load (client-side). Items are NiaDB's MSEA pre-Big-Bang reference list (historical, no rates) plus OSMLib reference rates, which the page says may not represent Classic World rates.",
+      "items": [
+        {
+          "id": 4000005,
+          "en": "Tree Branch",
+          "type": "etc",
+          "chance": "40%",
+          "db": 352,
+          "ref": "both"
+        },
+        {
+          "id": 2000000,
+          "en": "Red Potion",
+          "type": "use",
+          "chance": "1%",
+          "db": 270,
+          "ref": "both"
+        },
+        {
+          "id": 1452001,
+          "en": "Composite Bow",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 665,
+          "ref": "both"
+        },
+        {
+          "id": 1332002,
+          "en": "Triangular Zamadar",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 560,
+          "ref": "both"
+        },
+        {
+          "id": 1082001,
+          "en": "Juno",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 1436,
+          "ref": "both"
+        },
+        {
+          "en": "Wooden Club",
+          "type": "equip",
+          "db": 585,
+          "ref": "msea"
+        },
+        {
+          "id": 1072028,
+          "en": "Brown High Boots",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 1334,
+          "ref": "both"
+        },
+        {
+          "id": 2010007,
+          "en": "Green Apple",
+          "type": "use",
+          "chance": "0.7%",
+          "db": 242,
+          "ref": "osmlib"
+        },
+        {
+          "id": 4010003,
+          "en": "Adamantium Ore",
+          "type": "etc",
+          "chance": "0.3%",
+          "db": 416,
+          "ref": "osmlib"
+        },
+        {
+          "id": 4020003,
+          "en": "Emerald Ore",
+          "type": "etc",
+          "chance": "0.2%",
+          "db": 323,
+          "ref": "osmlib"
+        },
+        {
+          "id": 2040402,
+          "en": "Topwear DEF Scroll: Greater",
+          "type": "use",
+          "chance": "0.003%",
+          "db": 196,
+          "ref": "osmlib"
+        }
+      ]
+    },
+    "7": {
+      "src": "https://meowdb.com/msclassic/monsters/7",
+      "note": "Community-sourced 'Drops (MS Classic)' list did not load (client-side). Items are NiaDB's MSEA pre-Big-Bang reference list (historical, no rates) plus OSMLib reference rates, which the page says may not represent Classic World rates.",
+      "items": [
+        {
+          "id": 4000007,
+          "en": "Slime Bubble",
+          "type": "etc",
+          "chance": "3%",
+          "db": 354,
+          "ref": "both"
+        },
+        {
+          "id": 4000006,
+          "en": "Squishy Liquid",
+          "type": "etc",
+          "chance": "40%",
+          "db": 353,
+          "ref": "both"
+        },
+        {
+          "id": 2000000,
+          "en": "Red Potion",
+          "type": "use",
+          "chance": "1%",
+          "db": 270,
+          "ref": "both"
+        },
+        {
+          "id": 2040602,
+          "en": "Bottomwear DEF Scroll: Greater",
+          "type": "use",
+          "chance": "0.003%",
+          "db": 28,
+          "ref": "both"
+        },
+        {
+          "en": "Bottomwear DEF Scroll: Lesser",
+          "type": "use",
+          "db": 34,
+          "ref": "msea"
+        },
+        {
+          "id": 2041012,
+          "en": "Cape DEX Scroll: Lesser",
+          "type": "use",
+          "chance": "0.003%",
+          "db": 63,
+          "ref": "both"
+        },
+        {
+          "en": "Cape Magic Def. Scroll: Intermediate",
+          "type": "use",
+          "db": 59,
+          "ref": "msea"
+        },
+        {
+          "en": "Overall Armor DEF Scroll: Greater",
+          "type": "use",
+          "db": 138,
+          "ref": "msea"
+        },
+        {
+          "en": "Blue Jean Shorts",
+          "type": "equip",
+          "db": 1157,
+          "ref": "msea"
+        },
+        {
+          "en": "Red Cloth Pants",
+          "type": "equip",
+          "db": 1177,
+          "ref": "msea"
+        },
+        {
+          "id": 1082003,
+          "en": "Lemona",
+          "type": "equip",
+          "chance": "0.02%",
+          "db": 1438,
+          "ref": "both"
+        },
+        {
+          "en": "Blue Baseball Cap",
+          "type": "equip",
+          "db": 785,
+          "ref": "msea"
+        },
+        {
+          "id": 1002011,
+          "en": "White Bandana",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 719,
+          "ref": "both"
+        },
+        {
+          "id": 1072016,
+          "en": "Beige Nitty",
+          "type": "equip",
+          "chance": "0.03%",
+          "db": 1322,
+          "ref": "both"
+        },
+        {
+          "id": 1432001,
+          "en": "Fork on a Stick",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 634,
+          "ref": "both"
+        },
+        {
+          "id": 1412000,
+          "en": "Metal Axe",
+          "type": "equip",
+          "chance": "0.08%",
+          "db": 617,
+          "ref": "both"
+        },
+        {
+          "id": 2010007,
+          "en": "Green Apple",
+          "type": "use",
+          "chance": "0.7%",
+          "db": 242,
+          "ref": "osmlib"
+        },
+        {
+          "id": 4020005,
+          "en": "Sapphire Ore",
+          "type": "etc",
+          "chance": "0.3%",
+          "db": 325,
+          "ref": "osmlib"
+        },
+        {
+          "id": 4010005,
+          "en": "Orihalcon Ore",
+          "type": "etc",
+          "chance": "0.2%",
+          "db": 418,
+          "ref": "osmlib"
+        }
+      ]
+    },
+    "9": {
+      "src": "https://meowdb.com/msclassic/monsters/9",
+      "note": "Community-sourced 'Drops (MS Classic)' list did not load (client-side). Items are NiaDB's MSEA pre-Big-Bang reference list (historical, no rates) plus OSMLib reference rates, which the page says may not represent Classic World rates.",
+      "items": [
+        {
+          "id": 4000009,
+          "en": "Orange Mushroom Cap",
+          "type": "etc",
+          "chance": "40%",
+          "db": 356,
+          "ref": "both"
+        },
+        {
+          "id": 2000000,
+          "en": "Red Potion",
+          "type": "use",
+          "chance": "1%",
+          "db": 270,
+          "ref": "both"
+        },
+        {
+          "id": 2040702,
+          "en": "Shoes Jump Scroll: Greater",
+          "type": "use",
+          "chance": "0.003%",
+          "db": 177,
+          "ref": "both"
+        },
+        {
+          "en": "Hunter's Bow",
+          "type": "equip",
+          "db": 666,
+          "ref": "msea"
+        },
+        {
+          "id": 1082004,
+          "en": "Basic Archer Gloves",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 1439,
+          "ref": "both"
+        },
+        {
+          "id": 1002016,
+          "en": "Bronze Koif",
+          "type": "equip",
+          "chance": "0.03%",
+          "db": 724,
+          "ref": "both"
+        },
+        {
+          "id": 1312001,
+          "en": "Double Axe",
+          "type": "equip",
+          "chance": "0.05%",
+          "db": 577,
+          "ref": "both"
+        },
+        {
+          "id": 1072008,
+          "en": "Brown Hard Leather Boots",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 1314,
+          "ref": "both"
+        },
+        {
+          "id": 1072021,
+          "en": "Red Ninja Sandals",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 1327,
+          "ref": "both"
+        },
+        {
+          "id": 1072011,
+          "en": "White Gomushin",
+          "type": "equip",
+          "chance": "0.03%",
+          "db": 1317,
+          "ref": "both"
+        },
+        {
+          "id": 1432000,
+          "en": "Spear",
+          "type": "equip",
+          "chance": "0.05%",
+          "db": 633,
+          "ref": "both"
+        },
+        {
+          "en": "Metal Wand",
+          "type": "equip",
+          "db": 651,
+          "ref": "msea"
+        },
+        {
+          "id": 4010000,
+          "en": "Bronze Ore",
+          "type": "etc",
+          "chance": "0.8%",
+          "db": 413,
+          "ref": "osmlib"
+        },
+        {
+          "id": 4020007,
+          "en": "Diamond Ore",
+          "type": "etc",
+          "chance": "0.08%",
+          "db": 327,
+          "ref": "osmlib"
+        }
+      ]
+    },
+    "11": {
+      "src": "https://meowdb.com/msclassic/monsters/11",
+      "note": "Community-sourced 'Drops (MS Classic)' list did not load (client-side). Items are NiaDB's MSEA pre-Big-Bang reference list (historical, no rates) plus OSMLib reference rates, which the page says may not represent Classic World rates.",
+      "items": [
+        {
+          "id": 4000011,
+          "en": "Leaf",
+          "type": "etc",
+          "chance": "40%",
+          "db": 358,
+          "ref": "both"
+        },
+        {
+          "id": 2000000,
+          "en": "Red Potion",
+          "type": "use",
+          "chance": "2%",
+          "db": 270,
+          "ref": "both"
+        },
+        {
+          "en": "Blue Qi Pao Pants",
+          "type": "equip",
+          "db": 1213,
+          "ref": "msea"
+        },
+        {
+          "en": "Green Legolier Pants",
+          "type": "equip",
+          "db": 1257,
+          "ref": "msea"
+        },
+        {
+          "en": "Metal Gear",
+          "type": "equip",
+          "db": 740,
+          "ref": "msea"
+        },
+        {
+          "en": "Double Axe",
+          "type": "equip",
+          "db": 577,
+          "ref": "msea"
+        },
+        {
+          "id": 1442000,
+          "en": "Pole Arm",
+          "type": "equip",
+          "chance": "0.1%",
+          "db": 640,
+          "ref": "both"
+        },
+        {
+          "id": 1092000,
+          "en": "Stolen Fence",
+          "type": "equip",
+          "chance": "0.1%",
+          "db": 915,
+          "ref": "both"
+        },
+        {
+          "en": "Blue Qi Pao",
+          "type": "equip",
+          "db": 999,
+          "ref": "msea"
+        },
+        {
+          "id": 4010001,
+          "en": "Iron Ore",
+          "type": "etc",
+          "chance": "0.3%",
+          "db": 414,
+          "ref": "osmlib"
+        },
+        {
+          "id": 4020000,
+          "en": "Garnet Ore",
+          "type": "etc",
+          "chance": "0.2%",
+          "db": 320,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1002029,
+          "en": "Bronze Helmet",
+          "type": "equip",
+          "chance": "0.03%",
+          "db": 737,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1382000,
+          "en": "Wooden Staff",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 657,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1041010,
+          "en": "Yellow Avelin",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 956,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1061008,
+          "en": "Yellow Avelin Skirt",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 1176,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1041017,
+          "en": "Green Arianne",
+          "type": "equip",
+          "chance": "0.008%",
+          "db": 971,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1061013,
+          "en": "Green Arianne Skirt",
+          "type": "equip",
+          "chance": "0.008%",
+          "db": 1187,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1032000,
+          "en": "Single Earring",
+          "type": "equip",
+          "chance": "0.006%",
+          "db": 899,
+          "ref": "osmlib"
+        }
+      ]
+    },
+    "24": {
+      "src": "https://meowdb.com/msclassic/monsters/24",
+      "note": "Community-sourced 'Drops (MS Classic)' list did not load (client-side). Items are NiaDB's MSEA pre-Big-Bang reference list (historical, no rates) plus OSMLib reference rates, which the page says may not represent Classic World rates.",
+      "items": [
+        {
+          "id": 4000023,
+          "en": "Iron Hog's Metal Hoof",
+          "type": "etc",
+          "chance": "40%",
+          "db": 370,
+          "ref": "both"
+        },
+        {
+          "en": "Arrows for Bows",
+          "type": "use",
+          "db": 209,
+          "ref": "msea"
+        },
+        {
+          "en": "Arrows for Crossbows",
+          "type": "use",
+          "db": 213,
+          "ref": "msea"
+        },
+        {
+          "id": 2000003,
+          "en": "Blue Potion",
+          "type": "use",
+          "chance": "1%",
+          "db": 273,
+          "ref": "both"
+        },
+        {
+          "id": 2000004,
+          "en": "Elixir",
+          "type": "use",
+          "chance": "0.1%",
+          "db": 274,
+          "ref": "both"
+        },
+        {
+          "id": 2000002,
+          "en": "White Potion",
+          "type": "use",
+          "chance": "1%",
+          "db": 272,
+          "ref": "both"
+        },
+        {
+          "en": "Blue China Pants",
+          "type": "equip",
+          "db": 1295,
+          "ref": "msea"
+        },
+        {
+          "en": "Blue Moon Pants",
+          "type": "equip",
+          "db": 1302,
+          "ref": "msea"
+        },
+        {
+          "en": "Red Shouldermail Pants",
+          "type": "equip",
+          "db": 1298,
+          "ref": "msea"
+        },
+        {
+          "en": "White Jangoon Pants",
+          "type": "equip",
+          "db": 1274,
+          "ref": "msea"
+        },
+        {
+          "en": "Blue Loosecap",
+          "type": "equip",
+          "db": 778,
+          "ref": "msea"
+        },
+        {
+          "en": "Brown Pilfer",
+          "type": "equip",
+          "db": 863,
+          "ref": "msea"
+        },
+        {
+          "en": "Orange Golden Circlet",
+          "type": "equip",
+          "db": 878,
+          "ref": "msea"
+        },
+        {
+          "en": "Dark Engrit",
+          "type": "equip",
+          "db": 1112,
+          "ref": "msea"
+        },
+        {
+          "en": "Blue China",
+          "type": "equip",
+          "db": 1081,
+          "ref": "msea"
+        },
+        {
+          "en": "Blue Jangoon Armor",
+          "type": "equip",
+          "db": 1058,
+          "ref": "msea"
+        },
+        {
+          "en": "Blue Moon",
+          "type": "equip",
+          "db": 1088,
+          "ref": "msea"
+        },
+        {
+          "en": "Brown Piettra",
+          "type": "equip",
+          "db": 1070,
+          "ref": "msea"
+        },
+        {
+          "en": "Red Shouldermail",
+          "type": "equip",
+          "db": 1084,
+          "ref": "msea"
+        },
+        {
+          "id": 4010003,
+          "en": "Adamantium Ore",
+          "type": "etc",
+          "chance": "0.4%",
+          "db": 416,
+          "ref": "osmlib"
+        },
+        {
+          "id": 4020005,
+          "en": "Sapphire Ore",
+          "type": "etc",
+          "chance": "0.3%",
+          "db": 325,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1002135,
+          "en": "Brown Burgler",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 843,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1312006,
+          "en": "Dankke",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 582,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1332011,
+          "en": "Halfmoon Zamadar",
+          "type": "equip",
+          "chance": "0.01%",
+          "db": 570,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1092015,
+          "en": "Adamantium Tower Shield",
+          "type": "equip",
+          "chance": "0.008%",
+          "db": 930,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1072107,
+          "en": "Blue Pierre Shoes",
+          "type": "equip",
+          "chance": "0.008%",
+          "db": 1414,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1002146,
+          "en": "Brown Guiltian",
+          "type": "equip",
+          "chance": "0.008%",
+          "db": 854,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1082062,
+          "en": "Gold Cleave",
+          "type": "equip",
+          "chance": "0.008%",
+          "db": 1497,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1072100,
+          "en": "Red Moon Shoes",
+          "type": "equip",
+          "chance": "0.008%",
+          "db": 1407,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1472019,
+          "en": "Blood Slain",
+          "type": "equip",
+          "chance": "0.005%",
+          "db": 700,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1322017,
+          "en": "Knuckle Mace",
+          "type": "equip",
+          "chance": "0.005%",
+          "db": 606,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1051024,
+          "en": "Orange Calaf",
+          "type": "equip",
+          "chance": "0.005%",
+          "db": 1150,
+          "ref": "osmlib"
+        },
+        {
+          "id": 1050033,
+          "en": "Red-Lined Kismet",
+          "type": "equip",
+          "chance": "0.005%",
+          "db": 1146,
+          "ref": "osmlib"
+        }
+      ]
+    }
+  }
+}

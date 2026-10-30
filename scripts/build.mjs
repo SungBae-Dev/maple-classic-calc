@@ -40,10 +40,11 @@ export const LOCALES = [
 const PAGES = [
   { id: 'calc', path: '', tpl: 'calc.html', title: 'meta.calc.title', desc: 'meta.calc.desc', priority: '1.0' },
   { id: 'maps', path: 'maps/', tpl: 'maps.html', title: 'meta.maps.title', desc: 'meta.maps.desc', priority: '0.8' },
+  { id: 'log', path: 'log/', tpl: 'log.html', title: 'meta.log.title', desc: 'meta.log.desc', priority: '0.7' },
   { id: 'mobs', path: 'mobs/', tpl: 'mobs.html', title: 'meta.mobs.title', desc: 'meta.mobs.desc', priority: '0.8' },
 ];
 // keys the browser script needs
-const JS_PREFIXES = ['js.', 'weapon.', 'action.', 'elem.', 'skillEl.', 'aff.', 'mastery.', 'mobTag.', 'mob.', 'rep.', 'res.', 'cmp.', 'kpi.', 'sim.', 'tc.', 'boss.', 'scroll.', 'sk.', 'sktype.', 'reason.', 'path.', 'bld.', 'share.', 'sub.', 'job.', 'f.', 'tab.', 'map.', 'stage.', 'sv.'];
+const JS_PREFIXES = ['js.', 'weapon.', 'action.', 'elem.', 'skillEl.', 'aff.', 'mastery.', 'mobTag.', 'mob.', 'rep.', 'res.', 'cmp.', 'kpi.', 'sim.', 'tc.', 'boss.', 'scroll.', 'sk.', 'sktype.', 'reason.', 'path.', 'bld.', 'share.', 'sub.', 'job.', 'f.', 'tab.', 'map.', 'stage.', 'sv.', 'log.'];
 
 // ── helpers ──
 const read = (p) => readFileSync(join(ROOT, p), 'utf8');
@@ -240,6 +241,7 @@ for (const l of LOCALES) {
     const nav = [
       `<a href="${base}${l.path}"${page.id === 'calc' ? ' aria-current="page"' : ''}>${esc(d['nav.calc'])}</a>`,
       `<a href="${base}${l.path}maps/"${page.id === 'maps' ? ' aria-current="page"' : ''}>${esc(d['nav.maps'])}</a>`,
+      `<a href="${base}${l.path}log/"${page.id === 'log' ? ' aria-current="page"' : ''}>${esc(d['nav.log'])}</a>`,
       `<a href="${base}${l.path}mobs/"${page.id === 'mobs' ? ' aria-current="page"' : ''}>${esc(d['nav.mobs'])}</a>`,
       `<details class="langs"><summary>${esc(d['nav.lang'])} · ${esc(l.code.toUpperCase())}</summary><ul>` +
         LOCALES.map((x) => `<li><a href="${base}${x.path}${page.path}" hreflang="${x.code}" lang="${x.code}" data-lang-link${x === l ? ' aria-current="true"' : ''}>${esc(x.name)}</a></li>`).join('') +
