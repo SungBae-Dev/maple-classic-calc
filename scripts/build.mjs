@@ -44,7 +44,7 @@ const PAGES = [
   { id: 'mobs', path: 'mobs/', tpl: 'mobs.html', title: 'meta.mobs.title', desc: 'meta.mobs.desc', priority: '0.8' },
 ];
 // keys the browser script needs
-const JS_PREFIXES = ['js.', 'weapon.', 'action.', 'elem.', 'skillEl.', 'aff.', 'mastery.', 'mobTag.', 'mob.', 'rep.', 'res.', 'cmp.', 'kpi.', 'sim.', 'tc.', 'boss.', 'scroll.', 'sk.', 'sktype.', 'reason.', 'path.', 'bld.', 'share.', 'sub.', 'job.', 'f.', 'tab.', 'map.', 'stage.', 'sv.', 'log.'];
+const JS_PREFIXES = ['js.', 'weapon.', 'action.', 'elem.', 'skillEl.', 'aff.', 'mastery.', 'mobTag.', 'mob.', 'rep.', 'res.', 'cmp.', 'kpi.', 'sim.', 'tc.', 'boss.', 'scroll.', 'sk.', 'sktype.', 'reason.', 'path.', 'bld.', 'share.', 'sub.', 'job.', 'f.', 'tab.', 'map.', 'stage.', 'sv.', 'log.', 'cb.', 'ov.'];
 
 // ── helpers ──
 const read = (p) => readFileSync(join(ROOT, p), 'utf8');
@@ -83,6 +83,7 @@ await build({ entryPoints: [join(ROOT, 'src/engine.ts')], format: 'esm', outfile
 await build({ entryPoints: [join(ROOT, 'src/advisor.ts')], bundle: true, format: 'esm', outfile: join(ROOT, '.build/advisor.mjs'), logLevel: 'warning' });
 await build({ entryPoints: [join(ROOT, 'src/maps.ts')], bundle: true, format: 'esm', outfile: join(ROOT, '.build/maps.mjs'), logLevel: 'warning' });
 await build({ entryPoints: [join(ROOT, 'src/survive.ts')], bundle: true, format: 'esm', outfile: join(ROOT, '.build/survive.mjs'), logLevel: 'warning' });
+await build({ entryPoints: [join(ROOT, 'src/typical.ts')], bundle: true, format: 'esm', outfile: join(ROOT, '.build/typical.mjs'), logLevel: 'warning' });
 const E = await import(pathToFileURL(join(ROOT, '.build/engine.mjs')).href + '?t=' + Date.now());
 
 // merge skill data files for the browser bundle
@@ -255,9 +256,10 @@ for (const l of LOCALES) {
       `<a href="${base}${l.path}maps/"${page.id === 'maps' ? ' aria-current="page"' : ''}>${esc(d['nav.maps'])}</a>`,
       `<a href="${base}${l.path}log/"${page.id === 'log' ? ' aria-current="page"' : ''}>${esc(d['nav.log'])}</a>`,
       `<a href="${base}${l.path}mobs/"${page.id === 'mobs' ? ' aria-current="page"' : ''}>${esc(d['nav.mobs'])}</a>`,
-      `<details class="langs"><summary>${esc(d['nav.lang'])} · ${esc(l.code.toUpperCase())}</summary><ul>` +
+      `<details class="langs"><summary><span class="lt">${esc(d['nav.lang'])} · </span>🌐 ${esc(l.code.toUpperCase())}</summary><ul>` +
         LOCALES.map((x) => `<li><a href="${base}${x.path}${page.path}" hreflang="${x.code}" lang="${x.code}" data-lang-link${x === l ? ' aria-current="true"' : ''}>${esc(x.name)}</a></li>`).join('') +
         `</ul></details>`,
+      `<button class="themebtn" type="button" id="themeBtn" aria-label="${esc(d['nav.theme'])}" title="${esc(d['nav.theme'])}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>`,
     ].join('');
     const topnav = `<nav class="topnav" aria-label="${esc(d['meta.siteName'])}"><a class="brand" href="${base}${l.path}"><img src="${base}favicon.svg" alt="" width="24" height="24">${esc(d['meta.siteName'])}</a><div class="navlinks">${nav}</div></nav>`;
     const footer = `<footer><span>${d['footer.formula_html']}</span><span>${esc(d['footer.notNexon'])}</span></footer>`;

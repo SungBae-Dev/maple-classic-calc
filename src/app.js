@@ -6,6 +6,7 @@ import SKILLDATA from '../.build/skills.json';
 import { guideFor, spAvailable, ROADMAP, SKILL_KO } from './guides.js';
 import * as MP from './maps.ts';
 import * as SV from './survive.ts';
+import * as TY from './typical.ts';
 import MAPDATA from '../data/maps.json';
 import EXPDATA from '../data/exp.json';
 import IMGKEYS from '../.build/img.json';
@@ -115,6 +116,13 @@ function rankMapsFor(R, raw) {
   return MP.rankMapsBest(vs, MAPS, MOB_BY_NUM, { pack: o.pack, active: o.active }).map((e) => ({ ...e, skill: vs[e.variant].skill }));
 }
 const mapSkill = (e) => (e.skill ? skName(e.skill) + (e.perCast > 1 ? ' ×' + e.perCast : '') : '');
+/** stat fields left empty take the typical values for the class and level */
+function fillTypical(raw) {
+  const typ = TY.typical(raw.job, raw.weapon, raw.level || 1);
+  const out = { ...raw };
+  ['str', 'dex', 'int', 'luk', 'watk', 'matk', 'acc'].forEach((k) => { if (out[k] == null || !Number.isFinite(out[k])) out[k] = typ[k]; });
+  return out;
+}
 /** the player as a target: stat-window HP / DEF / avoid (avoid falls back to the DEX/LUK base) */
 function defender(raw, c) {
   return {
@@ -177,6 +185,7 @@ function calcPage() {
   const SV_NUM = ['svHp', 'svWdef', 'svMdef', 'svAvoid'];
   const OVR_NUM = ['skillLv', 'skillPct', 'hits', 'attackMs', 'weaponStage', 'masterySkillLv', 'apPassive', 'apBuff', 'critRate', 'critDmg', 'defIgnorePct'];
   const DEFAULTS = { level: 1 };
+  const STAT_KEYS = ['str', 'dex', 'int', 'luk', 'watk', 'matk', 'acc'];
   const DELTA_FIELDS = ['str', 'dex', 'int', 'luk', 'watk', 'matk', 'acc', 'attackMs', 'cost'];
   const MOB_EDIT = ['mobLevel', 'mobHp', 'mobEva', 'mobWdef', 'mobMdef'];
   const JOB_KEYS = Object.keys(E.JOBS);
@@ -215,12 +224,53 @@ function calcPage() {
     E.SUBJOBS[job].forEach((s) => addOpt(sel, s, t('sub.' + s)));
     sel.value = E.SUBJOBS[job].includes(selected) ? selected : '';
   }
-  function fillWeapons(job, selected) {
+  function fillWeapons(job, selected, sub) {
     const sel = $('weapon');
     sel.innerHTML = '';
-    E.JOBS[job].forEach((w) => addOpt(sel, w, t('weapon.' + w)));
-    sel.value = E.JOBS[job].includes(selected) ? selected : E.JOBS[job][0];
+    const list = ((sub && SUB_WEAPONS[sub]) || E.JOBS[job]).slice();
+    if (selected && E.JOBS[job].includes(selected) && !list.includes(selected)) list.push(selected);
+    list.forEach((w) => addOpt(sel, w, t('weapon.' + w)));
+    sel.value = list.includes(selected) ? selected : list[0];
   }
+  // ── class picker: one tap sets job, 2nd job and a fitting weapon ──
+  const SUB_WEAPONS = {
+    fighter: ['2h_sword', '1h_sword', '2h_axe', '1h_axe'], page: ['1h_blunt', '2h_blunt', '1h_sword', '2h_sword'], spearman: ['spear', 'polearm'],
+    hunter: ['bow'], crossbowman: ['crossbow'], assassin: ['claw'], bandit: ['dagger'], fp: ['wand', 'staff'], il: ['wand', 'staff'], cleric: ['wand', 'staff'],
+  };
+  const CLASSES = [
+    ['warrior', '', 'warrior.power-strike'], ['warrior', 'fighter', 'fighter.rage'], ['warrior', 'page', 'page.threaten'], ['warrior', 'spearman', 'spearman.iron-will'],
+    ['magician', '', 'magician.magic-claw'], ['magician', 'fp', 'fp.fire-arrow'], ['magician', 'il', 'il.cold-beam'], ['magician', 'cleric', 'cleric.heal'],
+    ['bowman', '', 'bowman.double-shot'], ['bowman', 'hunter', 'hunter.arrow-bomb-bow'], ['bowman', 'crossbowman', 'crossbowman.iron-arrow-crossbow'],
+    ['thief', '', 'thief.lucky-seven'], ['thief', 'assassin', 'assassin.drain'], ['thief', 'bandit', 'bandit.savage-blow'],
+  ];
+  $('classPick').innerHTML = CLASSES.map(([job, sub, ico]) =>
+    '<button type="button" class="cls" role="radio" aria-checked="false" data-job="' + job + '" data-sub="' + sub + '">' + img('skill/' + ico, 'clsico') +
+    '<span>' + esc(t('cb.cls.' + (sub || job))) + '</span></button>').join('');
+  function syncClassPick() {
+    const job = (document.querySelector('input[name="job"]:checked') || {}).value, sub = $('subJob').value || '';
+    document.querySelectorAll('#classPick .cls').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.job === job && b.dataset.sub === sub)));
+  }
+  $('classPick').addEventListener('click', (e) => {
+    const b = e.target.closest('.cls');
+    if (!b) return;
+    const { job, sub } = b.dataset;
+    $('job-' + job).checked = true;
+    const cur = $('weapon').value;
+    fillSubJobs(job, sub);
+    fillWeapons(job, cur, sub);
+    fillActions($('weapon').value, null);
+    $('skill').value = 'auto';
+    render();
+  });
+  document.querySelectorAll('.stepper [data-step]').forEach((b) => b.addEventListener('click', () => {
+    const v = Math.max(1, Math.min(200, (parseInt($('level').value, 10) || 1) + +b.dataset.step));
+    $('level').value = v;
+    render();
+  }));
+  $('clearStats').addEventListener('click', () => {
+    [...STAT_KEYS, ...SV_NUM].forEach((k) => { $(k).value = ''; });
+    render();
+  });
   function fillActions(weapon, selected) {
     const sel = $('action');
     const acts = E.WEAPONS[weapon].actions;
@@ -270,7 +320,7 @@ function calcPage() {
       action: $('action').value || 'inherited', skillElement: $('skillElement').value || 'none',
       skill: $('skill').value || 'auto', buffs: $('buffs').checked,
     };
-    BASE_NUM.forEach((k) => { raw[k] = num($(k), DEFAULTS[k] ?? 0); });
+    BASE_NUM.forEach((k) => { raw[k] = STAT_KEYS.includes(k) ? numOrNull($(k)) : num($(k), DEFAULTS[k] ?? 0); });
     OVR_NUM.forEach((k) => { raw[k] = numOrNull($(k)); });
     SV_NUM.forEach((k) => { raw[k] = numOrNull($(k)); });
     const presetId = $('mobPreset').value;
@@ -291,12 +341,12 @@ function calcPage() {
     const jobEl = $('job-' + raw.job);
     if (jobEl) jobEl.checked = true;
     fillSubJobs(raw.job, raw.subJob);
-    fillWeapons(raw.job, raw.weapon);
+    fillWeapons(raw.job, raw.weapon, raw.subJob);
     fillActions($('weapon').value, raw.action);
     BASE_NUM.forEach((k) => { $(k).value = raw[k] ?? DEFAULTS[k] ?? ''; });
     OVR_NUM.forEach((k) => { $(k).value = raw[k] == null ? '' : raw[k]; });
     SV_NUM.forEach((k) => { $(k).value = raw[k] == null ? '' : raw[k]; });
-    $('svWrap').open = SV_NUM.some((k) => raw[k] != null);
+    $('myStats').open = false;
     $('skillElement').value = E.SKILL_ELEMENTS.includes(raw.skillElement) ? raw.skillElement : 'none';
     $('buffs').checked = raw.buffs !== false;
     pendingSkill = raw.skill || 'auto';
@@ -342,7 +392,7 @@ function calcPage() {
     const raw = { job, subJob: E.SUBJOBS[job].includes(subJob) ? subJob : '', weapon, action };
     raw.skill = /^[a-z.]+$/.test(p[i]) ? p[i].replace(/\./g, '-') : 'auto'; i++;
     raw.buffs = p[i++] !== '0';
-    BASE_NUM.forEach((k) => { raw[k] = decN(p[i++]) ?? DEFAULTS[k] ?? 0; });
+    BASE_NUM.forEach((k) => { const v = decN(p[i++]); raw[k] = v ?? (STAT_KEYS.includes(k) ? null : DEFAULTS[k] ?? 0); });
     OVR_NUM.forEach((k) => { raw[k] = decN(p[i++]); });
     raw.skillElement = E.SKILL_ELEMENTS[decN(p[i++])] || 'none';
     const mob = {
@@ -363,7 +413,7 @@ function calcPage() {
     $('mobFields').hidden = !mobOn;
     $('mobOffNote').hidden = mobOn;
   }
-  const setPresetPressed = (key) => document.querySelectorAll('[data-preset]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.preset === key)));
+  const setPresetPressed = () => {};
 
   // target monster used by the diagnosis: the one set in "Target monster", else the top training pick
   function resolveTarget(c, mob, rep) {
@@ -381,8 +431,13 @@ function calcPage() {
   // ── render ──
   function render() {
     const s = readState();
-    const raw = s.raw, mob = s.mob;
+    const rawIn = s.raw, mob = s.mob;
+    // empty stat fields → typical values for this class and level
+    const typ = TY.typical(rawIn.job, rawIn.weapon, rawIn.level);
+    const raw = fillTypical(rawIn);
     raw.action = E.normalizeAction(raw);
+    const typUsed = STAT_KEYS.filter((k) => rawIn[k] == null && (k !== 'matk' || rawIn.job === 'magician') && (k !== 'watk' || rawIn.job !== 'magician'));
+    STAT_KEYS.forEach((k) => { const el = $(k); el.placeholder = '≈ ' + f0(typ[k]); el.classList.toggle('auto', rawIn[k] == null); });
     const preMob = mob.enabled ? mob : E.NO_MOB;
     const R = AU.resolve(raw, SKILLDATA, preMob);
     fillSkills(R, pendingSkill);
@@ -484,11 +539,6 @@ function calcPage() {
     $('kpiKill').textContent = tc && tc.hit > 0 ? t('rep.st.n', { n: f0(tc.casts) }) : '–';
     $('kpiKillSub').textContent = tc && tc.hit > 0 ? secs(tc.seconds) : (target ? t('rep.st.cant') : '');
 
-    // summary + top bar
-    const who = (c.subJob ? t('sub.' + c.subJob) : t('job.' + c.job)) + ' · Lv ' + c.level;
-    $('sumWho').textContent = who;
-    $('sumConv').textContent = f0(conv);
-    $('sumDps').textContent = f0(dpsNow);
 
     const mods = [t('js.mod.crit', { v: ev.critMult.toFixed(3) })];
     if (evMob.enabled) {
@@ -527,11 +577,12 @@ function calcPage() {
     renderMaps();
     renderHunt();
     renderSurvive();
+    renderOverview(typ, typUsed);
     renderGear();
     renderScrolls();
     renderSkills();
 
-    const snapshot = { raw: { ...raw, skill: $('skill').value || 'auto' }, mob: { ...mob, affinity: undefined }, ref: s.ref, delta: s.delta };
+    const snapshot = { raw: { ...rawIn, action: raw.action, skill: $('skill').value || 'auto' }, mob: { ...mob, affinity: undefined }, ref: s.ref, delta: s.delta };
     const code = encode(snapshot);
     $('codeOut').value = code;
     $('shareOut').value = shareUrl(code);
@@ -670,6 +721,122 @@ function calcPage() {
     }).join('');
   }
 
+  // ── overview: the answers, one card each ──
+  const upLabelOf = (u, c, pLabel) => u.key === 'levelAp' ? t('rep.up.levelAp', { stat: pLabel })
+    : u.key === 'mastery' ? t('rep.up.mastery', { skill: t('mastery.' + E.WEAPONS[c.weapon].mastery), a: u.from, b: u.to })
+    : u.key === 'acc' ? t('rep.up.acc', { n: f0(u.amount) }) : t('rep.up.' + u.key);
+  /** next SP steps from the skill guide at this level */
+  function nextSkillSteps(c) {
+    const sp = spAvailable(c.job, c.level);
+    const tiers = [{ key: c.job, tier: 'first' }];
+    if (c.subJob) tiers.push({ key: c.subJob, tier: 'second' });
+    const out = [];
+    tiers.forEach((tr) => {
+      const data = SK[tr.key];
+      const skillBy = new Map(((data && data.skills) || []).map((x) => [x.slug, x]));
+      const levels = {};
+      let used = 0;
+      guideFor(tr.key, c.weapon).forEach((g) => {
+        const sk = skillBy.get(g.skill);
+        if (!sk) return;
+        const to = g.to === 'max' ? sk.maxLv : Math.min(g.to, sk.maxLv);
+        const from = levels[g.skill] || 0;
+        const cost = Math.max(0, to - from);
+        levels[g.skill] = Math.max(from, to);
+        const start = used; used += cost;
+        if (sp[tr.tier] < used && cost > 0) out.push({ job: tr.key, sk, from, to, now: sp[tr.tier] > start });
+      });
+    });
+    return out;
+  }
+  const ovCard = (cls, title, href, body) => '<section class="ovcard ' + cls + '"><header><h3>' + esc(title) + '</h3>' +
+    (href ? '<a class="more" href="' + href + '">' + esc(t('ov.more')) + '</a>' : '') + '</header>' + body + '</section>';
+  const mobLink = (m, cls) => '<a class="mobpill" href="#mob-' + m.id + '" title="' + esc(mobName(m)) + ' · Lv ' + m.lv + '">' + mobImg(m, cls || 'ico') + '<span>' + esc(mobName(m)) + '</span></a>';
+  function renderOverview(typ, typUsed) {
+    const { c, rep, target, magic, pLabel, D, effs } = last;
+    const who = (c.subJob ? t('sub.' + c.subJob) : t('job.' + c.job)) + ' Lv ' + c.level;
+    // typical-stat notice + my stats summary
+    const statTxt = [pLabel + ' ' + f0(E.primaryStat(c)), (magic ? t('ov.matk') : t('ov.watk')) + ' ' + f0(magic ? last.raw.matk : c.watk), t('ov.acc') + ' ' + f0(c.acc)];
+    $('myStatsSum').textContent = (typUsed.length ? '≈ ' : '') + statTxt.join(' · ');
+    $('typNote').hidden = !typUsed.length;
+    $('typNote').innerHTML = typUsed.length ? esc(t('cb.typNote', { who })) + ' <button class="linkbtn" type="button" id="typOpen">' + esc(t('cb.enter')) + '</button>' : '';
+    if (typUsed.length) $('typOpen').addEventListener('click', () => { $('myStats').open = true; $('str').focus(); });
+    syncClassPick();
+
+    const cards = [];
+    // 1. where to train
+    const recs = (effs || []).filter(MP.isRecommendable);
+    const top = recs[0];
+    if (top) {
+      const m = top.map;
+      let worst = null;
+      top.mobs.forEach((x) => { if (x.mob && !x.boss) { const th = SV.threat(x.mob, D); if (th.worst && (!worst || th.worst > worst.worst)) worst = th; } });
+      const mix = top.mobs.filter((x) => x.mob && !x.boss).sort((a, b) => b.spawn.count - a.spawn.count).slice(0, 4).map((x) => mobImg(x.mob, 'ico')).join('');
+      const alts = recs.slice(1, 3).map((e) => '<li><span>' + esc(mapName(e.map)) + ' <small>Lv ' + lvSpan(e) + '</small></span><b>' + fc(e.eph) + '<small>/h</small></b></li>').join('');
+      cards.push(ovCard('wide train', t('ov.train'), '#hunt',
+        '<div class="trainmain">' + img('map/' + m.id, 'minimap') +
+        '<div class="tm"><a class="nm" href="' + mapSrc(m) + '" target="_blank" rel="noopener">' + esc(mapName(m)) + '</a><small>' + (mapStreet(m) ? esc(mapStreet(m)) + ' · ' : '') + 'Lv ' + lvSpan(top) + '</small><div class="mix">' + mix + '</div></div>' +
+        '<div class="big">' + fc(top.eph) + '<small>' + esc(t('map.ephUnit')) + '</small></div></div>' +
+        '<div class="chips">' + (mapSkill(top) ? '<span class="chip">' + skillImg(top.skill && top.skill.slug, c) + esc(mapSkill(top)) + '</span>' : '') +
+        '<span class="chip">' + esc(t('map.kph', { v: fc(top.kph) })) + '</span>' +
+        '<span class="chip st-good">' + esc(t('map.lvup', { v: hrs(MP.hoursToLevel(c.level, top.eph, EXP)) })) + '</span>' +
+        (worst ? '<span class="chip ' + DANGER_TONE[worst.danger] + '">' + esc(t('sv.mapWorst', { v: f0(worst.worst) })) + '</span>' : '') + '</div>' +
+        (alts ? '<ul class="alts">' + alts + '</ul>' : '')));
+    } else {
+      cards.push(ovCard('wide train', t('ov.train'), '#hunt', '<p class="note">' + esc(t('map.empty')) + '</p>'));
+    }
+    // 2. damage
+    const ev = target ? E.evaluate(c, A.mobInput(target)) : E.evaluate(c);
+    const oneshots = rep.rows.filter((r) => !r.mob.tags.includes('boss') && (r.status === 'oneshot' || r.status === 'oneshotAvg') && r.levelGap >= -20).slice(-6).reverse();
+    cards.push(ovCard('dmg', t('ov.dmg'), '#diag',
+      '<div class="stats2"><div><span class="k">' + esc(t('ov.avg')) + '</span><b>' + f0(ev.perHit) + '</b></div><div><span class="k">DPS</span><b>' + f0(A.dps(c, target)) + '</b></div></div>' +
+      '<div class="sub">' + esc(t('ov.oneshots')) + '</div>' +
+      (oneshots.length ? '<div class="pills">' + oneshots.map((r) => mobLink(r.mob)).join('') + '</div>' : '<p class="note">' + esc(t('ov.noOneshots')) + '</p>')));
+    // 3. next upgrade
+    const ups = A.upgrades(c, target).slice(0, 3);
+    cards.push(ovCard('up', t('ov.up'), '#diag', ups.length ? '<ol class="uplist">' + ups.map((u) =>
+      '<li><span>' + esc(upLabelOf(u, c, pLabel)) + '</span><b class="gain">+' + f1(u.gain * 100) + '%</b></li>').join('') + '</ol>' +
+      (target ? '<p class="note">' + esc(t('ov.upRef', { mob: mobName(target) })) + '</p>' : '') : '<p class="note">–</p>'));
+    // 4. accuracy
+    const near = rep.rows.filter((r) => !r.mob.tags.includes('boss') && r.levelGap >= -5 && r.levelGap <= 10);
+    const miss = near.filter((r) => r.hit < 1 && r.needAcc != null).slice(0, 4);
+    const fullTo = rep.rows.filter((r) => r.hit >= 1).reduce((mx, r) => Math.max(mx, r.mob.lv), 0);
+    cards.push(ovCard('acc', t('ov.accTitle'), miss[0] ? '#mob-' + miss[0].mob.id : '#diag',
+      '<div class="stats2"><div><span class="k">' + esc(t('ov.acc')) + '</span><b>' + f0(c.acc) + '</b></div><div><span class="k">' + esc(t('ov.fullTo')) + '</span><b>Lv ' + fullTo + '</b></div></div>' +
+      (miss.length ? '<ul class="needlist">' + miss.map((r) => '<li>' + mobLink(r.mob) + '<span>' + esc(t('ov.accNeed', { n: f0(r.needAcc), d: f0(r.needAcc - c.acc), p: pct(r.hit) })) + '</span></li>').join('') + '</ul>'
+        : '<p class="note">' + esc(t('ov.accOk')) + '</p>')));
+    // 5. bosses
+    cards.push(ovCard('boss', t('ov.boss'), '#hunt', '<ul class="bosslist">' + rep.bosses.map((r) => {
+      const tc = A.targetCheck(c, r.mob);
+      return '<li>' + mobLink(r.mob, 'ico') + '<b>' + (tc.hit > 0 ? esc(secs(tc.seconds)) : esc(t('rep.st.cant'))) + '</b><small>' + esc(t('rep.hitPct', { v: pct(r.hit) })) + '</small></li>';
+    }).join('') + '</ul>'));
+    // 6. skills
+    const sk = last.R.skill;
+    const steps = nextSkillSteps(c).slice(0, 2);
+    cards.push(ovCard('skills', t('ov.skills'), '#skills',
+      (sk ? '<div class="mainatk">' + skillImg(sk.slug, c) + '<span>' + esc(skName(sk)) + (sk.targets > 1 ? ' ×' + sk.targets : '') + '</span><b>' + f0(last.R.options.find((o) => o.slug === sk.slug)?.dps || 0) + ' <small>DPS</small></b></div>' : '') +
+      '<div class="sub">' + esc(t('ov.nextSp')) + '</div>' +
+      (steps.length ? '<ul class="splist">' + steps.map((st) => '<li>' + img('skill/' + st.job + '.' + st.sk.slug, 'skico') + '<span>' + esc(skName(st.sk)) + '</span><small>Lv ' + st.from + ' → ' + st.to + '</small></li>').join('') + '</ul>'
+        : '<p class="note">' + esc(t('ov.spDone')) + '</p>')));
+    // 7. survival
+    if (HAS_ATTACK_DATA) {
+      let body;
+      if (D.hp) {
+        const pool = rep.rows.filter((r) => !r.mob.tags.includes('boss') && r.levelGap >= -10 && r.levelGap <= 10).map((r) => ({ m: r.mob, th: SV.threat(r.mob, D) })).filter((x) => x.th.worst);
+        pool.sort((a, b) => b.th.worst - a.th.worst);
+        const worst = pool[0];
+        body = worst ? '<div class="stats2"><div><span class="k">HP</span><b>' + f0(D.hp) + '</b></div><div><span class="k">' + esc(t('ov.worstHit')) + '</span><b>' + f0(worst.th.worst) + '</b></div></div>' +
+          '<p class="note">' + mobLink(worst.m) + ' ' + esc(t('ov.survLine', { n: worst.th.hitsToDie })) + '</p>' : '<p class="note">–</p>';
+      } else {
+        body = '<p class="note">' + esc(t('ov.survAdd')) + '</p><button class="btn sm" type="button" id="ovAddHp">' + esc(t('cb.enter')) + '</button>';
+      }
+      cards.push(ovCard('surv', t('ov.surv'), '#hunt', body));
+    }
+    $('ovGrid').innerHTML = cards.join('');
+    const add = $('ovAddHp');
+    if (add) add.addEventListener('click', () => { $('myStats').open = true; $('svHp').focus(); });
+  }
+
   // ── training maps: kills & EXP per hour ──
   function mapCard(e, c) {
     const m = e.map;
@@ -732,6 +899,7 @@ function calcPage() {
     $('bestMap').hidden = !top;
     if (top) $('bestMapText').textContent = t('map.bestLine', { map: mapName(top.map), eph: fc(top.eph), time: hrs(MP.hoursToLevel(c.level, top.eph, EXP)) });
     last.topMap = top || null;
+    last.effs = effs;
     renderGoal();
     $('mapAll').innerHTML = effs.filter((e) => suits(e, c.level)).map((e) =>
       '<tr' + (MP.isRecommendable(e) ? '' : ' class="dim"') + '><td class="name"><a href="' + mapSrc(e.map) + '" target="_blank" rel="noopener">' + esc(mapName(e.map)) + '</a></td>' +
@@ -891,12 +1059,11 @@ function calcPage() {
   }
 
   // ── tabs ──
-  const TABS = ['diag', 'hunt', 'gear', 'skills', 'builds'];
+  const TABS = ['overview', 'hunt', 'diag', 'gear', 'skills', 'builds'];
   function showTab(name, scroll) {
-    if (!TABS.includes(name)) name = 'diag';
+    if (!TABS.includes(name)) name = 'overview';
     document.querySelectorAll('[data-panel]').forEach((p) => { p.hidden = p.dataset.panel !== name; });
     document.querySelectorAll('#tabbar a').forEach((a) => { if (a.dataset.tab === name) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
-    $('summary').hidden = name === 'diag';
     if (name === 'builds') renderBuilds();
     if (scroll) { const tb = $('tabbar'); const top = tb.getBoundingClientRect().top + window.scrollY - 8; if (window.scrollY > top) window.scrollTo({ top }); }
   }
@@ -916,7 +1083,7 @@ function calcPage() {
         $('sharedKeep').addEventListener('click', () => { viewingShared = false; tip.hidden = true; history.replaceState(null, '', '#diag'); render(); });
         $('sharedBack').addEventListener('click', () => { viewingShared = false; tip.hidden = true; history.replaceState(null, '', '#diag'); boot(true); });
         render();
-        showTab(last && last.mob.enabled && MOB_BY_ID.get(last.mob.presetId) && MOB_BY_ID.get(last.mob.presetId).tags.includes('boss') ? 'hunt' : 'diag');
+        showTab(last && last.mob.enabled && MOB_BY_ID.get(last.mob.presetId) && MOB_BY_ID.get(last.mob.presetId).tags.includes('boss') ? 'hunt' : 'overview');
         return;
       } catch (e) { /* fall through */ }
     }
@@ -940,7 +1107,7 @@ function calcPage() {
     if (id === 'codeIn' || id === 'bldName' || id === 'shareOut' || id === 'codeOut' || id === 'mapPack' || id === 'mapActive' || id === 'glPct' || id === 'glTarget' || id === 'glDaily') return;
     if (MOB_EDIT.includes(id)) $('mobPreset').value = '';
     if (e.type === 'change') {
-      if (e.target.name === 'job') { fillSubJobs(e.target.value, null); fillWeapons(e.target.value, null); fillActions($('weapon').value, null); }
+      if (e.target.name === 'job') { fillSubJobs(e.target.value, null); fillWeapons(e.target.value, null, ''); fillActions($('weapon').value, null); }
       else if (id === 'weapon') fillActions(e.target.value, $('action').value);
       else if (id === 'mobPreset') applyMobPreset(e.target.value);
       else if (id === 'skill') $('skillLv').value = '';
@@ -948,9 +1115,8 @@ function calcPage() {
     if (e.target.name !== 'simKind') setPresetPressed(null);
     render();
   };
-  document.addEventListener('input', (e) => { if (e.target.closest('.tabpanel')) onEdit(e); });
-  document.addEventListener('change', (e) => { if (e.target.closest('.tabpanel') && e.target.type !== 'file') onEdit(e); });
-  document.querySelectorAll('[data-preset]').forEach((b) => b.addEventListener('click', () => { writeState(PRESETS[b.dataset.preset]); setPresetPressed(b.dataset.preset); render(); }));
+  document.addEventListener('input', (e) => { if (e.target.closest('.tabpanel, #charbar')) onEdit(e); });
+  document.addEventListener('change', (e) => { if (e.target.closest('.tabpanel, #charbar') && e.target.type !== 'file') onEdit(e); });
   $('pinRef').addEventListener('click', () => { const c = last.c; $('ref').value = E.isMagic(c) ? last.raw.matk : c.watk; render(); });
   $('skillCompare').addEventListener('click', (e) => {
     const tr = e.target.closest('tr[data-skill]');
@@ -1053,7 +1219,11 @@ function calcPage() {
     const saved = store.get(KEY);
     let ok = false;
     if (saved && saved.raw && E.WEAPONS[saved.raw.weapon]) { try { writeState(saved); setPresetPressed(null); ok = true; } catch (e) { ok = false; } }
-    if (!ok) { writeState(PRESETS.fighter70); setPresetPressed('fighter70'); }
+    if (!ok) {
+      const fresh = { ...PRESETS.fighter70, delta: {}, raw: { ...RAW_BASE, subJob: 'fighter', weapon: '2h_sword', level: 35 } };
+      STAT_KEYS.forEach((k) => { fresh.raw[k] = null; });
+      writeState(fresh);
+    }
     render();
     if (!fromSaved) route();
   }
@@ -1150,7 +1320,7 @@ function mapsPage() {
   const saved = store.get(CALC_KEY);
   if (saved && saved.raw && E.WEAPONS[saved.raw.weapon]) {
     try {
-      raw = { ...saved.raw };
+      raw = fillTypical({ ...saved.raw });
       raw.action = E.normalizeAction(raw);
       R = AU.resolve(raw, SKILLDATA, E.NO_MOB);
     } catch (e) { R = null; }
@@ -1198,7 +1368,7 @@ function savedChar() {
   const saved = store.get(CALC_KEY);
   if (!saved || !saved.raw || !E.WEAPONS[saved.raw.weapon]) return null;
   try {
-    const raw = { ...saved.raw };
+    const raw = fillTypical({ ...saved.raw });
     raw.action = E.normalizeAction(raw);
     return { raw, R: AU.resolve(raw, SKILLDATA, E.NO_MOB) };
   } catch (e) { return null; }
@@ -1358,6 +1528,16 @@ function logPage() {
   setState();
   renderHistory();
   setInterval(tick, 1000);
+}
+
+// theme toggle (dark by default; the choice is remembered)
+{
+  const btn = $('themeBtn');
+  if (btn) btn.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('msc-theme', next); } catch (e) { /* ignore */ }
+  });
 }
 
 if (document.body.dataset.page === 'calc') calcPage();
