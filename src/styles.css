@@ -563,3 +563,9 @@ input.auto::placeholder { color: var(--maple-ink); opacity: 0.8; }
   .topnav { padding-right: 44px; }
   .themebtn { position: absolute; right: 0; top: 14px; }
 }
+/* lazy images need a box before they load: give minimaps a fixed height */
+img.minimap { height: 56px; width: auto; min-width: 56px; }
+.card img.minimap { height: 72px; }
+.trainmain img.minimap { height: 70px; }
+.withimg img.minimap { height: 44px; min-width: 44px; }
+@media (max-width: 520px) { .trainmain img.minimap { height: 84px; } }
